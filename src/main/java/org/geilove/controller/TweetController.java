@@ -123,7 +123,7 @@ public class TweetController {
 		map.put("page", page);
 		map.put("pageSize", pageSize);
 		TweetsListRsp tweetsListRsp=new TweetsListRsp();
-		List<Tweet> tweets=mainService.getTweetList(map);//首先取得推文，不带头像，不带转发的推文
+		List<Tweet> tweets=mainService.getZhuanfaTweetList(map); //首先取得推文，不带头像，不带转发的推文
 		if(tweets==null){
 			tweetsListRsp.setData(tweets);
 			tweetsListRsp.setMsg("用户没有发表推文哦");

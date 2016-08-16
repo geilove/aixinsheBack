@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.MiddleMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.Middle" >
+    <id column="middleID" property="middleid" jdbcType="BIGINT" />
+    <result column="circleID" property="circleid" jdbcType="TINYINT" />
+    <result column="circleUserID" property="circleuserid" jdbcType="BIGINT" />
+    <result column="circleType" property="circletype" jdbcType="TINYINT" />
+    <result column="okWorkTag" property="okworktag" jdbcType="TINYINT" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    middleID, circleID, circleUserID, circleType, okWorkTag, backupOne, backupTwo, backupThree, 
+    backupFour, backupFive, backupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from middle
+    where middleID = #{middleid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from middle
+    where middleID = #{middleid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.Middle" >
+    insert into middle (middleID, circleID, circleUserID, 
+      circleType, okWorkTag, backupOne, 
+      backupTwo, backupThree, backupFour, 
+      backupFive, backupSix)
+    values (#{middleid,jdbcType=BIGINT}, #{circleid,jdbcType=TINYINT}, #{circleuserid,jdbcType=BIGINT}, 
+      #{circletype,jdbcType=TINYINT}, #{okworktag,jdbcType=TINYINT}, #{backupone,jdbcType=VARCHAR}, 
+      #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
+      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.Middle" >
+    insert into middle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="middleid != null" >
+        middleID,
+      </if>
+      <if test="circleid != null" >
+        circleID,
+      </if>
+      <if test="circleuserid != null" >
+        circleUserID,
+      </if>
+      <if test="circletype != null" >
+        circleType,
+      </if>
+      <if test="okworktag != null" >
+        okWorkTag,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="middleid != null" >
+        #{middleid,jdbcType=BIGINT},
+      </if>
+      <if test="circleid != null" >
+        #{circleid,jdbcType=TINYINT},
+      </if>
+      <if test="circleuserid != null" >
+        #{circleuserid,jdbcType=BIGINT},
+      </if>
+      <if test="circletype != null" >
+        #{circletype,jdbcType=TINYINT},
+      </if>
+      <if test="okworktag != null" >
+        #{okworktag,jdbcType=TINYINT},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.Middle" >
+    update middle
+    <set >
+      <if test="circleid != null" >
+        circleID = #{circleid,jdbcType=TINYINT},
+      </if>
+      <if test="circleuserid != null" >
+        circleUserID = #{circleuserid,jdbcType=BIGINT},
+      </if>
+      <if test="circletype != null" >
+        circleType = #{circletype,jdbcType=TINYINT},
+      </if>
+      <if test="okworktag != null" >
+        okWorkTag = #{okworktag,jdbcType=TINYINT},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where middleID = #{middleid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.Middle" >
+    update middle
+    set circleID = #{circleid,jdbcType=TINYINT},
+      circleUserID = #{circleuserid,jdbcType=BIGINT},
+      circleType = #{circletype,jdbcType=TINYINT},
+      okWorkTag = #{okworktag,jdbcType=TINYINT},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where middleID = #{middleid,jdbcType=BIGINT}
+  </update>
+</mapper>

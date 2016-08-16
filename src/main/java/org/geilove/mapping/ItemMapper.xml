@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.ItemMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.Item" >
+    <id column="itemID" property="itemid" jdbcType="INTEGER" />
+    <result column="itemName" property="itemname" jdbcType="VARCHAR" />
+    <result column="circleIDStart" property="circleidstart" jdbcType="BIGINT" />
+    <result column="circleIDSupervise" property="circleidsupervise" jdbcType="BIGINT" />
+    <result column="userIDPrincipal" property="useridprincipal" jdbcType="BIGINT" />
+    <result column="itemStart" property="itemstart" jdbcType="TIMESTAMP" />
+    <result column="itemEnd" property="itemend" jdbcType="TIMESTAMP" />
+    <result column="itemTargetMoney" property="itemtargetmoney" jdbcType="INTEGER" />
+    <result column="itemRealMoney" property="itemrealmoney" jdbcType="INTEGER" />
+    <result column="itemDescription" property="itemdescription" jdbcType="VARCHAR" />
+    <result column="itemPhoto" property="itemphoto" jdbcType="VARCHAR" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    itemID, itemName, circleIDStart, circleIDSupervise, userIDPrincipal, itemStart, itemEnd, 
+    itemTargetMoney, itemRealMoney, itemDescription, itemPhoto, backupOne, backupTwo, 
+    backupThree, backupFour, backupFive, backupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from item
+    where itemID = #{itemid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from item
+    where itemID = #{itemid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.Item" >
+    insert into item (itemID, itemName, circleIDStart, 
+      circleIDSupervise, userIDPrincipal, itemStart, 
+      itemEnd, itemTargetMoney, itemRealMoney, 
+      itemDescription, itemPhoto, backupOne, 
+      backupTwo, backupThree, backupFour, 
+      backupFive, backupSix)
+    values (#{itemid,jdbcType=INTEGER}, #{itemname,jdbcType=VARCHAR}, #{circleidstart,jdbcType=BIGINT}, 
+      #{circleidsupervise,jdbcType=BIGINT}, #{useridprincipal,jdbcType=BIGINT}, #{itemstart,jdbcType=TIMESTAMP}, 
+      #{itemend,jdbcType=TIMESTAMP}, #{itemtargetmoney,jdbcType=INTEGER}, #{itemrealmoney,jdbcType=INTEGER}, 
+      #{itemdescription,jdbcType=VARCHAR}, #{itemphoto,jdbcType=VARCHAR}, #{backupone,jdbcType=VARCHAR}, 
+      #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
+      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.Item" >
+    insert into item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        itemID,
+      </if>
+      <if test="itemname != null" >
+        itemName,
+      </if>
+      <if test="circleidstart != null" >
+        circleIDStart,
+      </if>
+      <if test="circleidsupervise != null" >
+        circleIDSupervise,
+      </if>
+      <if test="useridprincipal != null" >
+        userIDPrincipal,
+      </if>
+      <if test="itemstart != null" >
+        itemStart,
+      </if>
+      <if test="itemend != null" >
+        itemEnd,
+      </if>
+      <if test="itemtargetmoney != null" >
+        itemTargetMoney,
+      </if>
+      <if test="itemrealmoney != null" >
+        itemRealMoney,
+      </if>
+      <if test="itemdescription != null" >
+        itemDescription,
+      </if>
+      <if test="itemphoto != null" >
+        itemPhoto,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        #{itemid,jdbcType=INTEGER},
+      </if>
+      <if test="itemname != null" >
+        #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="circleidstart != null" >
+        #{circleidstart,jdbcType=BIGINT},
+      </if>
+      <if test="circleidsupervise != null" >
+        #{circleidsupervise,jdbcType=BIGINT},
+      </if>
+      <if test="useridprincipal != null" >
+        #{useridprincipal,jdbcType=BIGINT},
+      </if>
+      <if test="itemstart != null" >
+        #{itemstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemend != null" >
+        #{itemend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemtargetmoney != null" >
+        #{itemtargetmoney,jdbcType=INTEGER},
+      </if>
+      <if test="itemrealmoney != null" >
+        #{itemrealmoney,jdbcType=INTEGER},
+      </if>
+      <if test="itemdescription != null" >
+        #{itemdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="itemphoto != null" >
+        #{itemphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.Item" >
+    update item
+    <set >
+      <if test="itemname != null" >
+        itemName = #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="circleidstart != null" >
+        circleIDStart = #{circleidstart,jdbcType=BIGINT},
+      </if>
+      <if test="circleidsupervise != null" >
+        circleIDSupervise = #{circleidsupervise,jdbcType=BIGINT},
+      </if>
+      <if test="useridprincipal != null" >
+        userIDPrincipal = #{useridprincipal,jdbcType=BIGINT},
+      </if>
+      <if test="itemstart != null" >
+        itemStart = #{itemstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemend != null" >
+        itemEnd = #{itemend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemtargetmoney != null" >
+        itemTargetMoney = #{itemtargetmoney,jdbcType=INTEGER},
+      </if>
+      <if test="itemrealmoney != null" >
+        itemRealMoney = #{itemrealmoney,jdbcType=INTEGER},
+      </if>
+      <if test="itemdescription != null" >
+        itemDescription = #{itemdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="itemphoto != null" >
+        itemPhoto = #{itemphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where itemID = #{itemid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.Item" >
+    update item
+    set itemName = #{itemname,jdbcType=VARCHAR},
+      circleIDStart = #{circleidstart,jdbcType=BIGINT},
+      circleIDSupervise = #{circleidsupervise,jdbcType=BIGINT},
+      userIDPrincipal = #{useridprincipal,jdbcType=BIGINT},
+      itemStart = #{itemstart,jdbcType=TIMESTAMP},
+      itemEnd = #{itemend,jdbcType=TIMESTAMP},
+      itemTargetMoney = #{itemtargetmoney,jdbcType=INTEGER},
+      itemRealMoney = #{itemrealmoney,jdbcType=INTEGER},
+      itemDescription = #{itemdescription,jdbcType=VARCHAR},
+      itemPhoto = #{itemphoto,jdbcType=VARCHAR},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where itemID = #{itemid,jdbcType=INTEGER}
+  </update>
+</mapper>

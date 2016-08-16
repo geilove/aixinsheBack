@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.DoubleFansMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.DoubleFans" >
+    <id column="doubleFansID" property="doublefansid" jdbcType="BIGINT" />
+    <result column="userIDFollowe" property="useridfollowe" jdbcType="BIGINT" />
+    <result column="userIDBeFocus" property="useridbefocus" jdbcType="BIGINT" />
+    <result column="payDate" property="paydate" jdbcType="TIMESTAMP" />
+    <result column="payTag" property="paytag" jdbcType="TINYINT" />
+    <result column="groupID" property="groupid" jdbcType="TINYINT" />
+    <result column="specialFollow" property="specialfollow" jdbcType="TINYINT" />
+    <result column="doubleFans" property="doublefans" jdbcType="TINYINT" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    doubleFansID, userIDFollowe, userIDBeFocus, payDate, payTag, groupID, specialFollow, 
+    doubleFans, backupOne, backupTwo, backupThree, backupFour, backupFive, backupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from doublefans
+    where doubleFansID = #{doublefansid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from doublefans
+    where doubleFansID = #{doublefansid,jdbcType=BIGINT}
+  </delete>
+  <!-- 自定义取消关注的方法，多添件删除 -->
+  <delete id="deleteByDoubleUserIDs" parameterType="java.util.List">
+  		delete from doublefans
+ 		where
+		 <foreach item="item" index="index" collection="list" separator="or">
+            (userIDFollowe= #{item.userIDFollowe}  AND userIDBeFocus = #{item.userIDBeFocus})
+		</foreach>
+  </delete>
+  
+  
+  
+  <insert id="insert" parameterType="org.geilove.pojo.DoubleFans" >
+    insert into doublefans (doubleFansID, userIDFollowe, userIDBeFocus, 
+      payDate, payTag, groupID, 
+      specialFollow, doubleFans, backupOne, 
+      backupTwo, backupThree, backupFour, 
+      backupFive, backupSix)
+    values (#{doublefansid,jdbcType=BIGINT}, #{useridfollowe,jdbcType=BIGINT}, #{useridbefocus,jdbcType=BIGINT}, 
+      #{paydate,jdbcType=TIMESTAMP}, #{paytag,jdbcType=TINYINT}, #{groupid,jdbcType=TINYINT}, 
+      #{specialfollow,jdbcType=TINYINT}, #{doublefans,jdbcType=TINYINT}, #{backupone,jdbcType=VARCHAR}, 
+      #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
+      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.DoubleFans" >
+    insert into doublefans
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="doublefansid != null" >
+        doubleFansID,
+      </if>
+      <if test="useridfollowe != null" >
+        userIDFollowe,
+      </if>
+      <if test="useridbefocus != null" >
+        userIDBeFocus,
+      </if>
+      <if test="paydate != null" >
+        payDate,
+      </if>
+      <if test="paytag != null" >
+        payTag,
+      </if>
+      <if test="groupid != null" >
+        groupID,
+      </if>
+      <if test="specialfollow != null" >
+        specialFollow,
+      </if>
+      <if test="doublefans != null" >
+        doubleFans,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="doublefansid != null" >
+        #{doublefansid,jdbcType=BIGINT},
+      </if>
+      <if test="useridfollowe != null" >
+        #{useridfollowe,jdbcType=BIGINT},
+      </if>
+      <if test="useridbefocus != null" >
+        #{useridbefocus,jdbcType=BIGINT},
+      </if>
+      <if test="paydate != null" >
+        #{paydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paytag != null" >
+        #{paytag,jdbcType=TINYINT},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=TINYINT},
+      </if>
+      <if test="specialfollow != null" >
+        #{specialfollow,jdbcType=TINYINT},
+      </if>
+      <if test="doublefans != null" >
+        #{doublefans,jdbcType=TINYINT},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.DoubleFans" >
+    update doublefans
+    <set >
+      <if test="useridfollowe != null" >
+        userIDFollowe = #{useridfollowe,jdbcType=BIGINT},
+      </if>
+      <if test="useridbefocus != null" >
+        userIDBeFocus = #{useridbefocus,jdbcType=BIGINT},
+      </if>
+      <if test="paydate != null" >
+        payDate = #{paydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paytag != null" >
+        payTag = #{paytag,jdbcType=TINYINT},
+      </if>
+      <if test="groupid != null" >
+        groupID = #{groupid,jdbcType=TINYINT},
+      </if>
+      <if test="specialfollow != null" >
+        specialFollow = #{specialfollow,jdbcType=TINYINT},
+      </if>
+      <if test="doublefans != null" >
+        doubleFans = #{doublefans,jdbcType=TINYINT},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where doubleFansID = #{doublefansid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.DoubleFans" >
+    update doublefans
+    set userIDFollowe = #{useridfollowe,jdbcType=BIGINT},
+      userIDBeFocus = #{useridbefocus,jdbcType=BIGINT},
+      payDate = #{paydate,jdbcType=TIMESTAMP},
+      payTag = #{paytag,jdbcType=TINYINT},
+      groupID = #{groupid,jdbcType=TINYINT},
+      specialFollow = #{specialfollow,jdbcType=TINYINT},
+      doubleFans = #{doublefans,jdbcType=TINYINT},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where doubleFansID = #{doublefansid,jdbcType=BIGINT}
+  </update>
+</mapper>

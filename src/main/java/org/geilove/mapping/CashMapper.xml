@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.CashMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.Cash" >
+    <id column="cashID" property="cashid" jdbcType="BIGINT" />
+    <result column="userIDCash" property="useridcash" jdbcType="BIGINT" />
+    <result column="userIDCircle" property="useridcircle" jdbcType="INTEGER" />
+    <result column="countState" property="countstate" jdbcType="TINYINT" />
+    <result column="TargetCash" property="targetcash" jdbcType="INTEGER" />
+    <result column="realCash" property="realcash" jdbcType="INTEGER" />
+    <result column="openTime" property="opentime" jdbcType="TIMESTAMP" />
+    <result column="closeTime" property="closetime" jdbcType="TIMESTAMP" />
+    <result column="getMoneyTag" property="getmoneytag" jdbcType="TINYINT" />
+    <result column="cashOK" property="cashok" jdbcType="TINYINT" />
+    <result column="spendMoney" property="spendmoney" jdbcType="INTEGER" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cashID, userIDCash, userIDCircle, countState, TargetCash, realCash, openTime, closeTime, 
+    getMoneyTag, cashOK, spendMoney, backupOne, backupTwo, backupThree, backupFour, backupFive, 
+    backupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cash
+    where cashID = #{cashid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cash
+    where cashID = #{cashid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.Cash" >
+    insert into cash (cashID, userIDCash, userIDCircle, 
+      countState, TargetCash, realCash, 
+      openTime, closeTime, getMoneyTag, 
+      cashOK, spendMoney, backupOne, 
+      backupTwo, backupThree, backupFour, 
+      backupFive, backupSix)
+    values (#{cashid,jdbcType=BIGINT}, #{useridcash,jdbcType=BIGINT}, #{useridcircle,jdbcType=INTEGER}, 
+      #{countstate,jdbcType=TINYINT}, #{targetcash,jdbcType=INTEGER}, #{realcash,jdbcType=INTEGER}, 
+      #{opentime,jdbcType=TIMESTAMP}, #{closetime,jdbcType=TIMESTAMP}, #{getmoneytag,jdbcType=TINYINT}, 
+      #{cashok,jdbcType=TINYINT}, #{spendmoney,jdbcType=INTEGER}, #{backupone,jdbcType=VARCHAR}, 
+      #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
+      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.Cash" >
+    insert into cash
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cashid != null" >
+        cashID,
+      </if>
+      <if test="useridcash != null" >
+        userIDCash,
+      </if>
+      <if test="useridcircle != null" >
+        userIDCircle,
+      </if>
+      <if test="countstate != null" >
+        countState,
+      </if>
+      <if test="targetcash != null" >
+        TargetCash,
+      </if>
+      <if test="realcash != null" >
+        realCash,
+      </if>
+      <if test="opentime != null" >
+        openTime,
+      </if>
+      <if test="closetime != null" >
+        closeTime,
+      </if>
+      <if test="getmoneytag != null" >
+        getMoneyTag,
+      </if>
+      <if test="cashok != null" >
+        cashOK,
+      </if>
+      <if test="spendmoney != null" >
+        spendMoney,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cashid != null" >
+        #{cashid,jdbcType=BIGINT},
+      </if>
+      <if test="useridcash != null" >
+        #{useridcash,jdbcType=BIGINT},
+      </if>
+      <if test="useridcircle != null" >
+        #{useridcircle,jdbcType=INTEGER},
+      </if>
+      <if test="countstate != null" >
+        #{countstate,jdbcType=TINYINT},
+      </if>
+      <if test="targetcash != null" >
+        #{targetcash,jdbcType=INTEGER},
+      </if>
+      <if test="realcash != null" >
+        #{realcash,jdbcType=INTEGER},
+      </if>
+      <if test="opentime != null" >
+        #{opentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closetime != null" >
+        #{closetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getmoneytag != null" >
+        #{getmoneytag,jdbcType=TINYINT},
+      </if>
+      <if test="cashok != null" >
+        #{cashok,jdbcType=TINYINT},
+      </if>
+      <if test="spendmoney != null" >
+        #{spendmoney,jdbcType=INTEGER},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.Cash" >
+    update cash
+    <set >
+      <if test="useridcash != null" >
+        userIDCash = #{useridcash,jdbcType=BIGINT},
+      </if>
+      <if test="useridcircle != null" >
+        userIDCircle = #{useridcircle,jdbcType=INTEGER},
+      </if>
+      <if test="countstate != null" >
+        countState = #{countstate,jdbcType=TINYINT},
+      </if>
+      <if test="targetcash != null" >
+        TargetCash = #{targetcash,jdbcType=INTEGER},
+      </if>
+      <if test="realcash != null" >
+        realCash = #{realcash,jdbcType=INTEGER},
+      </if>
+      <if test="opentime != null" >
+        openTime = #{opentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closetime != null" >
+        closeTime = #{closetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getmoneytag != null" >
+        getMoneyTag = #{getmoneytag,jdbcType=TINYINT},
+      </if>
+      <if test="cashok != null" >
+        cashOK = #{cashok,jdbcType=TINYINT},
+      </if>
+      <if test="spendmoney != null" >
+        spendMoney = #{spendmoney,jdbcType=INTEGER},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cashID = #{cashid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.Cash" >
+    update cash
+    set userIDCash = #{useridcash,jdbcType=BIGINT},
+      userIDCircle = #{useridcircle,jdbcType=INTEGER},
+      countState = #{countstate,jdbcType=TINYINT},
+      TargetCash = #{targetcash,jdbcType=INTEGER},
+      realCash = #{realcash,jdbcType=INTEGER},
+      openTime = #{opentime,jdbcType=TIMESTAMP},
+      closeTime = #{closetime,jdbcType=TIMESTAMP},
+      getMoneyTag = #{getmoneytag,jdbcType=TINYINT},
+      cashOK = #{cashok,jdbcType=TINYINT},
+      spendMoney = #{spendmoney,jdbcType=INTEGER},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where cashID = #{cashid,jdbcType=BIGINT}
+  </update>
+</mapper>

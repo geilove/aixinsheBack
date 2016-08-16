@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.PictureMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.Picture" >
+    <id column="pictureID" property="pictureid" jdbcType="BIGINT" />
+    <result column="photoIDPicture" property="photoidpicture" jdbcType="BIGINT" />
+    <result column="itemIDPicture" property="itemidpicture" jdbcType="BIGINT" />
+    <result column="photoname" property="photoname" jdbcType="VARCHAR" />
+    <result column="picturename" property="picturename" jdbcType="VARCHAR" />
+    <result column="pictureuploadtime" property="pictureuploadtime" jdbcType="TIMESTAMP" />
+    <result column="Photodescription" property="photodescription" jdbcType="VARCHAR" />
+    <result column="Photopath" property="photopath" jdbcType="VARCHAR" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pictureID, photoIDPicture, itemIDPicture, photoname, picturename, pictureuploadtime, 
+    Photodescription, Photopath, backupOne, backupTwo, backupThree, backupFour, backupFive, 
+    backupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from picture
+    where pictureID = #{pictureid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from picture
+    where pictureID = #{pictureid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.Picture" >
+    insert into picture (pictureID, photoIDPicture, itemIDPicture, 
+      photoname, picturename, pictureuploadtime, 
+      Photodescription, Photopath, backupOne, 
+      backupTwo, backupThree, backupFour, 
+      backupFive, backupSix)
+    values (#{pictureid,jdbcType=BIGINT}, #{photoidpicture,jdbcType=BIGINT}, #{itemidpicture,jdbcType=BIGINT}, 
+      #{photoname,jdbcType=VARCHAR}, #{picturename,jdbcType=VARCHAR}, #{pictureuploadtime,jdbcType=TIMESTAMP}, 
+      #{photodescription,jdbcType=VARCHAR}, #{photopath,jdbcType=VARCHAR}, #{backupone,jdbcType=VARCHAR}, 
+      #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
+      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.Picture" >
+    insert into picture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pictureid != null" >
+        pictureID,
+      </if>
+      <if test="photoidpicture != null" >
+        photoIDPicture,
+      </if>
+      <if test="itemidpicture != null" >
+        itemIDPicture,
+      </if>
+      <if test="photoname != null" >
+        photoname,
+      </if>
+      <if test="picturename != null" >
+        picturename,
+      </if>
+      <if test="pictureuploadtime != null" >
+        pictureuploadtime,
+      </if>
+      <if test="photodescription != null" >
+        Photodescription,
+      </if>
+      <if test="photopath != null" >
+        Photopath,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pictureid != null" >
+        #{pictureid,jdbcType=BIGINT},
+      </if>
+      <if test="photoidpicture != null" >
+        #{photoidpicture,jdbcType=BIGINT},
+      </if>
+      <if test="itemidpicture != null" >
+        #{itemidpicture,jdbcType=BIGINT},
+      </if>
+      <if test="photoname != null" >
+        #{photoname,jdbcType=VARCHAR},
+      </if>
+      <if test="picturename != null" >
+        #{picturename,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureuploadtime != null" >
+        #{pictureuploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photodescription != null" >
+        #{photodescription,jdbcType=VARCHAR},
+      </if>
+      <if test="photopath != null" >
+        #{photopath,jdbcType=VARCHAR},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.Picture" >
+    update picture
+    <set >
+      <if test="photoidpicture != null" >
+        photoIDPicture = #{photoidpicture,jdbcType=BIGINT},
+      </if>
+      <if test="itemidpicture != null" >
+        itemIDPicture = #{itemidpicture,jdbcType=BIGINT},
+      </if>
+      <if test="photoname != null" >
+        photoname = #{photoname,jdbcType=VARCHAR},
+      </if>
+      <if test="picturename != null" >
+        picturename = #{picturename,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureuploadtime != null" >
+        pictureuploadtime = #{pictureuploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photodescription != null" >
+        Photodescription = #{photodescription,jdbcType=VARCHAR},
+      </if>
+      <if test="photopath != null" >
+        Photopath = #{photopath,jdbcType=VARCHAR},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pictureID = #{pictureid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.Picture" >
+    update picture
+    set photoIDPicture = #{photoidpicture,jdbcType=BIGINT},
+      itemIDPicture = #{itemidpicture,jdbcType=BIGINT},
+      photoname = #{photoname,jdbcType=VARCHAR},
+      picturename = #{picturename,jdbcType=VARCHAR},
+      pictureuploadtime = #{pictureuploadtime,jdbcType=TIMESTAMP},
+      Photodescription = #{photodescription,jdbcType=VARCHAR},
+      Photopath = #{photopath,jdbcType=VARCHAR},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where pictureID = #{pictureid,jdbcType=BIGINT}
+  </update>
+</mapper>

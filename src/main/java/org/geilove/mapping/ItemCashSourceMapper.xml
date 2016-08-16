@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.ItemCashSourceMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.ItemCashSource" >
+    <id column="itemCashSourceID" property="itemcashsourceid" jdbcType="BIGINT" />
+    <result column="helpItem" property="helpitem" jdbcType="BIGINT" />
+    <result column="userIDgoodguy" property="useridgoodguy" jdbcType="BIGINT" />
+    <result column="cashNum" property="cashnum" jdbcType="INTEGER" />
+    <result column="helpTime" property="helptime" jdbcType="TIMESTAMP" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    itemCashSourceID, helpItem, userIDgoodguy, cashNum, helpTime, backupOne, backupTwo, 
+    backupThree
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from itemcashsource
+    where itemCashSourceID = #{itemcashsourceid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from itemcashsource
+    where itemCashSourceID = #{itemcashsourceid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.ItemCashSource" >
+    insert into itemcashsource (itemCashSourceID, helpItem, userIDgoodguy, 
+      cashNum, helpTime, backupOne, 
+      backupTwo, backupThree)
+    values (#{itemcashsourceid,jdbcType=BIGINT}, #{helpitem,jdbcType=BIGINT}, #{useridgoodguy,jdbcType=BIGINT}, 
+      #{cashnum,jdbcType=INTEGER}, #{helptime,jdbcType=TIMESTAMP}, #{backupone,jdbcType=VARCHAR}, 
+      #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.ItemCashSource" >
+    insert into itemcashsource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemcashsourceid != null" >
+        itemCashSourceID,
+      </if>
+      <if test="helpitem != null" >
+        helpItem,
+      </if>
+      <if test="useridgoodguy != null" >
+        userIDgoodguy,
+      </if>
+      <if test="cashnum != null" >
+        cashNum,
+      </if>
+      <if test="helptime != null" >
+        helpTime,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemcashsourceid != null" >
+        #{itemcashsourceid,jdbcType=BIGINT},
+      </if>
+      <if test="helpitem != null" >
+        #{helpitem,jdbcType=BIGINT},
+      </if>
+      <if test="useridgoodguy != null" >
+        #{useridgoodguy,jdbcType=BIGINT},
+      </if>
+      <if test="cashnum != null" >
+        #{cashnum,jdbcType=INTEGER},
+      </if>
+      <if test="helptime != null" >
+        #{helptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.ItemCashSource" >
+    update itemcashsource
+    <set >
+      <if test="helpitem != null" >
+        helpItem = #{helpitem,jdbcType=BIGINT},
+      </if>
+      <if test="useridgoodguy != null" >
+        userIDgoodguy = #{useridgoodguy,jdbcType=BIGINT},
+      </if>
+      <if test="cashnum != null" >
+        cashNum = #{cashnum,jdbcType=INTEGER},
+      </if>
+      <if test="helptime != null" >
+        helpTime = #{helptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where itemCashSourceID = #{itemcashsourceid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.ItemCashSource" >
+    update itemcashsource
+    set helpItem = #{helpitem,jdbcType=BIGINT},
+      userIDgoodguy = #{useridgoodguy,jdbcType=BIGINT},
+      cashNum = #{cashnum,jdbcType=INTEGER},
+      helpTime = #{helptime,jdbcType=TIMESTAMP},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR}
+    where itemCashSourceID = #{itemcashsourceid,jdbcType=BIGINT}
+  </update>
+</mapper>

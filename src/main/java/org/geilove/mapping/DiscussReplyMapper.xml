@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.DiscussReplyMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.DiscussReply" >
+    <id column="discussReplyID" property="discussreplyid" jdbcType="BIGINT" />
+    <result column="tweetIDDiscussReply" property="tweetiddiscussreply" jdbcType="BIGINT" />
+    <result column="userIDDiscussReply" property="useriddiscussreply" jdbcType="BIGINT" />
+    <result column="discussReplyType" property="discussreplytype" jdbcType="TINYINT" />
+    <result column="discussReplyOk" property="discussreplyok" jdbcType="INTEGER" />
+    <result column="discussReplyTime" property="discussreplytime" jdbcType="TIMESTAMP" />
+    <result column="discussReplytext" property="discussreplytext" jdbcType="VARCHAR" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    discussReplyID, tweetIDDiscussReply, userIDDiscussReply, discussReplyType, discussReplyOk, 
+    discussReplyTime, discussReplytext, backupOne, backupTwo, backupThree, backupFour, 
+    backupFive, backupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from discussreply
+    where discussReplyID = #{discussreplyid,jdbcType=BIGINT}
+  </select>
+  <!-- 自定义 -->
+    <select id="getTweetCommentList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+       select
+       <include refid="Base_Column_List" />
+       from 
+           discussreply     
+       where  
+           discussReplyID= #{tweetid,jdbcType=INTEGER} 
+      order by publishTime  desc
+      limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
+  </select>
+  <!-- 自定义结束 -->
+   
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from discussreply
+    where discussReplyID = #{discussreplyid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.DiscussReply" >
+    insert into discussreply (discussReplyID, tweetIDDiscussReply, 
+      userIDDiscussReply, discussReplyType, discussReplyOk, 
+      discussReplyTime, discussReplytext, backupOne, 
+      backupTwo, backupThree, backupFour, 
+      backupFive, backupSix)
+    values (#{discussreplyid,jdbcType=BIGINT}, #{tweetiddiscussreply,jdbcType=BIGINT}, 
+      #{useriddiscussreply,jdbcType=BIGINT}, #{discussreplytype,jdbcType=TINYINT}, #{discussreplyok,jdbcType=INTEGER}, 
+      #{discussreplytime,jdbcType=TIMESTAMP}, #{discussreplytext,jdbcType=VARCHAR}, #{backupone,jdbcType=VARCHAR}, 
+      #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
+      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.DiscussReply" >
+    insert into discussreply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="discussreplyid != null" >
+        discussReplyID,
+      </if>
+      <if test="tweetiddiscussreply != null" >
+        tweetIDDiscussReply,
+      </if>
+      <if test="useriddiscussreply != null" >
+        userIDDiscussReply,
+      </if>
+      <if test="discussreplytype != null" >
+        discussReplyType,
+      </if>
+      <if test="discussreplyok != null" >
+        discussReplyOk,
+      </if>
+      <if test="discussreplytime != null" >
+        discussReplyTime,
+      </if>
+      <if test="discussreplytext != null" >
+        discussReplytext,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="discussreplyid != null" >
+        #{discussreplyid,jdbcType=BIGINT},
+      </if>
+      <if test="tweetiddiscussreply != null" >
+        #{tweetiddiscussreply,jdbcType=BIGINT},
+      </if>
+      <if test="useriddiscussreply != null" >
+        #{useriddiscussreply,jdbcType=BIGINT},
+      </if>
+      <if test="discussreplytype != null" >
+        #{discussreplytype,jdbcType=TINYINT},
+      </if>
+      <if test="discussreplyok != null" >
+        #{discussreplyok,jdbcType=INTEGER},
+      </if>
+      <if test="discussreplytime != null" >
+        #{discussreplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="discussreplytext != null" >
+        #{discussreplytext,jdbcType=VARCHAR},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.DiscussReply" >
+    update discussreply
+    <set >
+      <if test="tweetiddiscussreply != null" >
+        tweetIDDiscussReply = #{tweetiddiscussreply,jdbcType=BIGINT},
+      </if>
+      <if test="useriddiscussreply != null" >
+        userIDDiscussReply = #{useriddiscussreply,jdbcType=BIGINT},
+      </if>
+      <if test="discussreplytype != null" >
+        discussReplyType = #{discussreplytype,jdbcType=TINYINT},
+      </if>
+      <if test="discussreplyok != null" >
+        discussReplyOk = #{discussreplyok,jdbcType=INTEGER},
+      </if>
+      <if test="discussreplytime != null" >
+        discussReplyTime = #{discussreplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="discussreplytext != null" >
+        discussReplytext = #{discussreplytext,jdbcType=VARCHAR},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where discussReplyID = #{discussreplyid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.DiscussReply" >
+    update discussreply
+    set tweetIDDiscussReply = #{tweetiddiscussreply,jdbcType=BIGINT},
+      userIDDiscussReply = #{useriddiscussreply,jdbcType=BIGINT},
+      discussReplyType = #{discussreplytype,jdbcType=TINYINT},
+      discussReplyOk = #{discussreplyok,jdbcType=INTEGER},
+      discussReplyTime = #{discussreplytime,jdbcType=TIMESTAMP},
+      discussReplytext = #{discussreplytext,jdbcType=VARCHAR},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where discussReplyID = #{discussreplyid,jdbcType=BIGINT}
+  </update>
+</mapper>

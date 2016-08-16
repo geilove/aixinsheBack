@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.AtTableMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.AtTable" >
+    <id column="atID" property="atid" jdbcType="BIGINT" />
+    <result column="userIDAt" property="useridat" jdbcType="BIGINT" />
+    <result column="userIDBeAt" property="useridbeat" jdbcType="BIGINT" />
+    <result column="beAtTime" property="beattime" jdbcType="TIMESTAMP" />
+    <result column="tweetIDAt" property="tweetidat" jdbcType="BIGINT" />
+    <result column="discussReplyIDAt" property="discussreplyidat" jdbcType="BIGINT" />
+    <result column="tagAt" property="tagat" jdbcType="TINYINT" />
+    <result column="readTag" property="readtag" jdbcType="TINYINT" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    atID, userIDAt, userIDBeAt, beAtTime, tweetIDAt, discussReplyIDAt, tagAt, readTag, 
+    backupOne, backupTwo, backupThree, backupFour, backupFive, backupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from attable
+    where atID = #{atid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from attable
+    where atID = #{atid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.AtTable" >
+    insert into attable (atID, userIDAt, userIDBeAt, 
+      beAtTime, tweetIDAt, discussReplyIDAt, 
+      tagAt, readTag, backupOne, 
+      backupTwo, backupThree, backupFour, 
+      backupFive, backupSix)
+    values (#{atid,jdbcType=BIGINT}, #{useridat,jdbcType=BIGINT}, #{useridbeat,jdbcType=BIGINT}, 
+      #{beattime,jdbcType=TIMESTAMP}, #{tweetidat,jdbcType=BIGINT}, #{discussreplyidat,jdbcType=BIGINT}, 
+      #{tagat,jdbcType=TINYINT}, #{readtag,jdbcType=TINYINT}, #{backupone,jdbcType=VARCHAR}, 
+      #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
+      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.AtTable" >
+    insert into attable
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="atid != null" >
+        atID,
+      </if>
+      <if test="useridat != null" >
+        userIDAt,
+      </if>
+      <if test="useridbeat != null" >
+        userIDBeAt,
+      </if>
+      <if test="beattime != null" >
+        beAtTime,
+      </if>
+      <if test="tweetidat != null" >
+        tweetIDAt,
+      </if>
+      <if test="discussreplyidat != null" >
+        discussReplyIDAt,
+      </if>
+      <if test="tagat != null" >
+        tagAt,
+      </if>
+      <if test="readtag != null" >
+        readTag,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="atid != null" >
+        #{atid,jdbcType=BIGINT},
+      </if>
+      <if test="useridat != null" >
+        #{useridat,jdbcType=BIGINT},
+      </if>
+      <if test="useridbeat != null" >
+        #{useridbeat,jdbcType=BIGINT},
+      </if>
+      <if test="beattime != null" >
+        #{beattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tweetidat != null" >
+        #{tweetidat,jdbcType=BIGINT},
+      </if>
+      <if test="discussreplyidat != null" >
+        #{discussreplyidat,jdbcType=BIGINT},
+      </if>
+      <if test="tagat != null" >
+        #{tagat,jdbcType=TINYINT},
+      </if>
+      <if test="readtag != null" >
+        #{readtag,jdbcType=TINYINT},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.AtTable" >
+    update attable
+    <set >
+      <if test="useridat != null" >
+        userIDAt = #{useridat,jdbcType=BIGINT},
+      </if>
+      <if test="useridbeat != null" >
+        userIDBeAt = #{useridbeat,jdbcType=BIGINT},
+      </if>
+      <if test="beattime != null" >
+        beAtTime = #{beattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tweetidat != null" >
+        tweetIDAt = #{tweetidat,jdbcType=BIGINT},
+      </if>
+      <if test="discussreplyidat != null" >
+        discussReplyIDAt = #{discussreplyidat,jdbcType=BIGINT},
+      </if>
+      <if test="tagat != null" >
+        tagAt = #{tagat,jdbcType=TINYINT},
+      </if>
+      <if test="readtag != null" >
+        readTag = #{readtag,jdbcType=TINYINT},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where atID = #{atid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.AtTable" >
+    update attable
+    set userIDAt = #{useridat,jdbcType=BIGINT},
+      userIDBeAt = #{useridbeat,jdbcType=BIGINT},
+      beAtTime = #{beattime,jdbcType=TIMESTAMP},
+      tweetIDAt = #{tweetidat,jdbcType=BIGINT},
+      discussReplyIDAt = #{discussreplyidat,jdbcType=BIGINT},
+      tagAt = #{tagat,jdbcType=TINYINT},
+      readTag = #{readtag,jdbcType=TINYINT},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where atID = #{atid,jdbcType=BIGINT}
+  </update>
+</mapper>

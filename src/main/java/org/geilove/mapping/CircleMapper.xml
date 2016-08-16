@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.CircleMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.Circle" >
+    <id column="circleID" property="circleid" jdbcType="BIGINT" />
+    <result column="circleNickName" property="circlenickname" jdbcType="VARCHAR" />
+    <result column="userIDAdmin" property="useridadmin" jdbcType="BIGINT" />
+    <result column="circleNumber" property="circlenumber" jdbcType="TINYINT" />
+    <result column="circleType" property="circletype" jdbcType="TINYINT" />
+    <result column="circlePhoto" property="circlephoto" jdbcType="VARCHAR" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    circleID, circleNickName, userIDAdmin, circleNumber, circleType, circlePhoto, backupOne, 
+    backupTwo, backupThree, backupFour, backupFive, backupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from circle
+    where circleID = #{circleid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from circle
+    where circleID = #{circleid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.Circle" >
+    insert into circle (circleID, circleNickName, userIDAdmin, 
+      circleNumber, circleType, circlePhoto, 
+      backupOne, backupTwo, backupThree, 
+      backupFour, backupFive, backupSix
+      )
+    values (#{circleid,jdbcType=BIGINT}, #{circlenickname,jdbcType=VARCHAR}, #{useridadmin,jdbcType=BIGINT}, 
+      #{circlenumber,jdbcType=TINYINT}, #{circletype,jdbcType=TINYINT}, #{circlephoto,jdbcType=VARCHAR}, 
+      #{backupone,jdbcType=VARCHAR}, #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, 
+      #{backupfour,jdbcType=VARCHAR}, #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.Circle" >
+    insert into circle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="circleid != null" >
+        circleID,
+      </if>
+      <if test="circlenickname != null" >
+        circleNickName,
+      </if>
+      <if test="useridadmin != null" >
+        userIDAdmin,
+      </if>
+      <if test="circlenumber != null" >
+        circleNumber,
+      </if>
+      <if test="circletype != null" >
+        circleType,
+      </if>
+      <if test="circlephoto != null" >
+        circlePhoto,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="circleid != null" >
+        #{circleid,jdbcType=BIGINT},
+      </if>
+      <if test="circlenickname != null" >
+        #{circlenickname,jdbcType=VARCHAR},
+      </if>
+      <if test="useridadmin != null" >
+        #{useridadmin,jdbcType=BIGINT},
+      </if>
+      <if test="circlenumber != null" >
+        #{circlenumber,jdbcType=TINYINT},
+      </if>
+      <if test="circletype != null" >
+        #{circletype,jdbcType=TINYINT},
+      </if>
+      <if test="circlephoto != null" >
+        #{circlephoto,jdbcType=VARCHAR},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.Circle" >
+    update circle
+    <set >
+      <if test="circlenickname != null" >
+        circleNickName = #{circlenickname,jdbcType=VARCHAR},
+      </if>
+      <if test="useridadmin != null" >
+        userIDAdmin = #{useridadmin,jdbcType=BIGINT},
+      </if>
+      <if test="circlenumber != null" >
+        circleNumber = #{circlenumber,jdbcType=TINYINT},
+      </if>
+      <if test="circletype != null" >
+        circleType = #{circletype,jdbcType=TINYINT},
+      </if>
+      <if test="circlephoto != null" >
+        circlePhoto = #{circlephoto,jdbcType=VARCHAR},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where circleID = #{circleid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.Circle" >
+    update circle
+    set circleNickName = #{circlenickname,jdbcType=VARCHAR},
+      userIDAdmin = #{useridadmin,jdbcType=BIGINT},
+      circleNumber = #{circlenumber,jdbcType=TINYINT},
+      circleType = #{circletype,jdbcType=TINYINT},
+      circlePhoto = #{circlephoto,jdbcType=VARCHAR},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where circleID = #{circleid,jdbcType=BIGINT}
+  </update>
+</mapper>

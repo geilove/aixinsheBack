@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.TopicMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.Topic" >
+    <id column="topicID" property="topicid" jdbcType="BIGINT" />
+    <result column="topicName" property="topicname" jdbcType="VARCHAR" />
+    <result column="userIDTopic" property="useridtopic" jdbcType="BIGINT" />
+    <result column="topicDesciption" property="topicdesciption" jdbcType="VARCHAR" />
+    <result column="topicRead" property="topicread" jdbcType="BIGINT" />
+    <result column="topicTalk" property="topictalk" jdbcType="BIGINT" />
+    <result column="topicPhoto" property="topicphoto" jdbcType="VARCHAR" />
+    <result column="topicDate" property="topicdate" jdbcType="TIMESTAMP" />
+    <result column="topicBackUp" property="topicbackup" jdbcType="VARCHAR" />
+    <result column="topicBackUpOne" property="topicbackupone" jdbcType="VARCHAR" />
+    <result column="topicBackUpTwo" property="topicbackuptwo" jdbcType="VARCHAR" />
+    <result column="topicBackUpThree" property="topicbackupthree" jdbcType="VARCHAR" />
+    <result column="topicbackupFive" property="topicbackupfive" jdbcType="INTEGER" />
+    <result column="topicbackupSix" property="topicbackupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    topicID, topicName, userIDTopic, topicDesciption, topicRead, topicTalk, topicPhoto, 
+    topicDate, topicBackUp, topicBackUpOne, topicBackUpTwo, topicBackUpThree, topicbackupFive, 
+    topicbackupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from topic
+    where topicID = #{topicid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from topic
+    where topicID = #{topicid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.Topic" >
+    insert into topic (topicID, topicName, userIDTopic, 
+      topicDesciption, topicRead, topicTalk, 
+      topicPhoto, topicDate, topicBackUp, 
+      topicBackUpOne, topicBackUpTwo, topicBackUpThree, 
+      topicbackupFive, topicbackupSix)
+    values (#{topicid,jdbcType=BIGINT}, #{topicname,jdbcType=VARCHAR}, #{useridtopic,jdbcType=BIGINT}, 
+      #{topicdesciption,jdbcType=VARCHAR}, #{topicread,jdbcType=BIGINT}, #{topictalk,jdbcType=BIGINT}, 
+      #{topicphoto,jdbcType=VARCHAR}, #{topicdate,jdbcType=TIMESTAMP}, #{topicbackup,jdbcType=VARCHAR}, 
+      #{topicbackupone,jdbcType=VARCHAR}, #{topicbackuptwo,jdbcType=VARCHAR}, #{topicbackupthree,jdbcType=VARCHAR}, 
+      #{topicbackupfive,jdbcType=INTEGER}, #{topicbackupsix,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.Topic" >
+    insert into topic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="topicid != null" >
+        topicID,
+      </if>
+      <if test="topicname != null" >
+        topicName,
+      </if>
+      <if test="useridtopic != null" >
+        userIDTopic,
+      </if>
+      <if test="topicdesciption != null" >
+        topicDesciption,
+      </if>
+      <if test="topicread != null" >
+        topicRead,
+      </if>
+      <if test="topictalk != null" >
+        topicTalk,
+      </if>
+      <if test="topicphoto != null" >
+        topicPhoto,
+      </if>
+      <if test="topicdate != null" >
+        topicDate,
+      </if>
+      <if test="topicbackup != null" >
+        topicBackUp,
+      </if>
+      <if test="topicbackupone != null" >
+        topicBackUpOne,
+      </if>
+      <if test="topicbackuptwo != null" >
+        topicBackUpTwo,
+      </if>
+      <if test="topicbackupthree != null" >
+        topicBackUpThree,
+      </if>
+      <if test="topicbackupfive != null" >
+        topicbackupFive,
+      </if>
+      <if test="topicbackupsix != null" >
+        topicbackupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="topicid != null" >
+        #{topicid,jdbcType=BIGINT},
+      </if>
+      <if test="topicname != null" >
+        #{topicname,jdbcType=VARCHAR},
+      </if>
+      <if test="useridtopic != null" >
+        #{useridtopic,jdbcType=BIGINT},
+      </if>
+      <if test="topicdesciption != null" >
+        #{topicdesciption,jdbcType=VARCHAR},
+      </if>
+      <if test="topicread != null" >
+        #{topicread,jdbcType=BIGINT},
+      </if>
+      <if test="topictalk != null" >
+        #{topictalk,jdbcType=BIGINT},
+      </if>
+      <if test="topicphoto != null" >
+        #{topicphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="topicdate != null" >
+        #{topicdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topicbackup != null" >
+        #{topicbackup,jdbcType=VARCHAR},
+      </if>
+      <if test="topicbackupone != null" >
+        #{topicbackupone,jdbcType=VARCHAR},
+      </if>
+      <if test="topicbackuptwo != null" >
+        #{topicbackuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="topicbackupthree != null" >
+        #{topicbackupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="topicbackupfive != null" >
+        #{topicbackupfive,jdbcType=INTEGER},
+      </if>
+      <if test="topicbackupsix != null" >
+        #{topicbackupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.Topic" >
+    update topic
+    <set >
+      <if test="topicname != null" >
+        topicName = #{topicname,jdbcType=VARCHAR},
+      </if>
+      <if test="useridtopic != null" >
+        userIDTopic = #{useridtopic,jdbcType=BIGINT},
+      </if>
+      <if test="topicdesciption != null" >
+        topicDesciption = #{topicdesciption,jdbcType=VARCHAR},
+      </if>
+      <if test="topicread != null" >
+        topicRead = #{topicread,jdbcType=BIGINT},
+      </if>
+      <if test="topictalk != null" >
+        topicTalk = #{topictalk,jdbcType=BIGINT},
+      </if>
+      <if test="topicphoto != null" >
+        topicPhoto = #{topicphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="topicdate != null" >
+        topicDate = #{topicdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topicbackup != null" >
+        topicBackUp = #{topicbackup,jdbcType=VARCHAR},
+      </if>
+      <if test="topicbackupone != null" >
+        topicBackUpOne = #{topicbackupone,jdbcType=VARCHAR},
+      </if>
+      <if test="topicbackuptwo != null" >
+        topicBackUpTwo = #{topicbackuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="topicbackupthree != null" >
+        topicBackUpThree = #{topicbackupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="topicbackupfive != null" >
+        topicbackupFive = #{topicbackupfive,jdbcType=INTEGER},
+      </if>
+      <if test="topicbackupsix != null" >
+        topicbackupSix = #{topicbackupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where topicID = #{topicid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.Topic" >
+    update topic
+    set topicName = #{topicname,jdbcType=VARCHAR},
+      userIDTopic = #{useridtopic,jdbcType=BIGINT},
+      topicDesciption = #{topicdesciption,jdbcType=VARCHAR},
+      topicRead = #{topicread,jdbcType=BIGINT},
+      topicTalk = #{topictalk,jdbcType=BIGINT},
+      topicPhoto = #{topicphoto,jdbcType=VARCHAR},
+      topicDate = #{topicdate,jdbcType=TIMESTAMP},
+      topicBackUp = #{topicbackup,jdbcType=VARCHAR},
+      topicBackUpOne = #{topicbackupone,jdbcType=VARCHAR},
+      topicBackUpTwo = #{topicbackuptwo,jdbcType=VARCHAR},
+      topicBackUpThree = #{topicbackupthree,jdbcType=VARCHAR},
+      topicbackupFive = #{topicbackupfive,jdbcType=INTEGER},
+      topicbackupSix = #{topicbackupsix,jdbcType=INTEGER}
+    where topicID = #{topicid,jdbcType=BIGINT}
+  </update>
+</mapper>

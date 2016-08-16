@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.MoneySourceMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.MoneySource" >
+    <id column="moneySourceID" property="moneysourceid" jdbcType="BIGINT" />
+    <result column="userIDBehelped" property="useridbehelped" jdbcType="BIGINT" />
+    <result column="userIDgoodguy" property="useridgoodguy" jdbcType="BIGINT" />
+    <result column="moneyNum" property="moneynum" jdbcType="INTEGER" />
+    <result column="helpTime" property="helptime" jdbcType="TIMESTAMP" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    moneySourceID, userIDBehelped, userIDgoodguy, moneyNum, helpTime, backupOne, backupTwo, 
+    backupThree, backupFour, backupFive, backupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from moneysource
+    where moneySourceID = #{moneysourceid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from moneysource
+    where moneySourceID = #{moneysourceid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.MoneySource" >
+    insert into moneysource (moneySourceID, userIDBehelped, userIDgoodguy, 
+      moneyNum, helpTime, backupOne, 
+      backupTwo, backupThree, backupFour, 
+      backupFive, backupSix)
+    values (#{moneysourceid,jdbcType=BIGINT}, #{useridbehelped,jdbcType=BIGINT}, #{useridgoodguy,jdbcType=BIGINT}, 
+      #{moneynum,jdbcType=INTEGER}, #{helptime,jdbcType=TIMESTAMP}, #{backupone,jdbcType=VARCHAR}, 
+      #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
+      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.MoneySource" >
+    insert into moneysource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="moneysourceid != null" >
+        moneySourceID,
+      </if>
+      <if test="useridbehelped != null" >
+        userIDBehelped,
+      </if>
+      <if test="useridgoodguy != null" >
+        userIDgoodguy,
+      </if>
+      <if test="moneynum != null" >
+        moneyNum,
+      </if>
+      <if test="helptime != null" >
+        helpTime,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="moneysourceid != null" >
+        #{moneysourceid,jdbcType=BIGINT},
+      </if>
+      <if test="useridbehelped != null" >
+        #{useridbehelped,jdbcType=BIGINT},
+      </if>
+      <if test="useridgoodguy != null" >
+        #{useridgoodguy,jdbcType=BIGINT},
+      </if>
+      <if test="moneynum != null" >
+        #{moneynum,jdbcType=INTEGER},
+      </if>
+      <if test="helptime != null" >
+        #{helptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.MoneySource" >
+    update moneysource
+    <set >
+      <if test="useridbehelped != null" >
+        userIDBehelped = #{useridbehelped,jdbcType=BIGINT},
+      </if>
+      <if test="useridgoodguy != null" >
+        userIDgoodguy = #{useridgoodguy,jdbcType=BIGINT},
+      </if>
+      <if test="moneynum != null" >
+        moneyNum = #{moneynum,jdbcType=INTEGER},
+      </if>
+      <if test="helptime != null" >
+        helpTime = #{helptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where moneySourceID = #{moneysourceid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.MoneySource" >
+    update moneysource
+    set userIDBehelped = #{useridbehelped,jdbcType=BIGINT},
+      userIDgoodguy = #{useridgoodguy,jdbcType=BIGINT},
+      moneyNum = #{moneynum,jdbcType=INTEGER},
+      helpTime = #{helptime,jdbcType=TIMESTAMP},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where moneySourceID = #{moneysourceid,jdbcType=BIGINT}
+  </update>
+</mapper>

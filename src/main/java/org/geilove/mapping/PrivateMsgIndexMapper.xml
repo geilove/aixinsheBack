@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.PrivateMsgIndexMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.PrivateMsgIndex" >
+    <id column="privateMsgID" property="privatemsgid" jdbcType="BIGINT" />
+    <result column="userIDSentmsg" property="useridsentmsg" jdbcType="BIGINT" />
+    <result column="userIDReceiveMsg" property="useridreceivemsg" jdbcType="BIGINT" />
+    <result column="privateLetterIDMsg" property="privateletteridmsg" jdbcType="BIGINT" />
+    <result column="contentState" property="contentstate" jdbcType="TINYINT" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    privateMsgID, userIDSentmsg, userIDReceiveMsg, privateLetterIDMsg, contentState, 
+    backupOne, backupTwo, backupThree, backupFour, backupFive, backupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from privatemsgindex
+    where privateMsgID = #{privatemsgid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from privatemsgindex
+    where privateMsgID = #{privatemsgid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.PrivateMsgIndex" >
+    insert into privatemsgindex (privateMsgID, userIDSentmsg, userIDReceiveMsg, 
+      privateLetterIDMsg, contentState, backupOne, 
+      backupTwo, backupThree, backupFour, 
+      backupFive, backupSix)
+    values (#{privatemsgid,jdbcType=BIGINT}, #{useridsentmsg,jdbcType=BIGINT}, #{useridreceivemsg,jdbcType=BIGINT}, 
+      #{privateletteridmsg,jdbcType=BIGINT}, #{contentstate,jdbcType=TINYINT}, #{backupone,jdbcType=VARCHAR}, 
+      #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
+      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.PrivateMsgIndex" >
+    insert into privatemsgindex
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="privatemsgid != null" >
+        privateMsgID,
+      </if>
+      <if test="useridsentmsg != null" >
+        userIDSentmsg,
+      </if>
+      <if test="useridreceivemsg != null" >
+        userIDReceiveMsg,
+      </if>
+      <if test="privateletteridmsg != null" >
+        privateLetterIDMsg,
+      </if>
+      <if test="contentstate != null" >
+        contentState,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="privatemsgid != null" >
+        #{privatemsgid,jdbcType=BIGINT},
+      </if>
+      <if test="useridsentmsg != null" >
+        #{useridsentmsg,jdbcType=BIGINT},
+      </if>
+      <if test="useridreceivemsg != null" >
+        #{useridreceivemsg,jdbcType=BIGINT},
+      </if>
+      <if test="privateletteridmsg != null" >
+        #{privateletteridmsg,jdbcType=BIGINT},
+      </if>
+      <if test="contentstate != null" >
+        #{contentstate,jdbcType=TINYINT},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.PrivateMsgIndex" >
+    update privatemsgindex
+    <set >
+      <if test="useridsentmsg != null" >
+        userIDSentmsg = #{useridsentmsg,jdbcType=BIGINT},
+      </if>
+      <if test="useridreceivemsg != null" >
+        userIDReceiveMsg = #{useridreceivemsg,jdbcType=BIGINT},
+      </if>
+      <if test="privateletteridmsg != null" >
+        privateLetterIDMsg = #{privateletteridmsg,jdbcType=BIGINT},
+      </if>
+      <if test="contentstate != null" >
+        contentState = #{contentstate,jdbcType=TINYINT},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where privateMsgID = #{privatemsgid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.PrivateMsgIndex" >
+    update privatemsgindex
+    set userIDSentmsg = #{useridsentmsg,jdbcType=BIGINT},
+      userIDReceiveMsg = #{useridreceivemsg,jdbcType=BIGINT},
+      privateLetterIDMsg = #{privateletteridmsg,jdbcType=BIGINT},
+      contentState = #{contentstate,jdbcType=TINYINT},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where privateMsgID = #{privatemsgid,jdbcType=BIGINT}
+  </update>
+</mapper>

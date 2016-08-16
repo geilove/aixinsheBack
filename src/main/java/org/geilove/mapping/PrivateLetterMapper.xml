@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.PrivateLetterMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.PrivateLetter" >
+    <id column="privateLetterID" property="privateletterid" jdbcType="BIGINT" />
+    <result column="privateMsgText" property="privatemsgtext" jdbcType="VARCHAR" />
+    <result column="privateMsgTime" property="privatemsgtime" jdbcType="TIMESTAMP" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    privateLetterID, privateMsgText, privateMsgTime, backupOne, backupTwo, backupThree, 
+    backupFour, backupFive, backupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from privateletter
+    where privateLetterID = #{privateletterid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from privateletter
+    where privateLetterID = #{privateletterid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.PrivateLetter" >
+    insert into privateletter (privateLetterID, privateMsgText, privateMsgTime, 
+      backupOne, backupTwo, backupThree, 
+      backupFour, backupFive, backupSix
+      )
+    values (#{privateletterid,jdbcType=BIGINT}, #{privatemsgtext,jdbcType=VARCHAR}, #{privatemsgtime,jdbcType=TIMESTAMP}, 
+      #{backupone,jdbcType=VARCHAR}, #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, 
+      #{backupfour,jdbcType=VARCHAR}, #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.PrivateLetter" >
+    insert into privateletter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="privateletterid != null" >
+        privateLetterID,
+      </if>
+      <if test="privatemsgtext != null" >
+        privateMsgText,
+      </if>
+      <if test="privatemsgtime != null" >
+        privateMsgTime,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="privateletterid != null" >
+        #{privateletterid,jdbcType=BIGINT},
+      </if>
+      <if test="privatemsgtext != null" >
+        #{privatemsgtext,jdbcType=VARCHAR},
+      </if>
+      <if test="privatemsgtime != null" >
+        #{privatemsgtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.PrivateLetter" >
+    update privateletter
+    <set >
+      <if test="privatemsgtext != null" >
+        privateMsgText = #{privatemsgtext,jdbcType=VARCHAR},
+      </if>
+      <if test="privatemsgtime != null" >
+        privateMsgTime = #{privatemsgtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where privateLetterID = #{privateletterid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.PrivateLetter" >
+    update privateletter
+    set privateMsgText = #{privatemsgtext,jdbcType=VARCHAR},
+      privateMsgTime = #{privatemsgtime,jdbcType=TIMESTAMP},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where privateLetterID = #{privateletterid,jdbcType=BIGINT}
+  </update>
+</mapper>

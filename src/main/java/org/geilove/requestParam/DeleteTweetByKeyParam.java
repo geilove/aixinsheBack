@@ -1,7 +1,7 @@
 package org.geilove.requestParam;
 
 public class DeleteTweetByKeyParam {
-
+    //应该加上请求凭证，proof 先这么用着吧
 	private String useremail;
     private String userpassword;
     private Long   tweetid;

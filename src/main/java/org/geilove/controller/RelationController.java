@@ -18,14 +18,14 @@ public class RelationController {
      
 	@Resource 
 	private RelationService relationService;
-	//收听一个人，查看关系表，注意有多种情况。首先应该加入到关系表中，然后订阅收被收听人这个主题
+	//收听一个人，查看关系表，注意有多种情况。首先应该加入到关系表中
 	
 	@RequestMapping(value="/watch",method=RequestMethod.POST)
 	public @ResponseBody Integer watchMan(@RequestBody WatchVo watchVo){
 		
 		DoubleFans dbfans=new DoubleFans();
 		Date paydate=new Date();		
-		//将所有传输过来的信息放入dbfans对象中，其中时间用服务器时间，避免js， swift 的时间格式化问题	
+		//将所有传输过来的信息放入dbfans对象中，其中时间用服务器时间
 		dbfans.setUseridfollowe(watchVo.getUserIDFollow());
 		dbfans.setUseridbefocus(watchVo.getUserIDBeFouces());
 		dbfans.setGroupid(watchVo.getGroupID());

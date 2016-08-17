@@ -58,6 +58,11 @@ public class MainServiceImpl implements MainService {
 		userPhotos=userMapper.selectUserPhotos(useridList);              //通过用户表获取列表
 		return userPhotos;
 	}
+	@Override
+	public Integer addTweet(Tweet tweet){    //发布一条推文
+		int  response=tweetMapper.insert(tweet);
+		return response;
+	}
 	
 }
 

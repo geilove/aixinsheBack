@@ -7,13 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.geilove.pojo.DiscussReply;
 import org.geilove.pojo.Tweet;
 import org.geilove.requestParam.DeleteTweetByKeyParam;
 import org.geilove.service.MainService;
 import org.geilove.vo.TweetByTweetVo;
 import org.geilove.requestParam.TweetListParam;
 import org.geilove.requestParam.ZhuangfaListParam;
+import org.geilove.requestParam.PublishTweetParam;
+//import org.geilove.requestParam.DelTweetCommentParam;
+import org.geilove.response.CommonRsp;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -21,7 +23,7 @@ import java.util.HashMap;
 import javax.annotation.Resource;
 import org.geilove.response.TweetsListRsp;
 /*
- * 这个用来提供有关推文的操作，查看一个人关注的推文，需要使用RabbitMQ的订阅发布，暂时没做。
+ * 这个用来提供有关推文的操作
 */
 @Controller
 @RequestMapping("/weibos")
@@ -101,19 +103,48 @@ public class TweetController {
 	
 	/*这个是删除一条推文，因此需要用户名、密码、推文的ID，要授权才能删除，只做逻辑删除*/
 	@RequestMapping(value="/deleteTweetByID")
-	public @ResponseBody Integer deleteTweetByID(@RequestBody DeleteTweetByKeyParam delTweetParam){
+	public @ResponseBody CommonRsp deleteTweetByID(@RequestBody DeleteTweetByKeyParam delTweetParam){
 		//这里先检查用户名和密码是否存在并匹配
 		// 然后调用Service，将删除标志更新为2
+		CommonRsp rsp=new CommonRsp();
 		Tweet tweet=new Tweet();
 		tweet.setDeletetag((byte) 2);
 		tweet.setTweetid(delTweetParam.getTweetid());//根据这个推文的ID更新
-		Integer updateTag=mainService.updateTweetByKeySelective(tweet);		
-		return  updateTag;		
+		Integer updateTag=mainService.updateTweetByKeySelective(tweet);	
+		if(updateTag==0){
+			rsp.setMsg("删除推文失败");
+			rsp.setRetcode(2001);
+		}else{
+			rsp.setMsg("删除成功");
+			rsp.setRetcode(2000);
+		}
+		return rsp;		
 	}
-	//这是一条推文的转发列表，本质上也是一组推文。不需要取得原推文内容，如果转发时输入为空，默认存储为“转发推文”
+	/*这是发布一条推文，转发推文也用这个接口*/
+	@RequestMapping(value="/publishTweet")
+	public @ResponseBody CommonRsp publishTweet(@RequestBody PublishTweetParam publishTweetParam){
+		 String proof=publishTweetParam.getProof();
+		 String userEmail=publishTweetParam.getUserEmail();
+		 String userPassword=publishTweetParam.getUserPassword();
+		 String tweetContent=publishTweetParam.getTweetContent();
+		 CommonRsp rsp=new CommonRsp();
+		 //这里应该验证请求凭证Proof的有效性，先省略
+		 Tweet tweet=new Tweet();
+		 tweet.setMsgcontent(tweetContent); //其它用默认的
+		 Integer response=mainService.addTweet(tweet);
+		if(response==0){
+			rsp.setMsg("发布推文失败了");
+			rsp.setRetcode(2003);
+		}else{
+			rsp.setMsg("发布成功");
+			rsp.setRetcode(2000);
+		}
+		 return rsp;		 
+	}
+	/*这是一条推文的转发列表，本质上也是一组推文。不需要取得原推文内容，如果转发时输入为空，默认存储为“转发推文” */
 	@RequestMapping(value="/listZhuanfa")
 	public @ResponseBody TweetsListRsp getZhuanfaList(@RequestBody  ZhuangfaListParam zhuanfaListParam){
-		String proof=zhuanfaListParam.getProof();
+		String proofs=zhuanfaListParam.getProof();
 		Long tweetid =zhuanfaListParam.getTweetid();
 		Integer page=zhuanfaListParam.getPage();
 		Integer pageSize=zhuanfaListParam.getPageSize();
@@ -124,7 +155,7 @@ public class TweetController {
 		map.put("pageSize", pageSize);
 		TweetsListRsp tweetsListRsp=new TweetsListRsp();
 		List<Tweet> tweets=mainService.getZhuanfaTweetList(map); //首先取得推文，不带头像，不带转发的推文
-		if(tweets==null){
+		if(tweets==null || tweets.size() ==0 ){
 			tweetsListRsp.setData(tweets);
 			tweetsListRsp.setMsg("用户没有发表推文哦");
 			tweetsListRsp.setRetcode(2001);

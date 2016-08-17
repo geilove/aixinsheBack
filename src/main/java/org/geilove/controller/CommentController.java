@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.geilove.requestParam.DelCommentParam;
 import org.geilove.requestParam.CommentListParam;
-import org.geilove.requestParam.ZhuangfaListParam;
+import org.geilove.response.CommentsListRsp;
+
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -48,9 +49,10 @@ public class CommentController {
 /* 
  * 这个实现获取某条推文的评论列表的功能。
  * 	
-*/	
+*/
 	@RequestMapping("listcomments")
-	public @ResponseBody List<DiscussReply> getCommentList(@RequestBody CommentListParam commentListParam){
+	public @ResponseBody CommentsListRsp getCommentList(@RequestBody CommentListParam commentListParam){
+		 CommentsListRsp rsp=new CommentsListRsp();
 		 List<DiscussReply> ls=new ArrayList<DiscussReply>();
 		 Long tweetid=commentListParam.getTweetid();
 		 Integer page=commentListParam.getPage();
@@ -60,7 +62,16 @@ public class CommentController {
 		 map.put("page", page);
 		 map.put("pageSize", pageSize);
 		 ls=commentService.getTweetComments(map);
-		 return ls;
+		 rsp.setData(ls);
+		 //判断ls，然后返回不同的提示信息
+		 if(ls==null || ls.size()==0){
+			 rsp.setMsg("推文暂时没有评论哦");
+			 rsp.setRetcode(2001);
+		 }else{
+			 rsp.setMsg("数据获取成功");
+			 rsp.setRetcode(2000);
+		 }
+		 return rsp;
 	}	
 }
 

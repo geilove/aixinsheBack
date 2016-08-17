@@ -8,7 +8,7 @@ import org.geilove.pojo.Tweet;
 public interface TweetMapper {
     int deleteByPrimaryKey(Long tweetid); //根据主键删除推文
 
-    int insert(Tweet record);
+    int insert(Tweet record);    //发布 和转发推文的接口
 
     int insertSelective(Tweet record);
 
@@ -22,5 +22,5 @@ public interface TweetMapper {
 
     int updateByPrimaryKeySelective(Tweet record);
 
-    int updateByPrimaryKey(Tweet record);
+    int updateByPrimaryKey(Tweet record); 
 }

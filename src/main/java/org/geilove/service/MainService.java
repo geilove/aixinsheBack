@@ -18,5 +18,7 @@ public interface  MainService {
 	public Integer updateTweetByKeySelective(Tweet recoord);//只更新记录不为空的字段
 	
 	public List<String> getPhotosByUserIDs(List<Long> useridList);//根据用户的id取得用户的头像地址
+	
+	public Integer addTweet(Tweet tweet); //发布一条推文
    
 }

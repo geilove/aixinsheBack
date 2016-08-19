@@ -3,7 +3,7 @@ import org.geilove.sqlpojo.PeopleNeedLovePojo;
 
 public class CommonPeopleListParam {
 	 public String   proof;
-	 public Integer tag; //这个是一个标志，1代表需要帮助的人列表
+	 public Integer  tag; //这个是一个标志，1代表需要帮助的人列表
 	 public Integer  page;
 	 public Integer  pageSize;
 	 

@@ -72,6 +72,18 @@ public class User {
     private Integer backupfive;
 
     private Integer backupsix;
+    //以下是修改表后新添加的字段
+    private Integer userhelpsman;
+    
+    private Integer userdonate;
+    
+    private Integer  amountaccept;
+    
+    private Integer acceptmoney;
+    
+    private  Date  behelptime;
+    
+    private Integer behelpedtype;
 
     public Long getUserid() {
         return userid;
@@ -352,4 +364,55 @@ public class User {
     public void setBackupsix(Integer backupsix) {
         this.backupsix = backupsix;
     }
+
+	public Integer getUserhelpsman() {
+		return userhelpsman;
+	}
+
+	public void setUserhelpsman(Integer userhelpsman) {
+		this.userhelpsman = userhelpsman;
+	}
+
+	public Integer getUserdonate() {
+		return userdonate;
+	}
+
+	public void setUserdonate(Integer userdonate) {
+		this.userdonate = userdonate;
+	}
+
+	public Integer getAmountaccept() {
+		return amountaccept;
+	}
+
+	public void setAmountaccept(Integer amountaccept) {
+		this.amountaccept = amountaccept;
+	}
+
+	public Integer getAcceptmoney() {
+		return acceptmoney;
+	}
+
+	public void setAcceptmoney(Integer acceptmoney) {
+		this.acceptmoney = acceptmoney;
+	}
+
+	public Date getBehelptime() {
+		return behelptime;
+	}
+
+	public void setBehelptime(Date behelptime) {
+		this.behelptime = behelptime;
+	}
+
+	public Integer getBehelpedtype() {
+		return behelpedtype;
+	}
+
+	public void setBehelpedtype(Integer behelpedtype) {
+		this.behelpedtype = behelpedtype;
+	}
+
+	
+    
 }

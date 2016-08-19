@@ -11,7 +11,7 @@ import org.geilove.pojo.DoubleFans;
 import org.geilove.requestParam.FollowParam;
 import org.geilove.service.WatchService;
 /*
- * 这个用来提供关注一个人，取消关注一个人的接口
+ * 这个用来提供关注一个人，取消关注一个人的接口,我的粉丝列表，我关注的列表功能
 */
 @Controller
 @RequestMapping("/watch")

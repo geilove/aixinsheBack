@@ -37,6 +37,12 @@
     <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
     <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
     <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+    <result column="userHelpsMan" property="userhelpsman" jdbcType="INTEGER" />
+    <result column="userDonate" property="userdonate" jdbcType="INTEGER" />
+    <result column="amountAccept" property="amountaccept" jdbcType="INTEGER" />
+    <result column="acceptMoney" property="acceptmoney" jdbcType="INTEGER" />
+    <result column="beHelpTime" property="behelptime" jdbcType="TIMESTAMP" />
+    <result column="beHelpedType" property="behelpedtype" jdbcType="INTEGER" />
   </resultMap>
   <!--  自定义，获得需要帮助人列表，只需要User表中的部分数据-->
   <select id="selectNeedLovePeople" resultType="org.geilove.sqlpojo.PeopleNeedLovePojo" >
@@ -54,7 +60,52 @@
      	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
   </select>
   <!--自定义结束 -->
+  <!--  自定义，爱心社列表，监督用户列表-->
+  <select id="selectLoveClubPeople" resultType="org.geilove.sqlpojo.LoveClubListPojo" >
+    select      
+	    userID, userNickName,  userType, certificateType, 
+	    selfIntroduce, address, userPhoto, photoUpload,registerDate
+    from 
+    	user
+    where 
+     	userType= #{tag,jdbcType=INTEGER} 
+    order by 
+     	registerDate  desc
+    limit 
+     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
+  </select>
+  <!--自定义结束 -->
   
+   <!--  自定义，慈善排行榜-->
+  <select id="selectDonaterPeople" resultType="org.geilove.sqlpojo.DonaterPojo" >
+    select      
+	    userID, userNickName,  userType, certificateType, 
+	    selfIntroduce, userTag,registerDate, userPhoto, photoUpload,userHelpsMan,userDonate
+    from 
+    	user
+    where 
+     	userType= #{tag,jdbcType=INTEGER} 
+    order by 
+     	userDonate  desc
+    limit 
+     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
+  </select>
+  <!--自定义结束 -->
+  <!--  自定义，获取昵称 头像 简介部分信息-->
+  <select id="selectUserPartProfile" resultType="org.geilove.sqlpojo.OtherPartHelpPojo" >
+    select      
+	    userNickName,   
+	    selfIntroduce, userPhoto, photoUpload
+    from 
+    	user
+    where 
+     	userType= #{tag,jdbcType=INTEGER} 
+    order by 
+     	registerDate  desc
+    limit 
+     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
+  </select>
+  <!--自定义结束 -->
   <!--这个是自定义的返回部分字段的，不知道行不行啊  -->
   <resultMap id="UserPhotoResultMap" type="org.geilove.vo.UserPhotoUrl" >
      <id column="userID" property="userid" jdbcType="BIGINT" />
@@ -63,7 +114,7 @@
   <sql id="UserPhotoList" >
     userID, userPhoto
   </sql>
-   
+  
   <!--  自定义，获得用户的头像-->
   <select id="selectUserPhotos" resultMap="UserPhotoResultMap" >
     select 
@@ -80,7 +131,7 @@
     realName, identityCard, sex, selfIntroduce, userTag, university, collegeYear, universityTwo, 
     collegeYearTwo, company, address, country, registerDate, msgPubCount, boxCount, fansCount, 
     followCount, notSay, notSayTime, canSayTime, userPhoto, photoUpload, backupOne, backupTwo, 
-    backupThree, backupFour, backupFive, backupSix
+    backupThree, backupFour, backupFive, backupSix,userHelpsMan,userDonate,amountAccept,acceptMoney,beHelpTime,beHelpedType
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -113,7 +164,7 @@
       notSay, notSayTime, canSayTime, 
       userPhoto, photoUpload, backupOne, 
       backupTwo, backupThree, backupFour, 
-      backupFive, backupSix)
+      backupFive, backupSix,userHelpsMan,userDonate,amountAccept,acceptMoney,beHelpTime,beHelpedType)
     values (#{userid,jdbcType=BIGINT}, #{digital,jdbcType=BIGINT}, #{usernickname,jdbcType=VARCHAR}, 
       #{useremail,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, #{usertype,jdbcType=TINYINT}, 
       #{certificatetype,jdbcType=TINYINT}, #{realname,jdbcType=VARCHAR}, #{identitycard,jdbcType=VARCHAR}, 
@@ -125,7 +176,10 @@
       #{notsay,jdbcType=TINYINT}, #{notsaytime,jdbcType=TIMESTAMP}, #{cansaytime,jdbcType=TIMESTAMP}, 
       #{userphoto,jdbcType=VARCHAR}, #{photoupload,jdbcType=TINYINT}, #{backupone,jdbcType=VARCHAR}, 
       #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
-      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER}, #{userhelpsman,jdbcType=INTEGER},
+      #{userdonate,jdbcType=INTEGER},#{amountaccept,jdbcType=INTEGER},#{acceptmoney,jdbcType=INTEGER},
+      #{behelptime,jdbcType=TIMESTAMP},#{behelpedtype,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.geilove.pojo.User" >
     insert into user
@@ -235,6 +289,25 @@
       <if test="backupsix != null" >
         backupSix,
       </if>
+       <if test="userhelpsman != null" >
+        userHelpsMan,
+      </if>
+       <if test="userdonate != null" >
+        userDonate,
+      </if>
+       <if test="amountaccept != null" >
+        amountAccept,
+      </if>
+       <if test="acceptmoney != null" >
+        acceptMoney,
+      </if>
+       <if test="behelptime != null" >
+        beHelpTime,
+      </if>
+       <if test="behelpedtype != null" >
+        beHelpedType,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
@@ -341,6 +414,24 @@
       </if>
       <if test="backupsix != null" >
         #{backupsix,jdbcType=INTEGER},
+      </if>
+      <if test="userhelpsman != null" >
+        #{userhelpsman,jdbcType=INTEGER},
+      </if>
+       <if test="userdonate != null" >
+        #{userdonate,jdbcType=INTEGER},
+      </if>
+      <if test="amountaccept != null" >
+        #{amountaccept,jdbcType=INTEGER},
+      </if>
+      <if test="acceptmoney != null" >
+        #{acceptmoney,jdbcType=INTEGER},
+      </if>
+      <if test="behelptime != null" >
+        #{behelptime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="behelpedtype != null" >
+        #{behelpedtype,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -449,6 +540,24 @@
       <if test="backupsix != null" >
         backupSix = #{backupsix,jdbcType=INTEGER},
       </if>
+       <if test="userhelpsman != null" >
+        userHelpsMan = #{userhelpsman,jdbcType=INTEGER},
+      </if>
+       <if test="userdonate != null" >
+        userDonate = #{userdonate,jdbcType=INTEGER},
+      </if>
+      <if test="amountaccept != null" >
+        amountAccept = #{amountaccept,jdbcType=INTEGER},
+      </if>
+       <if test="acceptmoney != null" >
+        acceptMoney = #{acceptmoney,jdbcType=INTEGER},
+      </if>
+      <if test="behelptime != null" >
+        beHelpTime = #{behelptime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="behelpedtype != null" >
+        beHelpedType = #{behelpedtype,jdbcType=INTEGER},
+      </if>
     </set>
     where userID = #{userid,jdbcType=BIGINT}
   </update>
@@ -487,7 +596,12 @@
       backupThree = #{backupthree,jdbcType=VARCHAR},
       backupFour = #{backupfour,jdbcType=VARCHAR},
       backupFive = #{backupfive,jdbcType=INTEGER},
-      backupSix = #{backupsix,jdbcType=INTEGER}
+      backupSix = #{backupsix,jdbcType=INTEGER},
+      userHelpsMan = #{userhelpsman,jdbcType=INTEGER},
+      userDonate = #{userdonate,jdbcType=INTEGER},
+      amountAccept = #{amountaccept,jdbcType=INTEGER},
+      beHelpTime = #{behelptime,jdbcType=TIMESTAMP},
+      beHelpedType = #{behelpedtype,jdbcType=INTEGER},
     where userID = #{userid,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -60,12 +60,12 @@
   <!--  自定义select结束 -->
   <!-- 自定义开始 -->
   <select id="findByIdsMap" resultMap="BaseResultMap">
-         Select
-         <include refid="Base_Column_List" />
-         from tweet where ID in
-                <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-                        #{item}
-                </foreach>
+       Select
+       <include refid="Base_Column_List" />
+       from tweet where tweetID in
+          <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                  #{item}
+          </foreach>
   </select> 
   <!-- 自定义结束 -->
        

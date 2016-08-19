@@ -1,5 +1,5 @@
 package org.geilove.pojo;
-
+//这个表已经废除，用不到
 public class AtLinkUser {
     private Long atlinkuserid;
 

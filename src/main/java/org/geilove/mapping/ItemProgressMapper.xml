@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.ItemProgressMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.ItemProgress" >
+    <id column="itemProgressID" property="itemprogressid" jdbcType="BIGINT" />
+    <result column="userID" property="userid" jdbcType="BIGINT" />
+    <result column="itemID" property="itemid" jdbcType="BIGINT" />
+    <result column="relationTag" property="relationtag" jdbcType="INTEGER" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="imgAddressOne" property="imgaddressone" jdbcType="VARCHAR" />
+    <result column="imgAddressTwo" property="imgaddresstwo" jdbcType="VARCHAR" />
+    <result column="imgAddressThree" property="imgaddressthree" jdbcType="VARCHAR" />
+    <result column="imgAddressFour" property="imgaddressfour" jdbcType="VARCHAR" />
+    <result column="imgAddressFive" property="imgaddressfive" jdbcType="VARCHAR" />
+    <result column="imgAddressSix" property="imgaddresssix" jdbcType="VARCHAR" />
+    <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
+    <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
+    <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
+    <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
+    <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
+    <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    itemProgressID, userID, itemID, relationTag, updateTime, content, imgAddressOne, 
+    imgAddressTwo, imgAddressThree, imgAddressFour, imgAddressFive, imgAddressSix, backupOne, 
+    backupTwo, backupThree, backupFour, backupFive, backupSix
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.geilove.pojo.ItemProgressExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from itemprogress
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from itemprogress
+    where itemProgressID = #{itemprogressid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from itemprogress
+    where itemProgressID = #{itemprogressid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.geilove.pojo.ItemProgressExample" >
+    delete from itemprogress
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.ItemProgress" >
+    insert into itemprogress (itemProgressID, userID, itemID, 
+      relationTag, updateTime, content, 
+      imgAddressOne, imgAddressTwo, imgAddressThree, 
+      imgAddressFour, imgAddressFive, imgAddressSix, 
+      backupOne, backupTwo, backupThree, 
+      backupFour, backupFive, backupSix
+      )
+    values (#{itemprogressid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{itemid,jdbcType=BIGINT}, 
+      #{relationtag,jdbcType=INTEGER}, #{updatetime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}, 
+      #{imgaddressone,jdbcType=VARCHAR}, #{imgaddresstwo,jdbcType=VARCHAR}, #{imgaddressthree,jdbcType=VARCHAR}, 
+      #{imgaddressfour,jdbcType=VARCHAR}, #{imgaddressfive,jdbcType=VARCHAR}, #{imgaddresssix,jdbcType=VARCHAR}, 
+      #{backupone,jdbcType=VARCHAR}, #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, 
+      #{backupfour,jdbcType=VARCHAR}, #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.ItemProgress" >
+    insert into itemprogress
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemprogressid != null" >
+        itemProgressID,
+      </if>
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="itemid != null" >
+        itemID,
+      </if>
+      <if test="relationtag != null" >
+        relationTag,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="imgaddressone != null" >
+        imgAddressOne,
+      </if>
+      <if test="imgaddresstwo != null" >
+        imgAddressTwo,
+      </if>
+      <if test="imgaddressthree != null" >
+        imgAddressThree,
+      </if>
+      <if test="imgaddressfour != null" >
+        imgAddressFour,
+      </if>
+      <if test="imgaddressfive != null" >
+        imgAddressFive,
+      </if>
+      <if test="imgaddresssix != null" >
+        imgAddressSix,
+      </if>
+      <if test="backupone != null" >
+        backupOne,
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo,
+      </if>
+      <if test="backupthree != null" >
+        backupThree,
+      </if>
+      <if test="backupfour != null" >
+        backupFour,
+      </if>
+      <if test="backupfive != null" >
+        backupFive,
+      </if>
+      <if test="backupsix != null" >
+        backupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemprogressid != null" >
+        #{itemprogressid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="itemid != null" >
+        #{itemid,jdbcType=BIGINT},
+      </if>
+      <if test="relationtag != null" >
+        #{relationtag,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddressone != null" >
+        #{imgaddressone,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddresstwo != null" >
+        #{imgaddresstwo,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddressthree != null" >
+        #{imgaddressthree,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddressfour != null" >
+        #{imgaddressfour,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddressfive != null" >
+        #{imgaddressfive,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddresssix != null" >
+        #{imgaddresssix,jdbcType=VARCHAR},
+      </if>
+      <if test="backupone != null" >
+        #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        #{backupsix,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.geilove.pojo.ItemProgressExample" resultType="java.lang.Integer" >
+    select count(*) from itemprogress
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update itemprogress
+    <set >
+      <if test="record.itemprogressid != null" >
+        itemProgressID = #{record.itemprogressid,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null" >
+        userID = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemid != null" >
+        itemID = #{record.itemid,jdbcType=BIGINT},
+      </if>
+      <if test="record.relationtag != null" >
+        relationTag = #{record.relationtag,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgaddressone != null" >
+        imgAddressOne = #{record.imgaddressone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgaddresstwo != null" >
+        imgAddressTwo = #{record.imgaddresstwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgaddressthree != null" >
+        imgAddressThree = #{record.imgaddressthree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgaddressfour != null" >
+        imgAddressFour = #{record.imgaddressfour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgaddressfive != null" >
+        imgAddressFive = #{record.imgaddressfive,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgaddresssix != null" >
+        imgAddressSix = #{record.imgaddresssix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backupone != null" >
+        backupOne = #{record.backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backuptwo != null" >
+        backupTwo = #{record.backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backupthree != null" >
+        backupThree = #{record.backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backupfour != null" >
+        backupFour = #{record.backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backupfive != null" >
+        backupFive = #{record.backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="record.backupsix != null" >
+        backupSix = #{record.backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update itemprogress
+    set itemProgressID = #{record.itemprogressid,jdbcType=BIGINT},
+      userID = #{record.userid,jdbcType=BIGINT},
+      itemID = #{record.itemid,jdbcType=BIGINT},
+      relationTag = #{record.relationtag,jdbcType=INTEGER},
+      updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=VARCHAR},
+      imgAddressOne = #{record.imgaddressone,jdbcType=VARCHAR},
+      imgAddressTwo = #{record.imgaddresstwo,jdbcType=VARCHAR},
+      imgAddressThree = #{record.imgaddressthree,jdbcType=VARCHAR},
+      imgAddressFour = #{record.imgaddressfour,jdbcType=VARCHAR},
+      imgAddressFive = #{record.imgaddressfive,jdbcType=VARCHAR},
+      imgAddressSix = #{record.imgaddresssix,jdbcType=VARCHAR},
+      backupOne = #{record.backupone,jdbcType=VARCHAR},
+      backupTwo = #{record.backuptwo,jdbcType=VARCHAR},
+      backupThree = #{record.backupthree,jdbcType=VARCHAR},
+      backupFour = #{record.backupfour,jdbcType=VARCHAR},
+      backupFive = #{record.backupfive,jdbcType=INTEGER},
+      backupSix = #{record.backupsix,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.ItemProgress" >
+    update itemprogress
+    <set >
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="itemid != null" >
+        itemID = #{itemid,jdbcType=BIGINT},
+      </if>
+      <if test="relationtag != null" >
+        relationTag = #{relationtag,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddressone != null" >
+        imgAddressOne = #{imgaddressone,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddresstwo != null" >
+        imgAddressTwo = #{imgaddresstwo,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddressthree != null" >
+        imgAddressThree = #{imgaddressthree,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddressfour != null" >
+        imgAddressFour = #{imgaddressfour,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddressfive != null" >
+        imgAddressFive = #{imgaddressfive,jdbcType=VARCHAR},
+      </if>
+      <if test="imgaddresssix != null" >
+        imgAddressSix = #{imgaddresssix,jdbcType=VARCHAR},
+      </if>
+      <if test="backupone != null" >
+        backupOne = #{backupone,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwo != null" >
+        backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="backupthree != null" >
+        backupThree = #{backupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfour != null" >
+        backupFour = #{backupfour,jdbcType=VARCHAR},
+      </if>
+      <if test="backupfive != null" >
+        backupFive = #{backupfive,jdbcType=INTEGER},
+      </if>
+      <if test="backupsix != null" >
+        backupSix = #{backupsix,jdbcType=INTEGER},
+      </if>
+    </set>
+    where itemProgressID = #{itemprogressid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.ItemProgress" >
+    update itemprogress
+    set userID = #{userid,jdbcType=BIGINT},
+      itemID = #{itemid,jdbcType=BIGINT},
+      relationTag = #{relationtag,jdbcType=INTEGER},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR},
+      imgAddressOne = #{imgaddressone,jdbcType=VARCHAR},
+      imgAddressTwo = #{imgaddresstwo,jdbcType=VARCHAR},
+      imgAddressThree = #{imgaddressthree,jdbcType=VARCHAR},
+      imgAddressFour = #{imgaddressfour,jdbcType=VARCHAR},
+      imgAddressFive = #{imgaddressfive,jdbcType=VARCHAR},
+      imgAddressSix = #{imgaddresssix,jdbcType=VARCHAR},
+      backupOne = #{backupone,jdbcType=VARCHAR},
+      backupTwo = #{backuptwo,jdbcType=VARCHAR},
+      backupThree = #{backupthree,jdbcType=VARCHAR},
+      backupFour = #{backupfour,jdbcType=VARCHAR},
+      backupFive = #{backupfive,jdbcType=INTEGER},
+      backupSix = #{backupsix,jdbcType=INTEGER}
+    where itemProgressID = #{itemprogressid,jdbcType=BIGINT}
+  </update>
+</mapper>

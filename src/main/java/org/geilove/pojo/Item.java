@@ -25,6 +25,18 @@ public class Item {
 
     private String itemphoto;
 
+    private String imgurlone;
+
+    private String imgurltwo;
+
+    private String imgurlthree;
+
+    private String imgurlfour;
+
+    private String imgurlfive;
+
+    private String imgurlsix;
+
     private String backupone;
 
     private String backuptwo;
@@ -123,6 +135,54 @@ public class Item {
 
     public void setItemphoto(String itemphoto) {
         this.itemphoto = itemphoto == null ? null : itemphoto.trim();
+    }
+
+    public String getImgurlone() {
+        return imgurlone;
+    }
+
+    public void setImgurlone(String imgurlone) {
+        this.imgurlone = imgurlone == null ? null : imgurlone.trim();
+    }
+
+    public String getImgurltwo() {
+        return imgurltwo;
+    }
+
+    public void setImgurltwo(String imgurltwo) {
+        this.imgurltwo = imgurltwo == null ? null : imgurltwo.trim();
+    }
+
+    public String getImgurlthree() {
+        return imgurlthree;
+    }
+
+    public void setImgurlthree(String imgurlthree) {
+        this.imgurlthree = imgurlthree == null ? null : imgurlthree.trim();
+    }
+
+    public String getImgurlfour() {
+        return imgurlfour;
+    }
+
+    public void setImgurlfour(String imgurlfour) {
+        this.imgurlfour = imgurlfour == null ? null : imgurlfour.trim();
+    }
+
+    public String getImgurlfive() {
+        return imgurlfive;
+    }
+
+    public void setImgurlfive(String imgurlfive) {
+        this.imgurlfive = imgurlfive == null ? null : imgurlfive.trim();
+    }
+
+    public String getImgurlsix() {
+        return imgurlsix;
+    }
+
+    public void setImgurlsix(String imgurlsix) {
+        this.imgurlsix = imgurlsix == null ? null : imgurlsix.trim();
     }
 
     public String getBackupone() {

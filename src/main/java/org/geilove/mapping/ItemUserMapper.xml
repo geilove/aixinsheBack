@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.geilove.dao.MoneySourceMapper" >
-  <resultMap id="BaseResultMap" type="org.geilove.pojo.MoneySource" >
-    <id column="moneySourceID" property="moneysourceid" jdbcType="BIGINT" />
-    <result column="userIDBehelped" property="useridbehelped" jdbcType="BIGINT" />
-    <result column="userIDgoodguy" property="useridgoodguy" jdbcType="BIGINT" />
-    <result column="moneyNum" property="moneynum" jdbcType="INTEGER" />
-    <result column="helpTime" property="helptime" jdbcType="TIMESTAMP" />
+<mapper namespace="org.geilove.dao.ItemUserMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.ItemUser" >
+    <id column="itemUserID" property="itemuserid" jdbcType="BIGINT" />
+    <result column="userID" property="userid" jdbcType="BIGINT" />
+    <result column="itemID" property="itemid" jdbcType="BIGINT" />
+    <result column="relationTag" property="relationtag" jdbcType="INTEGER" />
+    <result column="relationTime" property="relationtime" jdbcType="TIMESTAMP" />
     <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
     <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
     <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
@@ -14,61 +14,47 @@
     <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
     <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
   </resultMap>
-  <!--  自定义，获取帮助人-受助人逐渐列表-->
-  <select id="getPartWatchProfile" resultType="org.geilove.sqlpojo.PartHelpPojo" >
-    select      
-	    userIDBehelped, userIDgoodguy,moneyNum, helpTime
-    from 
-    	user
-    where 
-     	userIDBehelped= #{userid,jdbcType=INTEGER} 
-    order by 
-     	helpTime  desc
-    limit 
-     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
-  </select>
-  <!--自定义结束 -->
   <sql id="Base_Column_List" >
-    moneySourceID, userIDBehelped, userIDgoodguy, moneyNum, helpTime, backupOne, backupTwo, 
-    backupThree, backupFour, backupFive, backupSix
+    itemUserID, userID, itemID, relationTag, relationTime, backupOne, backupTwo, backupThree, 
+    backupFour, backupFive, backupSix
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from moneysource
-    where moneySourceID = #{moneysourceid,jdbcType=BIGINT}
+    from itemuser
+    where itemUserID = #{itemuserid,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from moneysource
-    where moneySourceID = #{moneysourceid,jdbcType=BIGINT}
+    delete from itemuser
+    where itemUserID = #{itemuserid,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="org.geilove.pojo.MoneySource" >
-    insert into moneysource (moneySourceID, userIDBehelped, userIDgoodguy, 
-      moneyNum, helpTime, backupOne, 
+  <insert id="insert" parameterType="org.geilove.pojo.ItemUser" >
+    insert into itemuser (itemUserID, userID, itemID, 
+      relationTag, relationTime, backupOne, 
       backupTwo, backupThree, backupFour, 
       backupFive, backupSix)
-    values (#{moneysourceid,jdbcType=BIGINT}, #{useridbehelped,jdbcType=BIGINT}, #{useridgoodguy,jdbcType=BIGINT}, 
-      #{moneynum,jdbcType=INTEGER}, #{helptime,jdbcType=TIMESTAMP}, #{backupone,jdbcType=VARCHAR}, 
+    values (#{itemuserid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{itemid,jdbcType=BIGINT}, 
+      #{relationtag,jdbcType=INTEGER}, #{relationtime,jdbcType=TIMESTAMP}, #{backupone,jdbcType=VARCHAR}, 
       #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
       #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="org.geilove.pojo.MoneySource" >
-    insert into moneysource
+  <insert id="insertSelective" parameterType="org.geilove.pojo.ItemUser" >
+    insert into itemuser
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="moneysourceid != null" >
-        moneySourceID,
+      <if test="itemuserid != null" >
+        itemUserID,
       </if>
-      <if test="useridbehelped != null" >
-        userIDBehelped,
+      <if test="userid != null" >
+        userID,
       </if>
-      <if test="useridgoodguy != null" >
-        userIDgoodguy,
+      <if test="itemid != null" >
+        itemID,
       </if>
-      <if test="moneynum != null" >
-        moneyNum,
+      <if test="relationtag != null" >
+        relationTag,
       </if>
-      <if test="helptime != null" >
-        helpTime,
+      <if test="relationtime != null" >
+        relationTime,
       </if>
       <if test="backupone != null" >
         backupOne,
@@ -90,20 +76,20 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="moneysourceid != null" >
-        #{moneysourceid,jdbcType=BIGINT},
+      <if test="itemuserid != null" >
+        #{itemuserid,jdbcType=BIGINT},
       </if>
-      <if test="useridbehelped != null" >
-        #{useridbehelped,jdbcType=BIGINT},
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
       </if>
-      <if test="useridgoodguy != null" >
-        #{useridgoodguy,jdbcType=BIGINT},
+      <if test="itemid != null" >
+        #{itemid,jdbcType=BIGINT},
       </if>
-      <if test="moneynum != null" >
-        #{moneynum,jdbcType=INTEGER},
+      <if test="relationtag != null" >
+        #{relationtag,jdbcType=INTEGER},
       </if>
-      <if test="helptime != null" >
-        #{helptime,jdbcType=TIMESTAMP},
+      <if test="relationtime != null" >
+        #{relationtime,jdbcType=TIMESTAMP},
       </if>
       <if test="backupone != null" >
         #{backupone,jdbcType=VARCHAR},
@@ -125,20 +111,20 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.MoneySource" >
-    update moneysource
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.ItemUser" >
+    update itemuser
     <set >
-      <if test="useridbehelped != null" >
-        userIDBehelped = #{useridbehelped,jdbcType=BIGINT},
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=BIGINT},
       </if>
-      <if test="useridgoodguy != null" >
-        userIDgoodguy = #{useridgoodguy,jdbcType=BIGINT},
+      <if test="itemid != null" >
+        itemID = #{itemid,jdbcType=BIGINT},
       </if>
-      <if test="moneynum != null" >
-        moneyNum = #{moneynum,jdbcType=INTEGER},
+      <if test="relationtag != null" >
+        relationTag = #{relationtag,jdbcType=INTEGER},
       </if>
-      <if test="helptime != null" >
-        helpTime = #{helptime,jdbcType=TIMESTAMP},
+      <if test="relationtime != null" >
+        relationTime = #{relationtime,jdbcType=TIMESTAMP},
       </if>
       <if test="backupone != null" >
         backupOne = #{backupone,jdbcType=VARCHAR},
@@ -159,20 +145,20 @@
         backupSix = #{backupsix,jdbcType=INTEGER},
       </if>
     </set>
-    where moneySourceID = #{moneysourceid,jdbcType=BIGINT}
+    where itemUserID = #{itemuserid,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.MoneySource" >
-    update moneysource
-    set userIDBehelped = #{useridbehelped,jdbcType=BIGINT},
-      userIDgoodguy = #{useridgoodguy,jdbcType=BIGINT},
-      moneyNum = #{moneynum,jdbcType=INTEGER},
-      helpTime = #{helptime,jdbcType=TIMESTAMP},
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.ItemUser" >
+    update itemuser
+    set userID = #{userid,jdbcType=BIGINT},
+      itemID = #{itemid,jdbcType=BIGINT},
+      relationTag = #{relationtag,jdbcType=INTEGER},
+      relationTime = #{relationtime,jdbcType=TIMESTAMP},
       backupOne = #{backupone,jdbcType=VARCHAR},
       backupTwo = #{backuptwo,jdbcType=VARCHAR},
       backupThree = #{backupthree,jdbcType=VARCHAR},
       backupFour = #{backupfour,jdbcType=VARCHAR},
       backupFive = #{backupfive,jdbcType=INTEGER},
       backupSix = #{backupsix,jdbcType=INTEGER}
-    where moneySourceID = #{moneysourceid,jdbcType=BIGINT}
+    where itemUserID = #{itemuserid,jdbcType=BIGINT}
   </update>
 </mapper>

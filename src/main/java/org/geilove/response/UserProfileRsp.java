@@ -3,8 +3,11 @@ import org.geilove.pojo.User;
 //所有返回的数据库数据放在data字段，必须是data，前端好处理
 public class UserProfileRsp {
 	private User data;
+	
 	private Integer retcode ;
+	
 	private String msg;
+	
 	public User getData() {
 		return data;
 	}

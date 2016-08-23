@@ -13,6 +13,12 @@
     <result column="itemRealMoney" property="itemrealmoney" jdbcType="INTEGER" />
     <result column="itemDescription" property="itemdescription" jdbcType="VARCHAR" />
     <result column="itemPhoto" property="itemphoto" jdbcType="VARCHAR" />
+    <result column="imgUrlOne" property="imgurlone" jdbcType="VARCHAR" />
+    <result column="imgUrlTwo" property="imgurltwo" jdbcType="VARCHAR" />
+    <result column="imgUrlThree" property="imgurlthree" jdbcType="VARCHAR" />
+    <result column="imgUrlFour" property="imgurlfour" jdbcType="VARCHAR" />
+    <result column="imgUrlFive" property="imgurlfive" jdbcType="VARCHAR" />
+    <result column="imgUrlSix" property="imgurlsix" jdbcType="VARCHAR" />
     <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
     <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
     <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
@@ -22,8 +28,9 @@
   </resultMap>
   <sql id="Base_Column_List" >
     itemID, itemName, circleIDStart, circleIDSupervise, userIDPrincipal, itemStart, itemEnd, 
-    itemTargetMoney, itemRealMoney, itemDescription, itemPhoto, backupOne, backupTwo, 
-    backupThree, backupFour, backupFive, backupSix
+    itemTargetMoney, itemRealMoney, itemDescription, itemPhoto, imgUrlOne, imgUrlTwo, 
+    imgUrlThree, imgUrlFour, imgUrlFive, imgUrlSix, backupOne, backupTwo, backupThree, 
+    backupFour, backupFive, backupSix
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -39,13 +46,17 @@
     insert into item (itemID, itemName, circleIDStart, 
       circleIDSupervise, userIDPrincipal, itemStart, 
       itemEnd, itemTargetMoney, itemRealMoney, 
-      itemDescription, itemPhoto, backupOne, 
+      itemDescription, itemPhoto, imgUrlOne, 
+      imgUrlTwo, imgUrlThree, imgUrlFour, 
+      imgUrlFive, imgUrlSix, backupOne, 
       backupTwo, backupThree, backupFour, 
       backupFive, backupSix)
     values (#{itemid,jdbcType=INTEGER}, #{itemname,jdbcType=VARCHAR}, #{circleidstart,jdbcType=BIGINT}, 
       #{circleidsupervise,jdbcType=BIGINT}, #{useridprincipal,jdbcType=BIGINT}, #{itemstart,jdbcType=TIMESTAMP}, 
       #{itemend,jdbcType=TIMESTAMP}, #{itemtargetmoney,jdbcType=INTEGER}, #{itemrealmoney,jdbcType=INTEGER}, 
-      #{itemdescription,jdbcType=VARCHAR}, #{itemphoto,jdbcType=VARCHAR}, #{backupone,jdbcType=VARCHAR}, 
+      #{itemdescription,jdbcType=VARCHAR}, #{itemphoto,jdbcType=VARCHAR}, #{imgurlone,jdbcType=VARCHAR}, 
+      #{imgurltwo,jdbcType=VARCHAR}, #{imgurlthree,jdbcType=VARCHAR}, #{imgurlfour,jdbcType=VARCHAR}, 
+      #{imgurlfive,jdbcType=VARCHAR}, #{imgurlsix,jdbcType=VARCHAR}, #{backupone,jdbcType=VARCHAR}, 
       #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
       #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
   </insert>
@@ -84,6 +95,24 @@
       </if>
       <if test="itemphoto != null" >
         itemPhoto,
+      </if>
+      <if test="imgurlone != null" >
+        imgUrlOne,
+      </if>
+      <if test="imgurltwo != null" >
+        imgUrlTwo,
+      </if>
+      <if test="imgurlthree != null" >
+        imgUrlThree,
+      </if>
+      <if test="imgurlfour != null" >
+        imgUrlFour,
+      </if>
+      <if test="imgurlfive != null" >
+        imgUrlFive,
+      </if>
+      <if test="imgurlsix != null" >
+        imgUrlSix,
       </if>
       <if test="backupone != null" >
         backupOne,
@@ -138,6 +167,24 @@
       <if test="itemphoto != null" >
         #{itemphoto,jdbcType=VARCHAR},
       </if>
+      <if test="imgurlone != null" >
+        #{imgurlone,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurltwo != null" >
+        #{imgurltwo,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurlthree != null" >
+        #{imgurlthree,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurlfour != null" >
+        #{imgurlfour,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurlfive != null" >
+        #{imgurlfive,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurlsix != null" >
+        #{imgurlsix,jdbcType=VARCHAR},
+      </if>
       <if test="backupone != null" >
         #{backupone,jdbcType=VARCHAR},
       </if>
@@ -191,6 +238,24 @@
       <if test="itemphoto != null" >
         itemPhoto = #{itemphoto,jdbcType=VARCHAR},
       </if>
+      <if test="imgurlone != null" >
+        imgUrlOne = #{imgurlone,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurltwo != null" >
+        imgUrlTwo = #{imgurltwo,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurlthree != null" >
+        imgUrlThree = #{imgurlthree,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurlfour != null" >
+        imgUrlFour = #{imgurlfour,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurlfive != null" >
+        imgUrlFive = #{imgurlfive,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurlsix != null" >
+        imgUrlSix = #{imgurlsix,jdbcType=VARCHAR},
+      </if>
       <if test="backupone != null" >
         backupOne = #{backupone,jdbcType=VARCHAR},
       </if>
@@ -224,6 +289,12 @@
       itemRealMoney = #{itemrealmoney,jdbcType=INTEGER},
       itemDescription = #{itemdescription,jdbcType=VARCHAR},
       itemPhoto = #{itemphoto,jdbcType=VARCHAR},
+      imgUrlOne = #{imgurlone,jdbcType=VARCHAR},
+      imgUrlTwo = #{imgurltwo,jdbcType=VARCHAR},
+      imgUrlThree = #{imgurlthree,jdbcType=VARCHAR},
+      imgUrlFour = #{imgurlfour,jdbcType=VARCHAR},
+      imgUrlFive = #{imgurlfive,jdbcType=VARCHAR},
+      imgUrlSix = #{imgurlsix,jdbcType=VARCHAR},
       backupOne = #{backupone,jdbcType=VARCHAR},
       backupTwo = #{backuptwo,jdbcType=VARCHAR},
       backupThree = #{backupthree,jdbcType=VARCHAR},

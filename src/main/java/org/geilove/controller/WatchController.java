@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.geilove.vo.FollowVo;
 import org.geilove.pojo.DoubleFans;
 import org.geilove.requestParam.FollowParam;
+import org.geilove.requestParam.WatchListParam;
+import org.geilove.response.WatchListRsp;
 import org.geilove.service.WatchService;
 /*
  * 这个用来提供关注一个人，取消关注一个人的接口,我的粉丝列表，我关注的列表功能
@@ -18,8 +20,8 @@ import org.geilove.service.WatchService;
 public class WatchController {
 	@Resource
 	private WatchService watchService;	
-	@RequestMapping(value="/dowatch",method=RequestMethod.POST)
 	
+	@RequestMapping(value="/dowatch",method=RequestMethod.POST)
 	public @ResponseBody FollowVo doWatch(@RequestBody FollowParam followParam ){
 		FollowVo followVo=new FollowVo();
 		DoubleFans  dbfans=new DoubleFans();
@@ -41,8 +43,15 @@ public class WatchController {
 	    }	    
 		return followVo ;
 	}
-	
 
+	@RequestMapping(value="/getwatchlist",method=RequestMethod.POST)
+	public @ResponseBody WatchListRsp getWatchList(@RequestBody WatchListParam followParam ){
+		WatchListRsp rsp=new WatchListRsp();
+		//取得关注折的userID列表和其它数据
+		//用userID列表取得剩余的属性
+		//组合起来返回给用户
+		return rsp;
+	}
 }
 
 

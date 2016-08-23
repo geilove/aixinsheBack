@@ -17,6 +17,21 @@
     <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
     <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
   </resultMap>
+   <!--  自定义，获取关注者id-被关注者id-->
+  <select id="selectHelpMen" resultType="org.geilove.sqlpojo.PartWatchPojo" >
+    select      
+	    userIDFollowe, userIDBeFocus,payDate, payTag,doubleFans
+    from 
+    	doublefans
+    where 
+     	userIDFollowe= #{userid,jdbcType=INTEGER} 
+    order by 
+     	payDate  desc
+    limit 
+     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
+  </select>
+  <!--自定义结束 -->
+  
   <sql id="Base_Column_List" >
     doubleFansID, userIDFollowe, userIDBeFocus, payDate, payTag, groupID, specialFollow, 
     doubleFans, backupOne, backupTwo, backupThree, backupFour, backupFive, backupSix

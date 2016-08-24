@@ -26,6 +26,21 @@
     <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
     <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
   </resultMap>
+  <!--  以下是自定义，根据用户的id获取一组推文 -->
+  <select id="getItemList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+       select
+       <include refid="Base_Column_List" />
+       from 
+           item     
+       where  
+           1=1
+      order by Itemstart  desc
+      limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
+  </select>
+  <!--  自定义select结束 -->
+  
+  
+  
   <sql id="Base_Column_List" >
     itemID, itemName, circleIDStart, circleIDSupervise, userIDPrincipal, itemStart, itemEnd, 
     itemTargetMoney, itemRealMoney, itemDescription, itemPhoto, imgUrlOne, imgUrlTwo, 

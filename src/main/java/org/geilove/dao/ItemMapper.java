@@ -1,5 +1,8 @@
 package org.geilove.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.geilove.pojo.Item;
 
 public interface ItemMapper {
@@ -14,4 +17,7 @@ public interface ItemMapper {
     int updateByPrimaryKeySelective(Item record);
 
     int updateByPrimaryKey(Item record);
+     
+    List<Item> getItemList(Map<String,Object> map);  //获取项目首页列表
+    
 }

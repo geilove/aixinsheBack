@@ -35,7 +35,20 @@ public class ItemController {
 		map.put("pageSize", pageSize);
 		ItemListRsp rsp=new ItemListRsp();
 		List<Item> lsitem=itemService.getItemList(map);
-		rsp.setLp(lsitem); //需要进一步完善
+		if(lsitem.size()==0){
+			rsp.setLp(lsitem); 
+			rsp.setMsg("数据为空");
+			rsp.setRetcode(2001);
+		}else if(lsitem.size()>0){
+			rsp.setLp(lsitem);
+			rsp.setMsg("成功了");
+			rsp.setRetcode(2000);
+		}else{
+			rsp.setLp(null);
+			rsp.setMsg("未知错误");
+			rsp.setRetcode(2002);
+		}
+		
 		return rsp;		
 	}
 

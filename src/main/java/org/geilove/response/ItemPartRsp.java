@@ -1,37 +1,27 @@
 package org.geilove.response;
-
-import java.util.Date;
 import java.util.List;
-import org.geilove.vo.ItemFull;
 
-
-public class ItemListRsp {
-	private List<ItemFull> lp;
+import org.geilove.sqlpojo.OtherPartHelpPojo;
+public class ItemPartRsp {
 	
-	private Integer retcode ;
-	
+	private List<OtherPartHelpPojo> lp;
+	private Integer retcode ;	
 	private String msg;
-
-	public List<ItemFull> getLp() {
+	public List<OtherPartHelpPojo> getLp() {
 		return lp;
 	}
-
-	public void setLp(List<ItemFull> lp) {
+	public void setLp(List<OtherPartHelpPojo> lp) {
 		this.lp = lp;
 	}
-
 	public Integer getRetcode() {
 		return retcode;
 	}
-
 	public void setRetcode(Integer retcode) {
 		this.retcode = retcode;
 	}
-
 	public String getMsg() {
 		return msg;
 	}
-
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}

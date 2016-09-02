@@ -1,8 +1,9 @@
 package org.geilove.sqlpojo;
 
 public class OtherPartHelpPojo {
+    private Long userid; //
 	
-    private String usernickname; //昵称
+	private String usernickname; //昵称
     
     private String selfintroduce; //简介
     
@@ -10,6 +11,13 @@ public class OtherPartHelpPojo {
     
     private Byte photoupload; //是否上传头像
     
+    public Long getUserid() {
+  		return userid;
+  	}
+  	public void setUserid(Long userid) {
+  		this.userid = userid;
+  	}
+  	
 	public String getUsernickname() {
 		return usernickname;
 	}

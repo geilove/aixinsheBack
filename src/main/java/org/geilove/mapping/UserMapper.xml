@@ -94,18 +94,15 @@
   <!--  自定义，获取昵称 头像 简介部分信息-->
   <select id="selectUserPartProfile" resultType="org.geilove.sqlpojo.OtherPartHelpPojo" >
     select      
-	    userNickName,   
-	    selfIntroduce, userPhoto, photoUpload
-    from 
-    	user
-    where 
-     	userType= #{tag,jdbcType=INTEGER} 
-    order by 
-     	registerDate  desc
-    limit 
-     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
+	    userID,userNickName, selfIntroduce, userPhoto, photoUpload
+    from user
+    where userID  in
+         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+               #{item}
+        </foreach>       
   </select>
   <!--自定义结束 -->
+  
   <!--这个是自定义的返回部分字段的，不知道行不行啊  -->
   <resultMap id="UserPhotoResultMap" type="org.geilove.vo.UserPhotoUrl" >
      <id column="userID" property="userid" jdbcType="BIGINT" />
@@ -119,7 +116,8 @@
   <select id="selectUserPhotos" resultMap="UserPhotoResultMap" >
     select 
     <include refid="UserPhotoList" />
-    from user where userID  in
+    from  user 
+    where userID  in
          <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
                #{item}
        </foreach>

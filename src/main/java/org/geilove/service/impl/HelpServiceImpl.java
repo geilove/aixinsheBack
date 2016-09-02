@@ -24,7 +24,7 @@ public class HelpServiceImpl implements HelpService{
 		lp=moneySourceMapper.selectHelpMen(map);
 		return lp;
 	}
-	
+	//给定一组联系人id，获取头像，昵称，简介，头像是否上传
 	public List<OtherPartHelpPojo> getOtherPartHelpList(List<Long> lst){
 		List<OtherPartHelpPojo> lp=new ArrayList<OtherPartHelpPojo>();
 		lp=userMapper.selectUserPartProfile(lst);

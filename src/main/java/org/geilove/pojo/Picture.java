@@ -17,9 +17,9 @@ public class Picture {
 
     private String photodescription;
 
-    private String photopath;
+    private String photopath; //图片的路径
 
-    private String backupone;
+    private String backupone; //图片对应的url地址
 
     private String backuptwo;
 

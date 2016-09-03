@@ -17,6 +17,14 @@
     <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
     <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
   </resultMap>
+  <!-- 自定义 获取一组图片 -->
+  <select id="selectByMap" resultType="org.geilove.sqlpojo.PicturePojo">
+  	select Photopath,backupOne 
+  	from picture
+  	where photoIDPicture=#{tag,jdbcType=INTEGER}
+    limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
+  </select>
+  
   <sql id="Base_Column_List" >
     pictureID, photoIDPicture, itemIDPicture, photoname, picturename, pictureuploadtime, 
     Photodescription, Photopath, backupOne, backupTwo, backupThree, backupFour, backupFive, 

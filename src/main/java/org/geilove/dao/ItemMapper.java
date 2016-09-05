@@ -20,4 +20,5 @@ public interface ItemMapper {
      
     List<Item> getItemList(Map<String,Object> map);  //获取项目首页列表
     
+    List<Item> loadMoreItemList(Map<String,Object> map); //加载更多
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,8 +56,7 @@ public class ItemController {
 	
 	@RequestMapping(value="/list",method=RequestMethod.POST)
 	public @ResponseBody ItemListRsp getItemList(@RequestBody ItemListParam param ){
-//		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(System.currentTimeMillis());  
-//        System.out.println(sqlTimestamp.toString()); 
+		
 		//String proof=param.getProof();
 		Long userID=param.getUserID();
 		Integer page=param.getPage();
@@ -65,20 +65,20 @@ public class ItemController {
 		map.put("userID", userID);
 		map.put("page", page);
 		map.put("pageSize", pageSize);
-		//前端传的是Long int类型时间戳，只要把时间处理成 "2015-09-04 21:26:42" 就可以到数据库查询，但返回的是Long int 
-		SimpleDateFormat format =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
-	    Long timeupdate=new Long(param.getLastUpdate()); 
-	    String lastUpdateTime = format.format(timeupdate);
-	    Date lastUpdate=new Date();
-	    try{
-	    	lastUpdate=format.parse(lastUpdateTime); 
-	    }catch(Exception e){
-	    	System.out.println(e);
-	    	System.out.println("项目列表更新出问题了");
-	    }	       
-	    
-	    //map.put("lastUpdate", "2015-09-04 21:26:42.463");
-	    map.put("lastUpdate", lastUpdate.toString());
+
+		//SimpleDateFormat format =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		Timestamp timeupdate=new Timestamp(param.getLastUpdate()); 
+		//System.out.println(param.getLastUpdate());
+		
+	   // SimpleDateFormat formats =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		Timestamp itemtime=new Timestamp(param.getLastItemstart());
+		System.out.println(param.getLastItemstart());
+		
+	    map.put("lastUpdate", timeupdate.toString());
+	   
+	    map.put("lastItemstart", itemtime.toString());
+	    map.put("flag", param.getFlag());
+	  
 		ItemListRsp rsp=new ItemListRsp();           
 		List<Item> lsitem=itemService.getItemList(map); //总条数 	
 		if(lsitem.size()==0){ 

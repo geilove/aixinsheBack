@@ -17,7 +17,17 @@ public class ItemServiceImp implements ItemService {
 	
 	public  List<Item> getItemList(Map<String,Object> map){
 		List<Item> lsItem=new ArrayList<Item>();
-		lsItem=iTemMapper.getItemList(map);
+		Object flag=map.get("flag");
+		//System.out.println(flag);
+		if(flag.equals(1)){
+			map.remove("lastItemstart");
+			map.remove("flag");
+			lsItem=iTemMapper.getItemList(map);
+		}else{
+			map.remove("lastUpdate");
+			map.remove("flag");
+			lsItem=iTemMapper.loadMoreItemList(map);
+		}
 		return lsItem;
 	}
 }

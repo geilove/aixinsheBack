@@ -34,12 +34,22 @@
            item     
        where  
            itemStart > #{lastUpdate}
-      order by Itemstart  desc
+      order by itemstart  desc
       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
   </select>
   <!--  自定义select结束 -->
-  
-  
+  <!--  以下是自定义，where的条件是记录的时间大于传过来的时间 -->
+  <select id="loadMoreItemList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+       select
+       <include refid="Base_Column_List" />
+       from 
+           item     
+       where  
+           itemStart &lt;  #{lastItemstart}
+      order by itemstart  desc
+      limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
+  </select>
+  <!--  自定义select结束 -->
   
   <sql id="Base_Column_List" >
     itemID, itemName, circleIDStart, circleIDSupervise, userIDPrincipal, itemStart, itemEnd, 

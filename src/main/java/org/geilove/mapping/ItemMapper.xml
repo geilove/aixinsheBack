@@ -26,14 +26,14 @@
     <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
     <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
   </resultMap>
-  <!--  以下是自定义，根据用户的id获取一组推文 -->
+  <!--  以下是自定义，where的条件是记录的时间大于传过来的时间 -->
   <select id="getItemList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
        select
        <include refid="Base_Column_List" />
        from 
            item     
        where  
-           1=1
+           itemStart > #{lastUpdate}
       order by Itemstart  desc
       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
   </select>

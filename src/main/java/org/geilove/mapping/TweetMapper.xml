@@ -59,7 +59,7 @@
   </select>
   <!--  自定义select结束 -->
   <!-- 自定义开始 -->
-  <select id="findByIdsMap" resultMap="BaseResultMap">
+  <select id="findByIdsMap" resultType="org.geilove.pojo.Tweet">
        Select
        <include refid="Base_Column_List" />
        from tweet where tweetID in

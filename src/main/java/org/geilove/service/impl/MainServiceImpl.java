@@ -10,11 +10,12 @@ import javax.annotation.Resource;
 
 import  org.geilove.pojo.Tweet;
 import org.geilove.service.MainService;
+import org.geilove.sqlpojo.OtherPartHelpPojo;
 import  org.geilove.pojo.Tweet;
 import  org.geilove.dao.TweetMapper;
 import org.geilove.dao.UserMapper;
 import  org.springframework.stereotype.Service;
-
+import org.geilove.vo.WeiBo;
 @Service("tweetListService")
 public class MainServiceImpl implements MainService {
 	
@@ -53,11 +54,12 @@ public class MainServiceImpl implements MainService {
 	} 
 	
 	@Override
-	public List<String> getPhotosByUserIDs(List<Long> useridList){
-		List<String> userPhotos=new ArrayList<String>();
-		userPhotos=userMapper.selectUserPhotos(useridList);              //通过用户表获取列表
-		return userPhotos;
+	public List<OtherPartHelpPojo> getProfileByUserIDs(List<Long> useridList){
+		List<OtherPartHelpPojo> userPhotos=new ArrayList<OtherPartHelpPojo>();
+		userPhotos=userMapper.selectUserPartProfile(useridList);              //通过用户表获取列表
+		return userPhotos; 
 	}
+	
 	@Override
 	public Integer addTweet(Tweet tweet){    //发布一条推文
 		int  response=tweetMapper.insert(tweet);

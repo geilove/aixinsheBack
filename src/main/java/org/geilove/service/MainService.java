@@ -5,7 +5,8 @@ package org.geilove.service;
 import java.util.List;
 
 import org.geilove.pojo.Tweet;
-
+import org.geilove.sqlpojo.OtherPartHelpPojo;
+import org.geilove.vo.WeiBo;
 import java.util.Map;
 
 public interface  MainService {
@@ -13,11 +14,11 @@ public interface  MainService {
 	
 	public List<Tweet> getZhuanfaTweetList(Map<String,Object> map);// 根据SourceMsgID=tweetID获取一条推文的转发推文。
 	
-	public List<Tweet> getTweetByDiffIDs(List<Long> lst);
+	public List<Tweet> getTweetByDiffIDs(List<Long> lst); //根据一组id，获取对应的微博，区别根据用户的id，获取一组推文
 	
 	public Integer updateTweetByKeySelective(Tweet recoord);//只更新记录不为空的字段
 	
-	public List<String> getPhotosByUserIDs(List<Long> useridList);//根据用户的id取得用户的头像地址
+	public List<OtherPartHelpPojo> getProfileByUserIDs(List<Long> useridList); //根据用户的id取得用户的部分信息
 	
 	public Integer addTweet(Tweet tweet); //发布一条推文
    

@@ -65,18 +65,14 @@ public class ItemController {
 		map.put("userID", userID);
 		map.put("page", page);
 		map.put("pageSize", pageSize);
-
 		//SimpleDateFormat format =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
-		Timestamp timeupdate=new Timestamp(param.getLastUpdate()); 
-		//System.out.println(param.getLastUpdate());
-		
-	   // SimpleDateFormat formats =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
-		Timestamp itemtime=new Timestamp(param.getLastItemstart());
-		System.out.println(param.getLastItemstart());
-		
-	    map.put("lastUpdate", timeupdate.toString());
-	   
-	    map.put("lastItemstart", itemtime.toString());
+		//Timestamp timeupdate=new Timestamp(param.getLastUpdate()); 
+		System.out.println(param.getLastUpdate());	
+	    //SimpleDateFormat formats =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		//Timestamp itemtime=new Timestamp(param.getLastItemstart());
+		//System.out.println(param.getLastItemstart());		
+	    map.put("lastUpdate", param.getLastUpdate());	   
+	    map.put("lastItemstart", param.getLastItemstart());
 	    map.put("flag", param.getFlag());
 	  
 		ItemListRsp rsp=new ItemListRsp();           

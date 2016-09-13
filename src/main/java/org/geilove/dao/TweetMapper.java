@@ -2,8 +2,8 @@ package org.geilove.dao;
 
 import java.util.List;
 import java.util.Map;
-
 import org.geilove.pojo.Tweet;
+import org.geilove.vo.WeiBo;
 
 public interface TweetMapper {
     int deleteByPrimaryKey(Long tweetid); //根据主键删除推文

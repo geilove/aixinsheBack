@@ -2,6 +2,8 @@ package org.geilove.pojo;
 
 import java.util.Date;
 
+import org.geilove.vo.WeiBo;
+
 public class Tweet {
     private Long tweetid;
 
@@ -42,8 +44,8 @@ public class Tweet {
     private Integer tweetbackupfive;
 
     private Integer tweetbackupsix;
-
-    public Long getTweetid() {
+    
+	public Long getTweetid() {
         return tweetid;
     }
 

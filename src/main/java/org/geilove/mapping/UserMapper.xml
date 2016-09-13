@@ -103,11 +103,12 @@
   </select>
   <!--自定义结束 -->
   
-  <!--这个是自定义的返回部分字段的，不知道行不行啊  -->
+  <!--这个是自定义的返回部分字段的，不知道行不行啊 -->
   <resultMap id="UserPhotoResultMap" type="org.geilove.vo.UserPhotoUrl" >
      <id column="userID" property="userid" jdbcType="BIGINT" />
      <result column="userPhoto" property="userphoto" jdbcType="VARCHAR" />
   </resultMap>
+   
   <sql id="UserPhotoList" >
     userID, userPhoto
   </sql>

@@ -19,11 +19,25 @@
     <result column="backupFour" property="backupfour" jdbcType="VARCHAR" />
     <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
     <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
+    <result column="beHelpUserID" property="behelpuserid" jdbcType="BIGINT" />
+    <result column="dutyUserID" property="dutyuserid" jdbcType="BIGINT" />
+    <result column="supUserID" property="supuserid" jdbcType="BIGINT" />
+    <result column="beHelpUserName" property="behelpusername" jdbcType="VARCHAR" />
+    <result column="dutyUserName" property="dutyusername" jdbcType="VARCHAR" />
+    <result column="superUserName" property="superusername" jdbcType="VARCHAR" />
+    <result column="circleUserName" property="circleusername" jdbcType="VARCHAR" />
+    <result column="promiseType" property="promisetype" jdbcType="INTEGER" />
+    <result column="promiseDsp" property="promisedsp" jdbcType="INTEGER" />
+    <result column="proveOne" property="proveone" jdbcType="INTEGER" />
+    <result column="proveTwo" property="provetwo" jdbcType="INTEGER" />
+    <result column="proveThree" property="provethree" jdbcType="INTEGER" />
+    <result column="proveFour" property="provefour" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     cashID, userIDCash, userIDCircle, countState, TargetCash, realCash, openTime, closeTime, 
     getMoneyTag, cashOK, spendMoney, backupOne, backupTwo, backupThree, backupFour, backupFive, 
-    backupSix
+    backupSix, beHelpUserID, dutyUserID, supUserID, beHelpUserName, dutyUserName, superUserName, 
+    circleUserName, promiseType, promiseDsp, proveOne, proveTwo, proveThree, proveFour
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -41,13 +55,23 @@
       openTime, closeTime, getMoneyTag, 
       cashOK, spendMoney, backupOne, 
       backupTwo, backupThree, backupFour, 
-      backupFive, backupSix)
+      backupFive, backupSix, beHelpUserID, 
+      dutyUserID, supUserID, beHelpUserName, 
+      dutyUserName, superUserName, circleUserName, 
+      promiseType, promiseDsp, proveOne, 
+      proveTwo, proveThree, proveFour
+      )
     values (#{cashid,jdbcType=BIGINT}, #{useridcash,jdbcType=BIGINT}, #{useridcircle,jdbcType=INTEGER}, 
       #{countstate,jdbcType=TINYINT}, #{targetcash,jdbcType=INTEGER}, #{realcash,jdbcType=INTEGER}, 
       #{opentime,jdbcType=TIMESTAMP}, #{closetime,jdbcType=TIMESTAMP}, #{getmoneytag,jdbcType=TINYINT}, 
       #{cashok,jdbcType=TINYINT}, #{spendmoney,jdbcType=INTEGER}, #{backupone,jdbcType=VARCHAR}, 
       #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
-      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER}, #{behelpuserid,jdbcType=BIGINT}, 
+      #{dutyuserid,jdbcType=BIGINT}, #{supuserid,jdbcType=BIGINT}, #{behelpusername,jdbcType=VARCHAR}, 
+      #{dutyusername,jdbcType=VARCHAR}, #{superusername,jdbcType=VARCHAR}, #{circleusername,jdbcType=VARCHAR}, 
+      #{promisetype,jdbcType=INTEGER}, #{promisedsp,jdbcType=INTEGER}, #{proveone,jdbcType=INTEGER}, 
+      #{provetwo,jdbcType=INTEGER}, #{provethree,jdbcType=INTEGER}, #{provefour,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.geilove.pojo.Cash" >
     insert into cash
@@ -103,6 +127,45 @@
       <if test="backupsix != null" >
         backupSix,
       </if>
+      <if test="behelpuserid != null" >
+        beHelpUserID,
+      </if>
+      <if test="dutyuserid != null" >
+        dutyUserID,
+      </if>
+      <if test="supuserid != null" >
+        supUserID,
+      </if>
+      <if test="behelpusername != null" >
+        beHelpUserName,
+      </if>
+      <if test="dutyusername != null" >
+        dutyUserName,
+      </if>
+      <if test="superusername != null" >
+        superUserName,
+      </if>
+      <if test="circleusername != null" >
+        circleUserName,
+      </if>
+      <if test="promisetype != null" >
+        promiseType,
+      </if>
+      <if test="promisedsp != null" >
+        promiseDsp,
+      </if>
+      <if test="proveone != null" >
+        proveOne,
+      </if>
+      <if test="provetwo != null" >
+        proveTwo,
+      </if>
+      <if test="provethree != null" >
+        proveThree,
+      </if>
+      <if test="provefour != null" >
+        proveFour,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cashid != null" >
@@ -155,6 +218,45 @@
       </if>
       <if test="backupsix != null" >
         #{backupsix,jdbcType=INTEGER},
+      </if>
+      <if test="behelpuserid != null" >
+        #{behelpuserid,jdbcType=BIGINT},
+      </if>
+      <if test="dutyuserid != null" >
+        #{dutyuserid,jdbcType=BIGINT},
+      </if>
+      <if test="supuserid != null" >
+        #{supuserid,jdbcType=BIGINT},
+      </if>
+      <if test="behelpusername != null" >
+        #{behelpusername,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyusername != null" >
+        #{dutyusername,jdbcType=VARCHAR},
+      </if>
+      <if test="superusername != null" >
+        #{superusername,jdbcType=VARCHAR},
+      </if>
+      <if test="circleusername != null" >
+        #{circleusername,jdbcType=VARCHAR},
+      </if>
+      <if test="promisetype != null" >
+        #{promisetype,jdbcType=INTEGER},
+      </if>
+      <if test="promisedsp != null" >
+        #{promisedsp,jdbcType=INTEGER},
+      </if>
+      <if test="proveone != null" >
+        #{proveone,jdbcType=INTEGER},
+      </if>
+      <if test="provetwo != null" >
+        #{provetwo,jdbcType=INTEGER},
+      </if>
+      <if test="provethree != null" >
+        #{provethree,jdbcType=INTEGER},
+      </if>
+      <if test="provefour != null" >
+        #{provefour,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -209,6 +311,45 @@
       <if test="backupsix != null" >
         backupSix = #{backupsix,jdbcType=INTEGER},
       </if>
+      <if test="behelpuserid != null" >
+        beHelpUserID = #{behelpuserid,jdbcType=BIGINT},
+      </if>
+      <if test="dutyuserid != null" >
+        dutyUserID = #{dutyuserid,jdbcType=BIGINT},
+      </if>
+      <if test="supuserid != null" >
+        supUserID = #{supuserid,jdbcType=BIGINT},
+      </if>
+      <if test="behelpusername != null" >
+        beHelpUserName = #{behelpusername,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyusername != null" >
+        dutyUserName = #{dutyusername,jdbcType=VARCHAR},
+      </if>
+      <if test="superusername != null" >
+        superUserName = #{superusername,jdbcType=VARCHAR},
+      </if>
+      <if test="circleusername != null" >
+        circleUserName = #{circleusername,jdbcType=VARCHAR},
+      </if>
+      <if test="promisetype != null" >
+        promiseType = #{promisetype,jdbcType=INTEGER},
+      </if>
+      <if test="promisedsp != null" >
+        promiseDsp = #{promisedsp,jdbcType=INTEGER},
+      </if>
+      <if test="proveone != null" >
+        proveOne = #{proveone,jdbcType=INTEGER},
+      </if>
+      <if test="provetwo != null" >
+        proveTwo = #{provetwo,jdbcType=INTEGER},
+      </if>
+      <if test="provethree != null" >
+        proveThree = #{provethree,jdbcType=INTEGER},
+      </if>
+      <if test="provefour != null" >
+        proveFour = #{provefour,jdbcType=INTEGER},
+      </if>
     </set>
     where cashID = #{cashid,jdbcType=BIGINT}
   </update>
@@ -229,7 +370,20 @@
       backupThree = #{backupthree,jdbcType=VARCHAR},
       backupFour = #{backupfour,jdbcType=VARCHAR},
       backupFive = #{backupfive,jdbcType=INTEGER},
-      backupSix = #{backupsix,jdbcType=INTEGER}
+      backupSix = #{backupsix,jdbcType=INTEGER},
+      beHelpUserID = #{behelpuserid,jdbcType=BIGINT},
+      dutyUserID = #{dutyuserid,jdbcType=BIGINT},
+      supUserID = #{supuserid,jdbcType=BIGINT},
+      beHelpUserName = #{behelpusername,jdbcType=VARCHAR},
+      dutyUserName = #{dutyusername,jdbcType=VARCHAR},
+      superUserName = #{superusername,jdbcType=VARCHAR},
+      circleUserName = #{circleusername,jdbcType=VARCHAR},
+      promiseType = #{promisetype,jdbcType=INTEGER},
+      promiseDsp = #{promisedsp,jdbcType=INTEGER},
+      proveOne = #{proveone,jdbcType=INTEGER},
+      proveTwo = #{provetwo,jdbcType=INTEGER},
+      proveThree = #{provethree,jdbcType=INTEGER},
+      proveFour = #{provefour,jdbcType=INTEGER}
     where cashID = #{cashid,jdbcType=BIGINT}
   </update>
 </mapper>

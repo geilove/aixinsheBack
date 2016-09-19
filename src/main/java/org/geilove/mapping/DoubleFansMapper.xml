@@ -32,6 +32,19 @@
   </select>
   <!--自定义结束 -->
   
+ <!--  自定义，获取被关注者id列表-->
+  <select id="getWatchids" resultType="java.lang.Long" >
+    select      
+	     userIDBeFocus
+    from 
+    	doublefans
+    where 
+     	userIDFollowe= #{userid,jdbcType=INTEGER} 
+    order by 
+     	payDate  desc     
+  </select>
+  <!--自定义结束 -->
+   
   <sql id="Base_Column_List" >
     doubleFansID, userIDFollowe, userIDBeFocus, payDate, payTag, groupID, specialFollow, 
     doubleFans, backupOne, backupTwo, backupThree, backupFour, backupFive, backupSix

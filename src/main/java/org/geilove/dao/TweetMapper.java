@@ -23,4 +23,7 @@ public interface TweetMapper {
     int updateByPrimaryKeySelective(Tweet record);
 
     int updateByPrimaryKey(Tweet record); 
+    
+    List<Tweet> findByUserIds(List<Long> lst); //根据获得的用户的一组userids 取出一组微博
+    
 }

@@ -22,11 +22,15 @@
     <result column="tweetbackupFour" property="tweetbackupfour" jdbcType="INTEGER" />
     <result column="tweetbackupFive" property="tweetbackupfive" jdbcType="INTEGER" />
     <result column="tweetbackupSix" property="tweetbackupsix" jdbcType="INTEGER" />
+    <result column="promise" jdbcType="VARCHAR" property="promise" />
+    <result column="tweetbackupSeven" jdbcType="VARCHAR" property="tweetbackupseven" />
   </resultMap>
+  
+  
   <sql id="Base_Column_List" >
     tweetID, userIDTweet, sourceMsgID, tagID, msgContent, topic, commentTimes, ok, boxTimes, 
     publishTime, reportedTimes, publicSee, deleteTag, videoAddress, tweetbackUpOne, tweetbackUpTwo, 
-    tweetbackUpThree, tweetbackupFour, tweetbackupFive, tweetbackupSix
+    tweetbackUpThree, tweetbackupFour, tweetbackupFive, tweetbackupSix,promise, tweetbackupSeven
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -68,26 +72,39 @@
           </foreach>
   </select> 
   <!-- 自定义结束 -->
-       
+    <!-- 自定义开始 -->
+  <select id="findByUserIds" resultType="org.geilove.pojo.Tweet">
+       Select
+       <include refid="Base_Column_List" />
+       from tweet where userID in
+          <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                  #{item}
+          </foreach>
+      order by publishTime desc
+  </select> 
+  <!-- 自定义结束 -->
+      
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tweet
     where tweetID = #{tweetid,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="org.geilove.pojo.Tweet" >
+  <insert id="insert" parameterType="org.geilove.pojo.Tweet">
     insert into tweet (tweetID, userIDTweet, sourceMsgID, 
       tagID, msgContent, topic, 
       commentTimes, ok, boxTimes, 
       publishTime, reportedTimes, publicSee, 
       deleteTag, videoAddress, tweetbackUpOne, 
       tweetbackUpTwo, tweetbackUpThree, tweetbackupFour, 
-      tweetbackupFive, tweetbackupSix)
+      tweetbackupFive, tweetbackupSix, promise, 
+      tweetbackupSeven)
     values (#{tweetid,jdbcType=BIGINT}, #{useridtweet,jdbcType=BIGINT}, #{sourcemsgid,jdbcType=BIGINT}, 
       #{tagid,jdbcType=TINYINT}, #{msgcontent,jdbcType=VARCHAR}, #{topic,jdbcType=BIGINT}, 
       #{commenttimes,jdbcType=INTEGER}, #{ok,jdbcType=INTEGER}, #{boxtimes,jdbcType=INTEGER}, 
       #{publishtime,jdbcType=TIMESTAMP}, #{reportedtimes,jdbcType=INTEGER}, #{publicsee,jdbcType=TINYINT}, 
       #{deletetag,jdbcType=TINYINT}, #{videoaddress,jdbcType=VARCHAR}, #{tweetbackupone,jdbcType=VARCHAR}, 
       #{tweetbackuptwo,jdbcType=VARCHAR}, #{tweetbackupthree,jdbcType=VARCHAR}, #{tweetbackupfour,jdbcType=INTEGER}, 
-      #{tweetbackupfive,jdbcType=INTEGER}, #{tweetbackupsix,jdbcType=INTEGER})
+      #{tweetbackupfive,jdbcType=INTEGER}, #{tweetbackupsix,jdbcType=INTEGER}, #{promise,jdbcType=VARCHAR}, 
+      #{tweetbackupseven,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.geilove.pojo.Tweet" >
     insert into tweet
@@ -152,6 +169,12 @@
       <if test="tweetbackupsix != null" >
         tweetbackupSix,
       </if>
+       <if test="promise != null">
+        promise,
+      </if>
+      <if test="tweetbackupseven != null">
+        tweetbackupSeven,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="tweetid != null" >
@@ -213,6 +236,12 @@
       </if>
       <if test="tweetbackupsix != null" >
         #{tweetbackupsix,jdbcType=INTEGER},
+      </if>
+      <if test="promise != null">
+        #{promise,jdbcType=VARCHAR},
+      </if>
+      <if test="tweetbackupseven != null">
+        #{tweetbackupseven,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -276,6 +305,12 @@
       <if test="tweetbackupsix != null" >
         tweetbackupSix = #{tweetbackupsix,jdbcType=INTEGER},
       </if>
+      <if test="promise != null">
+        promise = #{promise,jdbcType=VARCHAR},
+      </if>
+      <if test="tweetbackupseven != null">
+        tweetbackupSeven = #{tweetbackupseven,jdbcType=VARCHAR},
+      </if>
     </set>
     where tweetID = #{tweetid,jdbcType=BIGINT}
   </update>
@@ -299,7 +334,9 @@
       tweetbackUpThree = #{tweetbackupthree,jdbcType=VARCHAR},
       tweetbackupFour = #{tweetbackupfour,jdbcType=INTEGER},
       tweetbackupFive = #{tweetbackupfive,jdbcType=INTEGER},
-      tweetbackupSix = #{tweetbackupsix,jdbcType=INTEGER}
+      tweetbackupSix = #{tweetbackupsix,jdbcType=INTEGER},
+      promise = #{promise,jdbcType=VARCHAR},
+      tweetbackupSeven = #{tweetbackupseven,jdbcType=VARCHAR}
     where tweetID = #{tweetid,jdbcType=BIGINT}
   </update>
 </mapper>

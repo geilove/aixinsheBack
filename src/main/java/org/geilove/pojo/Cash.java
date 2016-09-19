@@ -37,6 +37,32 @@ public class Cash {
 
     private Integer backupsix;
 
+    private Long behelpuserid;
+
+    private Long dutyuserid;
+
+    private Long supuserid;
+
+    private String behelpusername;
+
+    private String dutyusername;
+
+    private String superusername;
+
+    private String circleusername;
+
+    private Integer promisetype;
+
+    private Integer promisedsp;
+
+    private Integer proveone;
+
+    private Integer provetwo;
+
+    private Integer provethree;
+
+    private Integer provefour;
+
     public Long getCashid() {
         return cashid;
     }
@@ -57,8 +83,8 @@ public class Cash {
         return useridcircle;
     }
 
-    public void setUseridcircle(Integer integer) {
-        this.useridcircle = integer;
+    public void setUseridcircle(Integer useridcircle) {
+        this.useridcircle = useridcircle;
     }
 
     public Byte getCountstate() {
@@ -171,5 +197,109 @@ public class Cash {
 
     public void setBackupsix(Integer backupsix) {
         this.backupsix = backupsix;
+    }
+
+    public Long getBehelpuserid() {
+        return behelpuserid;
+    }
+
+    public void setBehelpuserid(Long behelpuserid) {
+        this.behelpuserid = behelpuserid;
+    }
+
+    public Long getDutyuserid() {
+        return dutyuserid;
+    }
+
+    public void setDutyuserid(Long dutyuserid) {
+        this.dutyuserid = dutyuserid;
+    }
+
+    public Long getSupuserid() {
+        return supuserid;
+    }
+
+    public void setSupuserid(Long supuserid) {
+        this.supuserid = supuserid;
+    }
+
+    public String getBehelpusername() {
+        return behelpusername;
+    }
+
+    public void setBehelpusername(String behelpusername) {
+        this.behelpusername = behelpusername == null ? null : behelpusername.trim();
+    }
+
+    public String getDutyusername() {
+        return dutyusername;
+    }
+
+    public void setDutyusername(String dutyusername) {
+        this.dutyusername = dutyusername == null ? null : dutyusername.trim();
+    }
+
+    public String getSuperusername() {
+        return superusername;
+    }
+
+    public void setSuperusername(String superusername) {
+        this.superusername = superusername == null ? null : superusername.trim();
+    }
+
+    public String getCircleusername() {
+        return circleusername;
+    }
+
+    public void setCircleusername(String circleusername) {
+        this.circleusername = circleusername == null ? null : circleusername.trim();
+    }
+
+    public Integer getPromisetype() {
+        return promisetype;
+    }
+
+    public void setPromisetype(Integer promisetype) {
+        this.promisetype = promisetype;
+    }
+
+    public Integer getPromisedsp() {
+        return promisedsp;
+    }
+
+    public void setPromisedsp(Integer promisedsp) {
+        this.promisedsp = promisedsp;
+    }
+
+    public Integer getProveone() {
+        return proveone;
+    }
+
+    public void setProveone(Integer proveone) {
+        this.proveone = proveone;
+    }
+
+    public Integer getProvetwo() {
+        return provetwo;
+    }
+
+    public void setProvetwo(Integer provetwo) {
+        this.provetwo = provetwo;
+    }
+
+    public Integer getProvethree() {
+        return provethree;
+    }
+
+    public void setProvethree(Integer provethree) {
+        this.provethree = provethree;
+    }
+
+    public Integer getProvefour() {
+        return provefour;
+    }
+
+    public void setProvefour(Integer provefour) {
+        this.provefour = provefour;
     }
 }

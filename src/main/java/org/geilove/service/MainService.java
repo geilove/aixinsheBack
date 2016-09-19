@@ -21,5 +21,10 @@ public interface  MainService {
 	public List<OtherPartHelpPojo> getProfileByUserIDs(List<Long> useridList); //根据用户的id取得用户的部分信息
 	
 	public Integer addTweet(Tweet tweet); //发布一条推文
+	
+	public List<Long> getBeWatcherIds(Map<String,Object> map);
+	
+	public List<Tweet> getWeiBoList(List<Long> ls);
+
    
 }

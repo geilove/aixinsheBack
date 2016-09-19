@@ -14,6 +14,7 @@ import org.geilove.service.MainService;
 import org.geilove.sqlpojo.OtherPartHelpPojo;
 import org.geilove.vo.TweetByTweetVo;
 import org.geilove.requestParam.TweetListParam;
+import org.geilove.requestParam.WeiBoListParam;
 import org.geilove.requestParam.ZhuangfaListParam;
 import java.util.List;
 import java.util.ArrayList;
@@ -168,13 +169,15 @@ public class TweetController {
 	    
 		return tweetsListRsp;
 	}
-	/*推文主页接口，先获取这个用户关注的人的id(按照关注时间排序)，然后用这组id获取推文(按照时间排序)20条，
-	 *如果是刷新还是这个接口，app端清空数据 
-	 * 如果是加载更多应该换一个接口
+	
+	
+	/*
+	 * 推文主页接口，先获取这个用户关注的人的id(按照关注时间排序)，然后用这组id获取推文(按照时间排序)20条，
+	 * 如果是刷新还是这个接口，app端清空数据，
+	 * 如果是加载更多应该换一个接口。
 	 */
-
 	@RequestMapping(value="/gettuiwenlists")//这个是在可直接获取用户ID时候用
-	public  @ResponseBody TweetsListRsp getTweetLists(@RequestBody TweetListParam tweetListParam ){
+	public  @ResponseBody TweetsListRsp getTweetLists(@RequestBody WeiBoListParam tweetListParam ){
 		TweetsListRsp tweetsListRsp=new TweetsListRsp();
 		Long	 userID=tweetListParam.getUserID();
 		Integer  page=tweetListParam.getPage();
@@ -189,9 +192,11 @@ public class TweetController {
 		map.put("userID", userID);
 		map.put("page", page);
 		map.put("pageSize", pageSize);	
-		/*先获取这个人关注的列表集合List<Long>*/
+		/*-1.先获取这个人关注的列表集合List<Long>*/
+		List<Long> lsids=mainService.getBeWatcherIds(map); //这个map只用到了userID
+		/*0.然后用这个userid集合获取一组推文，*/
 		
-		List<Tweet> tweets=mainService.getTweetList(map);//首先取得推文，不带转发			
+		List<Tweet> tweets=mainService.getWeiBoList(lsids);//首先取得推文，不带转发
 		
 		/*1.先获取这组推文包含的用户id集合和被转发的推文主键id集合*/
 		if(tweets.size()!=0){

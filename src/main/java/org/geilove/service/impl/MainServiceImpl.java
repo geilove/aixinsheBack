@@ -9,13 +9,14 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import  org.geilove.pojo.Tweet;
-import org.geilove.service.MainService;
-import org.geilove.sqlpojo.OtherPartHelpPojo;
+import  org.geilove.service.MainService;
+import  org.geilove.sqlpojo.OtherPartHelpPojo;
 import  org.geilove.pojo.Tweet;
 import  org.geilove.dao.TweetMapper;
-import org.geilove.dao.UserMapper;
+import  org.geilove.dao.UserMapper;
+import  org.geilove.dao.DoubleFansMapper;
 import  org.springframework.stereotype.Service;
-import org.geilove.vo.WeiBo;
+import  org.geilove.vo.WeiBo;
 @Service("tweetListService")
 public class MainServiceImpl implements MainService {
 	
@@ -25,6 +26,8 @@ public class MainServiceImpl implements MainService {
 	@Resource
 	private UserMapper userMapper;
 	
+	@Resource
+	private DoubleFansMapper doubleFansMapper;
          /* 先根据用户id，按照时间标签获取tweet，然后遍历tweet，如果是转发的，就请求数据库，
 	      * 获取原tweet，合成一块返回,这里还要加上@带来的超链接。
 	     */
@@ -64,6 +67,18 @@ public class MainServiceImpl implements MainService {
 	public Integer addTweet(Tweet tweet){    //发布一条推文
 		int  response=tweetMapper.insert(tweet);
 		return response;
+	}
+	@Override
+	public List<Long> getBeWatcherIds(Map<String,Object> map){
+		List<Long> lsids=new ArrayList<Long>();
+		lsids=doubleFansMapper.getWatchids(map);		
+		return lsids;
+	}
+	
+	public List<Tweet> getWeiBoList(List<Long> ls){
+		List<Tweet> lsTweet=new ArrayList<Tweet>();
+		lsTweet=tweetMapper.findByUserIds(ls);
+		return lsTweet;
 	}
 	
 }

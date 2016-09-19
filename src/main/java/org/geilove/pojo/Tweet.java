@@ -44,6 +44,9 @@ public class Tweet {
     private Integer tweetbackupfive;
 
     private Integer tweetbackupsix;
+    private String promise;
+
+    private String tweetbackupseven;
     
 	public Long getTweetid() {
         return tweetid;
@@ -203,5 +206,20 @@ public class Tweet {
 
     public void setTweetbackupsix(Integer tweetbackupsix) {
         this.tweetbackupsix = tweetbackupsix;
+    }
+    public String getPromise() {
+        return promise;
+    }
+
+    public void setPromise(String promise) {
+        this.promise = promise == null ? null : promise.trim();
+    }
+
+    public String getTweetbackupseven() {
+        return tweetbackupseven;
+    }
+
+    public void setTweetbackupseven(String tweetbackupseven) {
+        this.tweetbackupseven = tweetbackupseven == null ? null : tweetbackupseven.trim();
     }
 }

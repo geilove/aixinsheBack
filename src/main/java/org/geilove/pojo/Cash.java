@@ -62,7 +62,9 @@ public class Cash {
     private Integer provethree;
 
     private Integer provefour;
-
+    
+    private String promisemiaoshu;
+    
     public Long getCashid() {
         return cashid;
     }
@@ -301,5 +303,12 @@ public class Cash {
 
     public void setProvefour(Integer provefour) {
         this.provefour = provefour;
+    }
+    public String getPromisemiaoshu() {
+        return promisemiaoshu;
+    }
+
+    public void setPromisemiaoshu(String promisemiaoshu) {
+        this.promisemiaoshu = promisemiaoshu == null ? null : promisemiaoshu.trim();
     }
 }

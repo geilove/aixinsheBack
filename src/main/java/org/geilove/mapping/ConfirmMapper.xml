@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.ConfirmMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.Confirm" >
+    <id column="confirmid" property="confirmid" jdbcType="BIGINT" />
+    <result column="items" property="items" jdbcType="BIGINT" />
+    <result column="tuiwenid" property="tuiwenid" jdbcType="BIGINT" />
+    <result column="tag" property="tag" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="publishTime" property="publishtime" jdbcType="TIMESTAMP" />
+    <result column="reportedTimes" property="reportedtimes" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="relation" property="relation" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="confirmbackupOne" property="confirmbackupone" jdbcType="VARCHAR" />
+    <result column="confirmbackupTwo" property="confirmbackuptwo" jdbcType="VARCHAR" />
+    <result column="confirmbackupThree" property="confirmbackupthree" jdbcType="VARCHAR" />
+    <result column="confirmbackupFour" property="confirmbackupfour" jdbcType="INTEGER" />
+    <result column="confirmbackupFive" property="confirmbackupfive" jdbcType="TIMESTAMP" />
+    <result column="confirmbackupSix" property="confirmbackupsix" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    confirmid, items, tuiwenid, tag, userid, publishTime, reportedTimes, content, relation, 
+    mobile, confirmbackupOne, confirmbackupTwo, confirmbackupThree, confirmbackupFour, 
+    confirmbackupFive, confirmbackupSix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from confirm
+    where confirmid = #{confirmid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from confirm
+    where confirmid = #{confirmid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.Confirm" >
+    insert into confirm (confirmid, items, tuiwenid, 
+      tag, userid, publishTime, 
+      reportedTimes, content, relation, 
+      mobile, confirmbackupOne, confirmbackupTwo, 
+      confirmbackupThree, confirmbackupFour, 
+      confirmbackupFive, confirmbackupSix)
+    values (#{confirmid,jdbcType=BIGINT}, #{items,jdbcType=BIGINT}, #{tuiwenid,jdbcType=BIGINT}, 
+      #{tag,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT}, #{publishtime,jdbcType=TIMESTAMP}, 
+      #{reportedtimes,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{confirmbackupone,jdbcType=VARCHAR}, #{confirmbackuptwo,jdbcType=VARCHAR}, 
+      #{confirmbackupthree,jdbcType=VARCHAR}, #{confirmbackupfour,jdbcType=INTEGER}, 
+      #{confirmbackupfive,jdbcType=TIMESTAMP}, #{confirmbackupsix,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.Confirm" >
+    insert into confirm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="confirmid != null" >
+        confirmid,
+      </if>
+      <if test="items != null" >
+        items,
+      </if>
+      <if test="tuiwenid != null" >
+        tuiwenid,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="publishtime != null" >
+        publishTime,
+      </if>
+      <if test="reportedtimes != null" >
+        reportedTimes,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="relation != null" >
+        relation,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="confirmbackupone != null" >
+        confirmbackupOne,
+      </if>
+      <if test="confirmbackuptwo != null" >
+        confirmbackupTwo,
+      </if>
+      <if test="confirmbackupthree != null" >
+        confirmbackupThree,
+      </if>
+      <if test="confirmbackupfour != null" >
+        confirmbackupFour,
+      </if>
+      <if test="confirmbackupfive != null" >
+        confirmbackupFive,
+      </if>
+      <if test="confirmbackupsix != null" >
+        confirmbackupSix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="confirmid != null" >
+        #{confirmid,jdbcType=BIGINT},
+      </if>
+      <if test="items != null" >
+        #{items,jdbcType=BIGINT},
+      </if>
+      <if test="tuiwenid != null" >
+        #{tuiwenid,jdbcType=BIGINT},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="publishtime != null" >
+        #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportedtimes != null" >
+        #{reportedtimes,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null" >
+        #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmbackupone != null" >
+        #{confirmbackupone,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmbackuptwo != null" >
+        #{confirmbackuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmbackupthree != null" >
+        #{confirmbackupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmbackupfour != null" >
+        #{confirmbackupfour,jdbcType=INTEGER},
+      </if>
+      <if test="confirmbackupfive != null" >
+        #{confirmbackupfive,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmbackupsix != null" >
+        #{confirmbackupsix,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.Confirm" >
+    update confirm
+    <set >
+      <if test="items != null" >
+        items = #{items,jdbcType=BIGINT},
+      </if>
+      <if test="tuiwenid != null" >
+        tuiwenid = #{tuiwenid,jdbcType=BIGINT},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="publishtime != null" >
+        publishTime = #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportedtimes != null" >
+        reportedTimes = #{reportedtimes,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null" >
+        relation = #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmbackupone != null" >
+        confirmbackupOne = #{confirmbackupone,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmbackuptwo != null" >
+        confirmbackupTwo = #{confirmbackuptwo,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmbackupthree != null" >
+        confirmbackupThree = #{confirmbackupthree,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmbackupfour != null" >
+        confirmbackupFour = #{confirmbackupfour,jdbcType=INTEGER},
+      </if>
+      <if test="confirmbackupfive != null" >
+        confirmbackupFive = #{confirmbackupfive,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmbackupsix != null" >
+        confirmbackupSix = #{confirmbackupsix,jdbcType=BIGINT},
+      </if>
+    </set>
+    where confirmid = #{confirmid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.Confirm" >
+    update confirm
+    set items = #{items,jdbcType=BIGINT},
+      tuiwenid = #{tuiwenid,jdbcType=BIGINT},
+      tag = #{tag,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=BIGINT},
+      publishTime = #{publishtime,jdbcType=TIMESTAMP},
+      reportedTimes = #{reportedtimes,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      relation = #{relation,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      confirmbackupOne = #{confirmbackupone,jdbcType=VARCHAR},
+      confirmbackupTwo = #{confirmbackuptwo,jdbcType=VARCHAR},
+      confirmbackupThree = #{confirmbackupthree,jdbcType=VARCHAR},
+      confirmbackupFour = #{confirmbackupfour,jdbcType=INTEGER},
+      confirmbackupFive = #{confirmbackupfive,jdbcType=TIMESTAMP},
+      confirmbackupSix = #{confirmbackupsix,jdbcType=BIGINT}
+    where confirmid = #{confirmid,jdbcType=BIGINT}
+  </update>
+</mapper>

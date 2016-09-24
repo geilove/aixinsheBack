@@ -35,8 +35,7 @@ public class WatchController {
 	    dbfans.setDoublefans((byte)1);
 	    Integer tag=watchService.doWatch(dbfans);	
 	    followVo.setWathctag(tag);
-	    if(tag==1){
-	    	
+	    if(tag==1){	    	
 	    	followVo.setWatchtips("关注成功了");
 	    }else{
 	    	followVo.setWatchtips("关注失败了");
@@ -47,9 +46,10 @@ public class WatchController {
 	@RequestMapping(value="/getwatchlist",method=RequestMethod.POST)
 	public @ResponseBody WatchListRsp getWatchList(@RequestBody WatchListParam followParam ){
 		WatchListRsp rsp=new WatchListRsp();
-		//取得关注折的userID列表和其它数据
-		//用userID列表取得剩余的属性
-		//组合起来返回给用户
+		Long userID=followParam.getUserID();
+		//查询关注 和被关注列表
+		//根据这组数据，选出id列表
+		//用id列表到user表查询数据
 		return rsp;
 	}
 }

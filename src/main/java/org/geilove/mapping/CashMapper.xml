@@ -32,12 +32,13 @@
     <result column="proveTwo" property="provetwo" jdbcType="INTEGER" />
     <result column="proveThree" property="provethree" jdbcType="INTEGER" />
     <result column="proveFour" property="provefour" jdbcType="INTEGER" />
+    <result column="promiseMiaoshu" jdbcType="VARCHAR" property="promisemiaoshu" />
   </resultMap>
   <sql id="Base_Column_List" >
     cashID, userIDCash, userIDCircle, countState, TargetCash, realCash, openTime, closeTime, 
     getMoneyTag, cashOK, spendMoney, backupOne, backupTwo, backupThree, backupFour, backupFive, 
     backupSix, beHelpUserID, dutyUserID, supUserID, beHelpUserName, dutyUserName, superUserName, 
-    circleUserName, promiseType, promiseDsp, proveOne, proveTwo, proveThree, proveFour
+    circleUserName, promiseType, promiseDsp, proveOne, proveTwo, proveThree, proveFour,promiseMiaoshu
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -49,7 +50,7 @@
     delete from cash
     where cashID = #{cashid,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="org.geilove.pojo.Cash" >
+  <insert id="insert" parameterType="org.geilove.pojo.Cash">
     insert into cash (cashID, userIDCash, userIDCircle, 
       countState, TargetCash, realCash, 
       openTime, closeTime, getMoneyTag, 
@@ -59,8 +60,8 @@
       dutyUserID, supUserID, beHelpUserName, 
       dutyUserName, superUserName, circleUserName, 
       promiseType, promiseDsp, proveOne, 
-      proveTwo, proveThree, proveFour
-      )
+      proveTwo, proveThree, proveFour, 
+      promiseMiaoshu)
     values (#{cashid,jdbcType=BIGINT}, #{useridcash,jdbcType=BIGINT}, #{useridcircle,jdbcType=INTEGER}, 
       #{countstate,jdbcType=TINYINT}, #{targetcash,jdbcType=INTEGER}, #{realcash,jdbcType=INTEGER}, 
       #{opentime,jdbcType=TIMESTAMP}, #{closetime,jdbcType=TIMESTAMP}, #{getmoneytag,jdbcType=TINYINT}, 
@@ -70,290 +71,290 @@
       #{dutyuserid,jdbcType=BIGINT}, #{supuserid,jdbcType=BIGINT}, #{behelpusername,jdbcType=VARCHAR}, 
       #{dutyusername,jdbcType=VARCHAR}, #{superusername,jdbcType=VARCHAR}, #{circleusername,jdbcType=VARCHAR}, 
       #{promisetype,jdbcType=INTEGER}, #{promisedsp,jdbcType=INTEGER}, #{proveone,jdbcType=INTEGER}, 
-      #{provetwo,jdbcType=INTEGER}, #{provethree,jdbcType=INTEGER}, #{provefour,jdbcType=INTEGER}
-      )
+      #{provetwo,jdbcType=INTEGER}, #{provethree,jdbcType=INTEGER}, #{provefour,jdbcType=INTEGER}, 
+      #{promisemiaoshu,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="org.geilove.pojo.Cash" >
+ <insert id="insertSelective" parameterType="org.geilove.pojo.Cash">
     insert into cash
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="cashid != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cashid != null">
         cashID,
       </if>
-      <if test="useridcash != null" >
+      <if test="useridcash != null">
         userIDCash,
       </if>
-      <if test="useridcircle != null" >
+      <if test="useridcircle != null">
         userIDCircle,
       </if>
-      <if test="countstate != null" >
+      <if test="countstate != null">
         countState,
       </if>
-      <if test="targetcash != null" >
+      <if test="targetcash != null">
         TargetCash,
       </if>
-      <if test="realcash != null" >
+      <if test="realcash != null">
         realCash,
       </if>
-      <if test="opentime != null" >
+      <if test="opentime != null">
         openTime,
       </if>
-      <if test="closetime != null" >
+      <if test="closetime != null">
         closeTime,
       </if>
-      <if test="getmoneytag != null" >
+      <if test="getmoneytag != null">
         getMoneyTag,
       </if>
-      <if test="cashok != null" >
+      <if test="cashok != null">
         cashOK,
       </if>
-      <if test="spendmoney != null" >
+      <if test="spendmoney != null">
         spendMoney,
       </if>
-      <if test="backupone != null" >
+      <if test="backupone != null">
         backupOne,
       </if>
-      <if test="backuptwo != null" >
+      <if test="backuptwo != null">
         backupTwo,
       </if>
-      <if test="backupthree != null" >
+      <if test="backupthree != null">
         backupThree,
       </if>
-      <if test="backupfour != null" >
+      <if test="backupfour != null">
         backupFour,
       </if>
-      <if test="backupfive != null" >
+      <if test="backupfive != null">
         backupFive,
       </if>
-      <if test="backupsix != null" >
+      <if test="backupsix != null">
         backupSix,
       </if>
-      <if test="behelpuserid != null" >
+      <if test="behelpuserid != null">
         beHelpUserID,
       </if>
-      <if test="dutyuserid != null" >
+      <if test="dutyuserid != null">
         dutyUserID,
       </if>
-      <if test="supuserid != null" >
+      <if test="supuserid != null">
         supUserID,
       </if>
-      <if test="behelpusername != null" >
+      <if test="behelpusername != null">
         beHelpUserName,
       </if>
-      <if test="dutyusername != null" >
+      <if test="dutyusername != null">
         dutyUserName,
       </if>
-      <if test="superusername != null" >
+      <if test="superusername != null">
         superUserName,
       </if>
-      <if test="circleusername != null" >
+      <if test="circleusername != null">
         circleUserName,
       </if>
-      <if test="promisetype != null" >
+      <if test="promisetype != null">
         promiseType,
       </if>
-      <if test="promisedsp != null" >
+      <if test="promisedsp != null">
         promiseDsp,
       </if>
-      <if test="proveone != null" >
+      <if test="proveone != null">
         proveOne,
       </if>
-      <if test="provetwo != null" >
+      <if test="provetwo != null">
         proveTwo,
       </if>
-      <if test="provethree != null" >
+      <if test="provethree != null">
         proveThree,
       </if>
-      <if test="provefour != null" >
+      <if test="provefour != null">
         proveFour,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="cashid != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cashid != null">
         #{cashid,jdbcType=BIGINT},
       </if>
-      <if test="useridcash != null" >
+      <if test="useridcash != null">
         #{useridcash,jdbcType=BIGINT},
       </if>
-      <if test="useridcircle != null" >
+      <if test="useridcircle != null">
         #{useridcircle,jdbcType=INTEGER},
       </if>
-      <if test="countstate != null" >
+      <if test="countstate != null">
         #{countstate,jdbcType=TINYINT},
       </if>
-      <if test="targetcash != null" >
+      <if test="targetcash != null">
         #{targetcash,jdbcType=INTEGER},
       </if>
-      <if test="realcash != null" >
+      <if test="realcash != null">
         #{realcash,jdbcType=INTEGER},
       </if>
-      <if test="opentime != null" >
+      <if test="opentime != null">
         #{opentime,jdbcType=TIMESTAMP},
       </if>
-      <if test="closetime != null" >
+      <if test="closetime != null">
         #{closetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="getmoneytag != null" >
+      <if test="getmoneytag != null">
         #{getmoneytag,jdbcType=TINYINT},
       </if>
-      <if test="cashok != null" >
+      <if test="cashok != null">
         #{cashok,jdbcType=TINYINT},
       </if>
-      <if test="spendmoney != null" >
+      <if test="spendmoney != null">
         #{spendmoney,jdbcType=INTEGER},
       </if>
-      <if test="backupone != null" >
+      <if test="backupone != null">
         #{backupone,jdbcType=VARCHAR},
       </if>
-      <if test="backuptwo != null" >
+      <if test="backuptwo != null">
         #{backuptwo,jdbcType=VARCHAR},
       </if>
-      <if test="backupthree != null" >
+      <if test="backupthree != null">
         #{backupthree,jdbcType=VARCHAR},
       </if>
-      <if test="backupfour != null" >
+      <if test="backupfour != null">
         #{backupfour,jdbcType=VARCHAR},
       </if>
-      <if test="backupfive != null" >
+      <if test="backupfive != null">
         #{backupfive,jdbcType=INTEGER},
       </if>
-      <if test="backupsix != null" >
+      <if test="backupsix != null">
         #{backupsix,jdbcType=INTEGER},
       </if>
-      <if test="behelpuserid != null" >
+      <if test="behelpuserid != null">
         #{behelpuserid,jdbcType=BIGINT},
       </if>
-      <if test="dutyuserid != null" >
+      <if test="dutyuserid != null">
         #{dutyuserid,jdbcType=BIGINT},
       </if>
-      <if test="supuserid != null" >
+      <if test="supuserid != null">
         #{supuserid,jdbcType=BIGINT},
       </if>
-      <if test="behelpusername != null" >
+      <if test="behelpusername != null">
         #{behelpusername,jdbcType=VARCHAR},
       </if>
-      <if test="dutyusername != null" >
+      <if test="dutyusername != null">
         #{dutyusername,jdbcType=VARCHAR},
       </if>
-      <if test="superusername != null" >
+      <if test="superusername != null">
         #{superusername,jdbcType=VARCHAR},
       </if>
-      <if test="circleusername != null" >
+      <if test="circleusername != null">
         #{circleusername,jdbcType=VARCHAR},
       </if>
-      <if test="promisetype != null" >
+      <if test="promisetype != null">
         #{promisetype,jdbcType=INTEGER},
       </if>
-      <if test="promisedsp != null" >
+      <if test="promisedsp != null">
         #{promisedsp,jdbcType=INTEGER},
       </if>
-      <if test="proveone != null" >
+      <if test="proveone != null">
         #{proveone,jdbcType=INTEGER},
       </if>
-      <if test="provetwo != null" >
+      <if test="provetwo != null">
         #{provetwo,jdbcType=INTEGER},
       </if>
-      <if test="provethree != null" >
+      <if test="provethree != null">
         #{provethree,jdbcType=INTEGER},
       </if>
-      <if test="provefour != null" >
+      <if test="provefour != null">
         #{provefour,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.Cash" >
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.Cash">
     update cash
-    <set >
-      <if test="useridcash != null" >
+    <set>
+      <if test="useridcash != null">
         userIDCash = #{useridcash,jdbcType=BIGINT},
       </if>
-      <if test="useridcircle != null" >
+      <if test="useridcircle != null">
         userIDCircle = #{useridcircle,jdbcType=INTEGER},
       </if>
-      <if test="countstate != null" >
+      <if test="countstate != null">
         countState = #{countstate,jdbcType=TINYINT},
       </if>
-      <if test="targetcash != null" >
+      <if test="targetcash != null">
         TargetCash = #{targetcash,jdbcType=INTEGER},
       </if>
-      <if test="realcash != null" >
+      <if test="realcash != null">
         realCash = #{realcash,jdbcType=INTEGER},
       </if>
-      <if test="opentime != null" >
+      <if test="opentime != null">
         openTime = #{opentime,jdbcType=TIMESTAMP},
       </if>
-      <if test="closetime != null" >
+      <if test="closetime != null">
         closeTime = #{closetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="getmoneytag != null" >
+      <if test="getmoneytag != null">
         getMoneyTag = #{getmoneytag,jdbcType=TINYINT},
       </if>
-      <if test="cashok != null" >
+      <if test="cashok != null">
         cashOK = #{cashok,jdbcType=TINYINT},
       </if>
-      <if test="spendmoney != null" >
+      <if test="spendmoney != null">
         spendMoney = #{spendmoney,jdbcType=INTEGER},
       </if>
-      <if test="backupone != null" >
+      <if test="backupone != null">
         backupOne = #{backupone,jdbcType=VARCHAR},
       </if>
-      <if test="backuptwo != null" >
+      <if test="backuptwo != null">
         backupTwo = #{backuptwo,jdbcType=VARCHAR},
       </if>
-      <if test="backupthree != null" >
+      <if test="backupthree != null">
         backupThree = #{backupthree,jdbcType=VARCHAR},
       </if>
-      <if test="backupfour != null" >
+      <if test="backupfour != null">
         backupFour = #{backupfour,jdbcType=VARCHAR},
       </if>
-      <if test="backupfive != null" >
+      <if test="backupfive != null">
         backupFive = #{backupfive,jdbcType=INTEGER},
       </if>
-      <if test="backupsix != null" >
+      <if test="backupsix != null">
         backupSix = #{backupsix,jdbcType=INTEGER},
       </if>
-      <if test="behelpuserid != null" >
+      <if test="behelpuserid != null">
         beHelpUserID = #{behelpuserid,jdbcType=BIGINT},
       </if>
-      <if test="dutyuserid != null" >
+      <if test="dutyuserid != null">
         dutyUserID = #{dutyuserid,jdbcType=BIGINT},
       </if>
-      <if test="supuserid != null" >
+      <if test="supuserid != null">
         supUserID = #{supuserid,jdbcType=BIGINT},
       </if>
-      <if test="behelpusername != null" >
+      <if test="behelpusername != null">
         beHelpUserName = #{behelpusername,jdbcType=VARCHAR},
       </if>
-      <if test="dutyusername != null" >
+      <if test="dutyusername != null">
         dutyUserName = #{dutyusername,jdbcType=VARCHAR},
       </if>
-      <if test="superusername != null" >
+      <if test="superusername != null">
         superUserName = #{superusername,jdbcType=VARCHAR},
       </if>
-      <if test="circleusername != null" >
+      <if test="circleusername != null">
         circleUserName = #{circleusername,jdbcType=VARCHAR},
       </if>
-      <if test="promisetype != null" >
+      <if test="promisetype != null">
         promiseType = #{promisetype,jdbcType=INTEGER},
       </if>
-      <if test="promisedsp != null" >
+      <if test="promisedsp != null">
         promiseDsp = #{promisedsp,jdbcType=INTEGER},
       </if>
-      <if test="proveone != null" >
+      <if test="proveone != null">
         proveOne = #{proveone,jdbcType=INTEGER},
       </if>
-      <if test="provetwo != null" >
+      <if test="provetwo != null">
         proveTwo = #{provetwo,jdbcType=INTEGER},
       </if>
-      <if test="provethree != null" >
+      <if test="provethree != null">
         proveThree = #{provethree,jdbcType=INTEGER},
       </if>
-      <if test="provefour != null" >
+      <if test="provefour != null">
         proveFour = #{provefour,jdbcType=INTEGER},
       </if>
     </set>
     where cashID = #{cashid,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.Cash" >
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.Cash">
     update cash
     set userIDCash = #{useridcash,jdbcType=BIGINT},
       userIDCircle = #{useridcircle,jdbcType=INTEGER},

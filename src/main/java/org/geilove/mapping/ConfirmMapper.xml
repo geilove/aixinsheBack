@@ -19,6 +19,26 @@
     <result column="confirmbackupFive" property="confirmbackupfive" jdbcType="TIMESTAMP" />
     <result column="confirmbackupSix" property="confirmbackupsix" jdbcType="BIGINT" />
   </resultMap>
+   <!--  以下是自定义，根据项目或者推文的id获取证实人列表 -->
+  <select id="getConfirmList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+       select
+       <include refid="Base_Column_List" />
+       from 
+           confirm     
+       where  
+           tuiwenid= #{id,jdbcType=BIGINT}  AND tag=#{tag,jdbcType=INTEGER}
+      order by publishTime  desc
+      limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
+  </select>
+  <!--  自定义select结束 -->
+  
+   <!-- 自定义获取某条推文的总条数 -->
+  <select id="getCount" resultType="int" parameterType="java.util.HashMap" >
+    select count(*)
+    from confirm
+    where tag= #{tagc,jdbcType=INTEGER} AND tuiwenid=#{idc,jdbcType=BIGINT}
+  </select>    
+   
   <sql id="Base_Column_List" >
     confirmid, items, tuiwenid, tag, userid, publishTime, reportedTimes, content, relation, 
     mobile, confirmbackupOne, confirmbackupTwo, confirmbackupThree, confirmbackupFour, 

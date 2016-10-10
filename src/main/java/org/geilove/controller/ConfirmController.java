@@ -1,5 +1,7 @@
 package org.geilove.controller;
-
+/*
+ * "我要证实" 组件的接口，包括获取这个部分的接口信息
+ * */
 import org.geilove.pojo.Confirm;
 import org.geilove.requestParam.ConfirmListParam;
 import org.geilove.response.ConfirmListRsp;
@@ -25,11 +27,10 @@ public class ConfirmController {
 	private  ConfirmService confirmService;
 	@Resource
 	private HelpService helpService;
-	
-	
+		
 	@RequestMapping(value="/getconfirmls",method=RequestMethod.POST)
 	public @ResponseBody ConfirmListRsp  getConfirmLs(@RequestBody ConfirmListParam confirmParam ){
-		System.out.println("aaa");
+		//System.out.println("aaa");
 		ConfirmListRsp confirmLSRsp =new ConfirmListRsp();
 		Map<String,Object> map=new HashMap<String,Object>();
 		Long id =confirmParam.getId();
@@ -40,15 +41,34 @@ public class ConfirmController {
 		map.put("tag", tag);
 		map.put("page", page);
 		map.put("pageSize", pageSize);
+		//System.out.println("aaaaaaa");
 		List<Confirm> lc=confirmService.getConfirmLists(map);
+		//System.out.println(lc);
+		if(lc==null || lc.isEmpty()){
+			confirmLSRsp.setCount(0);
+			confirmLSRsp.setLp(null);
+			confirmLSRsp.setRetcode(2001);
+			confirmLSRsp.setMsg("证明人为0");
+			System.out.println("lc是空");
+			return  confirmLSRsp;
+		}
 		//从lc中获取userid列表，取得用户有关的信息，然后再放入到lc中
-		List<Long> ll=new ArrayList<Long>();
+		List<Long> ll=new ArrayList<Long>(); 
 		for(int i=0;i<lc.size();i++){
 			ll.add(lc.get(i).getUserid());
 		}
+		//System.out.println(ll);
 		//获取user表中的部分信息
 		List<OtherPartHelpPojo> lp=new ArrayList<OtherPartHelpPojo>();
-		lp=helpService.getOtherPartHelpList(ll);
+		lp=helpService.getOtherPartHelpList(ll); //根据id集合获取部分用户头像昵称等信息
+		if(lp==null ||lp.isEmpty() ){
+			confirmLSRsp.setCount(0);
+			confirmLSRsp.setLp(null);
+			confirmLSRsp.setRetcode(2001);
+			confirmLSRsp.setMsg("获取证明人数lp出错，异常");
+			System.out.println("lp");
+			return  confirmLSRsp;
+		}
 		//把部分信息组合到lc中
 		for(int k=0;k<ll.size();k++){
 			for(int p=0;p<lp.size();p++){
@@ -67,6 +87,7 @@ public class ConfirmController {
 		mapcounts.put("idc", idc);
 		mapcounts.put("tagc", tagc);
 		Integer counts=confirmService.getPeopleConfirms(mapcounts);
+		
 		//放入返回值中
 		confirmLSRsp.setCount(counts);
 		confirmLSRsp.setLp(lc);

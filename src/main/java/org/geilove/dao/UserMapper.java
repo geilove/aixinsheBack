@@ -23,11 +23,11 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
     
-    List<PeopleNeedLovePojo> selectNeedLovePeople(Map<String,Object> map); //查询一组需要帮助的人列表
+    List<User> selectMenList(Map<String,Object> map); //查询监督处爱心社等列表
     
-    List<LoveClubListPojo>  selectLoveClubPeople(Map<String,Object> map); 
+    List<User>  getPayOrWatchPeople(Map<String,Object> map);  //查询关注我 我关注的人列表
     
-    List<DonaterPojo> selectDonaterPeople(Map<String,Object> map); //慈善排行榜
+    List<User> selectDonaterPeople(Map<String,Object> map); // 查询我帮助或者帮助我的人列表
    
     List<OtherPartHelpPojo> selectUserPartProfile(List<Long> lst); //给定一组id，获取用户的头像昵称简介
     

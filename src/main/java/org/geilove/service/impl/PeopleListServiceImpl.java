@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import  org.springframework.stereotype.Service;
 import org.geilove.service.PeopleListService;
 import org.geilove.dao.UserMapper;
+import org.geilove.pojo.User;
 import org.geilove.sqlpojo.DonaterPojo;
 import org.geilove.sqlpojo.LoveClubListPojo;
 import org.geilove.sqlpojo.PeopleNeedLovePojo;
@@ -18,20 +19,20 @@ public class PeopleListServiceImpl implements PeopleListService {
     @Resource
 	private UserMapper  userMapper;
     
-	public List<PeopleNeedLovePojo> needHelpPeopleList( Map<String,Object> map){
+	public List<User> getMenList( Map<String,Object> map){
 		
-		List<PeopleNeedLovePojo> lp=userMapper.selectNeedLovePeople(map);
+		List<User> lp=userMapper.selectMenList(map);
 		
 		return lp;
 	}
 	
-	public List<LoveClubListPojo> loveClubPeopleList( Map<String,Object> map){
-		List<LoveClubListPojo> lp=userMapper.selectLoveClubPeople(map);		
+	public List<User> getPayOrWatchMen( Map<String,Object> map){
+		List<User> lp=userMapper.getPayOrWatchPeople(map);		
 		return lp;
 	}
 	
-	public List<DonaterPojo> donaterPeopleList(Map<String,Object> map){
-		List<DonaterPojo>  lp=userMapper.selectDonaterPeople(map);
+	public List<User> donaterPeopleList(Map<String,Object> map){
+		List<User>  lp=userMapper.selectDonaterPeople(map);
 		return lp;
 	}
 }

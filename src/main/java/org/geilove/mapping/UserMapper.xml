@@ -45,11 +45,9 @@
     <result column="beHelpedType" property="behelpedtype" jdbcType="INTEGER" />
   </resultMap>
   <!--  自定义，获得需要帮助人列表，只需要User表中的部分数据-->
-  <select id="selectNeedLovePeople" resultType="org.geilove.sqlpojo.PeopleNeedLovePojo" >
+  <select id="selectMenList" resultMap="BaseResultMap" >
     select      
-	    userID, digital, userNickName,  userType, certificateType, 
-	    realName, identityCard, sex, selfIntroduce, userTag, 
-	    address, country, notSay,  userPhoto, photoUpload,notSayTime
+	   <include refid="Base_Column_List" />
     from 
     	user
     where 

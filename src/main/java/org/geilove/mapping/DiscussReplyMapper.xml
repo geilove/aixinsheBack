@@ -34,8 +34,8 @@
        from 
            discussreply     
        where  
-           discussReplyID= #{tweetid,jdbcType=INTEGER} 
-      order by publishTime  desc
+           tweetIDDiscussReply= #{tweetid,jdbcType=INTEGER} 
+      order by discussReplyTime  desc
       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
   </select>
   <!-- 自定义结束 -->

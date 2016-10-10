@@ -2,6 +2,8 @@ package org.geilove.controller;
 
 import org.geilove.requestParam.AddCommentParam;
 import org.geilove.service.CommentService;
+import org.geilove.service.HelpService;
+import org.geilove.sqlpojo.OtherPartHelpPojo;
 import org.geilove.pojo.DiscussReply;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +27,8 @@ public class CommentController {
 	
 	@Resource
 	private  CommentService commentService;
+	@Resource
+	private HelpService helpService;
 	
 	@RequestMapping("/addcomment")
 	public @ResponseBody Integer addComment(@RequestBody AddCommentParam addCommentParam ){
@@ -62,6 +66,32 @@ public class CommentController {
 		 map.put("page", page);
 		 map.put("pageSize", pageSize);
 		 ls=commentService.getTweetComments(map);
+		 if(ls==null || ls.size()==0){
+			 rsp.setData(ls);
+			 rsp.setMsg("推文暂时没有评论哦");
+			 rsp.setRetcode(2001);
+			 return rsp;
+		 }
+		 //然后从ls里面获取评论者id，根据这组id取得用户的部分信息，组合返回
+		 List<Long> ll=new ArrayList<Long>(); 
+		 for(int i=0;i<ls.size();i++){
+			 ll.add(ls.get(i).getUseriddiscussreply()); //评论者的id
+		 }
+		 //System.out.println(ll.size());
+		 
+		 List<OtherPartHelpPojo> lp=new ArrayList<OtherPartHelpPojo>();
+		 lp=helpService.getOtherPartHelpList(ll); //根据id集合获取部分用户头像昵称等信息
+		 
+		 //System.out.println(lp.size());
+		 
+		 for(int k=0;k<ll.size();k++){
+				for(int p=0;p<lp.size();p++){
+					if(ll.get(k)==lp.get(p).getUserid()){
+						ls.get(k).setBackupone(lp.get(p).getUsernickname());
+						ls.get(k).setBackuptwo(lp.get(p).getUserphoto());						
+					}
+				}
+			}
 		 rsp.setData(ls);
 		 //判断ls，然后返回不同的提示信息
 		 if(ls==null || ls.size()==0){

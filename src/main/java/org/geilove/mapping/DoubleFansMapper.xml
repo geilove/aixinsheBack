@@ -32,7 +32,7 @@
   </select>
   <!--自定义结束 -->
   
- <!--  自定义，获取被关注者id列表-->
+ <!--  自定义，获取我所关注的用户ids-->
   <select id="getWatchids" resultType="java.lang.Long" >
     select      
 	     userIDBeFocus
@@ -44,6 +44,19 @@
      	payDate  desc     
   </select>
   <!--自定义结束 -->
+   <!--  自定义，获取我的粉丝的ids-->
+  <select id="getMyFansids" resultType="java.lang.Long" >
+    select      
+	     userIDFollowe
+    from 
+    	doublefans
+    where 
+     	userIDBeFocus= #{userid,jdbcType=INTEGER} 
+    order by 
+     	payDate  desc     
+  </select>
+  <!--自定义结束 -->
+   
    
   <sql id="Base_Column_List" >
     doubleFansID, userIDFollowe, userIDBeFocus, payDate, payTag, groupID, specialFollow, 

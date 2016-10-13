@@ -22,7 +22,9 @@ public interface  MainService {
 	
 	public Integer addTweet(Tweet tweet); //发布一条推文
 	
-	public List<Long> getBeWatcherIds(Map<String,Object> map);
+	public List<Long> getWatcherIds(Map<String,Object> map); //获取我关注的人的ids
+	
+	public List<Long> getMyFansids(Map<String,Object> map);  //获取粉丝的ids
 	
 	public List<Tweet> getWeiBoList(List<Long> ls);
 

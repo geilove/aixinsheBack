@@ -18,10 +18,21 @@ public class HelpServiceImpl implements HelpService{
 	@Resource
 	MoneySourceMapper moneySourceMapper;
 	@Resource
-	UserMapper userMapper;
+	private UserMapper userMapper;
 	public List<PartHelpPojo> getPartHelpList(Map<String,Object> map){
 		List<PartHelpPojo> lp=new ArrayList<PartHelpPojo>();
-		lp=moneySourceMapper.selectHelpMen(map);   //这个错了，需要改正
+		lp=moneySourceMapper.selectMenHelpMe(map);   //这个错了，需要改正
+		return lp;
+	}
+	
+	public List<PartHelpPojo> getGuyIHelp(Map<String,Object> map){
+		List<PartHelpPojo> lp=new ArrayList<PartHelpPojo>();
+		lp=moneySourceMapper.selectIhelp(map); 
+		return lp;
+	}
+	public List<PartHelpPojo> getGodHelpMe(Map<String,Object> map){
+		List<PartHelpPojo> lp=new ArrayList<PartHelpPojo>();
+		lp=moneySourceMapper.selectMenHelpMe(map); 
 		return lp;
 	}
 	//给定一组联系人id，获取头像，昵称，简介，头像是否上传

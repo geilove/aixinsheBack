@@ -193,7 +193,7 @@ public class TweetController {
 		map.put("page", page);
 		map.put("pageSize", pageSize);	
 		/*-1.先获取这个人关注的列表集合List<Long>*/
-		List<Long> lsids=mainService.getBeWatcherIds(map); //这个map只用到了userID
+		List<Long> lsids=mainService.getWatcherIds(map); //这个map只用到了userID
 		/*0.然后用这个userid集合获取一组推文，*/
 		
 		List<Tweet> tweets=mainService.getWeiBoList(lsids);//首先取得推文，不带转发

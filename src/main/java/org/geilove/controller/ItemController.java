@@ -62,7 +62,7 @@ public class ItemController {
 		Integer page=param.getPage();
 		Integer pageSize=param.getPageSize();
 		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("userID", userID);
+		map.put("userID", userID);  //如果是我发起的项目，参与的项目，关注的项目，这里加上一个tag就好了
 		map.put("page", page);
 		map.put("pageSize", pageSize);
 		//SimpleDateFormat format =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );

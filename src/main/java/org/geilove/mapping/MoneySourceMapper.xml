@@ -14,8 +14,8 @@
     <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
     <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
   </resultMap>
-  <!--  自定义，获取帮助人-受助人逐渐列表-->
-  <select id="getPartWatchProfile" resultType="org.geilove.sqlpojo.PartHelpPojo" >
+  <!--  自定义，获取帮助我的人的ids-->
+  <select id="selectMenHelpMe" resultType="org.geilove.sqlpojo.PartHelpPojo" >
     select      
 	    userIDBehelped, userIDgoodguy,moneyNum, helpTime
     from 
@@ -28,6 +28,20 @@
      	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
   </select>
   <!--自定义结束 -->
+   <!--  自定义，获取帮助我的人的ids-->
+  <select id="selectIhelp" resultType="org.geilove.sqlpojo.PartHelpPojo" >
+    select      
+	    userIDBehelped, userIDgoodguy,moneyNum, helpTime
+    from 
+    	user
+    where 
+     	userIDgoodguy= #{userid,jdbcType=INTEGER} 
+    order by 
+     	helpTime  desc
+    limit 
+     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
+  </select>
+  
   <sql id="Base_Column_List" >
     moneySourceID, userIDBehelped, userIDgoodguy, moneyNum, helpTime, backupOne, backupTwo, 
     backupThree, backupFour, backupFive, backupSix

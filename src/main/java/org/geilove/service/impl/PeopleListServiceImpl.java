@@ -26,13 +26,13 @@ public class PeopleListServiceImpl implements PeopleListService {
 		return lp;
 	}
 	
-	public List<User> getPayOrWatchMen( Map<String,Object> map){
-		List<User> lp=userMapper.getPayOrWatchPeople(map);		
+	public List<User> getPayOrWatchMen( List<Long> ll){
+		List<User> lp=userMapper.getPayOrWatchPeople(ll);		
 		return lp;
 	}
 	
-	public List<User> donaterPeopleList(Map<String,Object> map){
-		List<User>  lp=userMapper.selectDonaterPeople(map);
+	public List<User> donaterPeopleList(List<Long> ll){
+		List<User>  lp=userMapper.getPayOrWatchPeople(ll);
 		return lp;
 	}
 }

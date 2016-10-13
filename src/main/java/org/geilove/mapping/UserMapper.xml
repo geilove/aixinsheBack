@@ -44,7 +44,7 @@
     <result column="beHelpTime" property="behelptime" jdbcType="TIMESTAMP" />
     <result column="beHelpedType" property="behelpedtype" jdbcType="INTEGER" />
   </resultMap>
-  <!--  自定义，获得需要帮助人列表，只需要User表中的部分数据-->
+  <!--  自定义，自定义，爱心社列表，监督用户列表-->
   <select id="selectMenList" resultMap="BaseResultMap" >
     select      
 	   <include refid="Base_Column_List" />
@@ -58,23 +58,32 @@
      	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
   </select>
   <!--自定义结束 -->
-  <!--  自定义，爱心社列表，监督用户列表-->
-  <select id="selectLoveClubPeople" resultType="org.geilove.sqlpojo.LoveClubListPojo" >
+  
+  <!--  自定义，根据一组ids获取用户信息-->
+  <select id="getPayOrWatchPeople" resultMap="BaseResultMap" >
     select      
-	    userID, userNickName,  userType, certificateType, 
-	    selfIntroduce, address, userPhoto, photoUpload,registerDate
-    from 
-    	user
-    where 
-     	userType= #{tag,jdbcType=INTEGER} 
-    order by 
-     	registerDate  desc
-    limit 
-     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
+	   <include refid="Base_Column_List" />
+    from user
+    where userID  in
+         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+               #{item}
+        </foreach>       
   </select>
   <!--自定义结束 -->
   
-   <!--  自定义，慈善排行榜-->
+  <!--  自定义，获取昵称 头像 简介部分信息-->
+  <select id="selectUserPartProfile" resultType="org.geilove.sqlpojo.OtherPartHelpPojo" >
+    select      
+	    userID,userNickName, selfIntroduce, userPhoto, photoUpload
+    from user
+    where userID  in
+         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+               #{item}
+        </foreach>       
+  </select>
+  <!--自定义结束 -->
+  
+     <!--  已废弃-->
   <select id="selectDonaterPeople" resultType="org.geilove.sqlpojo.DonaterPojo" >
     select      
 	    userID, userNickName,  userType, certificateType, 
@@ -89,18 +98,6 @@
      	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
   </select>
   <!--自定义结束 -->
-  <!--  自定义，获取昵称 头像 简介部分信息-->
-  <select id="selectUserPartProfile" resultType="org.geilove.sqlpojo.OtherPartHelpPojo" >
-    select      
-	    userID,userNickName, selfIntroduce, userPhoto, photoUpload
-    from user
-    where userID  in
-         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-               #{item}
-        </foreach>       
-  </select>
-  <!--自定义结束 -->
-  
   <!--这个是自定义的返回部分字段的，不知道行不行啊 -->
   <resultMap id="UserPhotoResultMap" type="org.geilove.vo.UserPhotoUrl" >
      <id column="userID" property="userid" jdbcType="BIGINT" />

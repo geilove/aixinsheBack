@@ -16,7 +16,9 @@ public interface MoneySourceMapper {
 
     MoneySource selectByPrimaryKey(Long moneysourceid);
     
-    List<PartHelpPojo> selectHelpMen(Map<String,Object> map); //自定义，获得帮助人-被帮助人关系表
+    List<PartHelpPojo> selectMenHelpMe(Map<String,Object> map); //自定义，获取帮助我的
+    
+    List<PartHelpPojo> selectIhelp(Map<String,Object> map);  //获取我帮助的人
     
     int updateByPrimaryKeySelective(MoneySource record);
 

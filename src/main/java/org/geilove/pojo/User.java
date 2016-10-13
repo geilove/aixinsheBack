@@ -84,8 +84,18 @@ public class User {
     private  Date  behelptime;
     
     private Integer behelpedtype;
+    
+    private Integer ooo;
 
-    public Long getUserid() {
+    public Integer getOoo() {
+		return ooo;
+	}
+
+	public void setOoo(Integer ooo) {
+		this.ooo = ooo;
+	}
+
+	public Long getUserid() {
         return userid;
     }
 

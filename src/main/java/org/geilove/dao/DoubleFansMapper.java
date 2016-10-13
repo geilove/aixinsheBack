@@ -24,9 +24,9 @@ public interface DoubleFansMapper {
     
     List<PartWatchPojo> getPartWatchProfile(Map<String,Object> map); //获取DoubleFans表中的一组数据，还没实现
     
-    List<Long> getWatchids(Map<String,Object> map); //根据用户的id获得用户所关注的人的id列表。
+    List<Long> getWatchids(Map<String,Object> map); //获取用户所关注人的一组id。
     
-   // List<DoubleFans> getWatchListMapper(Long userID);
+    List<Long> getMyFansids(Map<String,Object> map);  //根据用户的id获得用户粉丝的ids
     
     List<PartHelpPojo> selectHelpMen(Map<String,Object> map); //自定义，获得帮助人-被帮助人关系表
     

@@ -69,9 +69,15 @@ public class MainServiceImpl implements MainService {
 		return response;
 	}
 	@Override
-	public List<Long> getBeWatcherIds(Map<String,Object> map){
+	public List<Long> getWatcherIds(Map<String,Object> map){ //获取用户所关注的id
 		List<Long> lsids=new ArrayList<Long>();
 		lsids=doubleFansMapper.getWatchids(map);		
+		return lsids;
+	}
+	@Override
+	public List<Long> getMyFansids(Map<String,Object> map){
+		List<Long> lsids=new ArrayList<Long>();
+		lsids=doubleFansMapper.getMyFansids(map);		
 		return lsids;
 	}
 	

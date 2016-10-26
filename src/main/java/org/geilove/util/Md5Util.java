@@ -35,7 +35,7 @@ public class Md5Util {
     }
 
     public static void main(String[] args) {
-        System.out.println(getMd5("hello world"));
+        System.out.println(getMd5("123456"));
     }
 }
 

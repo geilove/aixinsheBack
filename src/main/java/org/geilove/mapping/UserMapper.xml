@@ -70,7 +70,22 @@
         </foreach>       
   </select>
   <!--自定义结束 -->
-  
+  <!--自定义，用于用户密码验证-->
+  <select id="selectMD5Password" resultType="java.lang.String"  parameterType="java.lang.Long">
+    select      
+	    userPassword
+    from user
+    where userID= #{userid,jdbcType=BIGINT}             
+  </select>
+  <!--自定义结束 -->
+  <!--自定义，用于找回密码-->
+  <select id="findPasswd" resultType="java.lang.String"  parameterType="java.lang.String">
+    select      
+	    userPassword
+    from user
+    where userEMail= #{userEmail}             
+  </select>
+  <!--自定义结束 -->
   <!--  自定义，获取昵称 头像 简介部分信息-->
   <select id="selectUserPartProfile" resultType="org.geilove.sqlpojo.OtherPartHelpPojo" >
     select      
@@ -83,7 +98,7 @@
   </select>
   <!--自定义结束 -->
   
-     <!--  已废弃-->
+   <!--  已废弃-->
   <select id="selectDonaterPeople" resultType="org.geilove.sqlpojo.DonaterPojo" >
     select      
 	    userID, userNickName,  userType, certificateType, 

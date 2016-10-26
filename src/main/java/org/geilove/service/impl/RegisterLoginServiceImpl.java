@@ -25,9 +25,19 @@ public class RegisterLoginServiceImpl implements RegisterLoginService {
 	@Override
 	public int userRegister(User record){	
 		int tag=userMapper.insert(record);
-		System.out.println(tag); //确定下返回值
+		//System.out.println(tag); //确定下返回值
 		return tag; 
 	}	
+	@Override
+	public String selectMD5Password(Long userid){
+		String userPassword=userMapper.selectMD5Password(userid);
+		return userPassword;
+	}
+	@Override
+	public String findPasswd(String userEmail){
+		String password=userMapper.findPasswd(userEmail);
+		return password;
+	}
 }
 
 

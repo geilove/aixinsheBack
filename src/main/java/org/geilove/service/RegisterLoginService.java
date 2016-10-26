@@ -8,4 +8,7 @@ public interface RegisterLoginService {
 	
 	public int userRegister(User record);
 	
+	public String selectMD5Password(Long userid);
+	
+	public String findPasswd(String userEmail);
 }

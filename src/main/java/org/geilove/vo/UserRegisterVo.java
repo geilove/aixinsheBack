@@ -5,7 +5,7 @@ public class UserRegisterVo {
 	private String  userNickName;
 	private String  userEmail;
 	private String  userPassword;
-	private String  userPassRepeat;
+	//private String  userPassRepeat;
 	
 	public String getUserNickName() {
 		return userNickName;
@@ -24,14 +24,5 @@ public class UserRegisterVo {
 	}
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
-	}
-	public String getUserPassRepeat() {
-		return userPassRepeat;
-	}
-	public void setUserPassRepeat(String userPassRepeat) {
-		this.userPassRepeat = userPassRepeat;
-	}
-	
-	
-	
+	}	
 }

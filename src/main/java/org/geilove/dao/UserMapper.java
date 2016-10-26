@@ -31,5 +31,11 @@ public interface UserMapper {
    
     List<OtherPartHelpPojo> selectUserPartProfile(List<Long> lst); //给定一组id，获取用户的头像昵称简介
     
-    //List<OtherPartHelpPojo> selectUserPhotos(List<Long> list); //自定义获取用户头像的方法
+    String selectMD5Password(Long userid);
+    
+    String findPasswd(String userEmail);
 }
+
+
+
+

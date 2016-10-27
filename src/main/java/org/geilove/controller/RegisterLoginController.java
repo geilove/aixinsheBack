@@ -27,6 +27,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/user")
 public class RegisterLoginController {
@@ -35,7 +36,8 @@ public class RegisterLoginController {
 	private RegisterLoginService registerLoginService; 
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)	
-	public @ResponseBody UserProfileRsp loginUser(@RequestBody UserLoginVo userLoginVo){		
+	public @ResponseBody UserProfileRsp loginUser(@RequestBody UserLoginVo userLoginVo,HttpSession httpSession){
+		httpSession.setAttribute("session", "hellosession");  
 		//这里应该先验证用户邮箱和密码是不是符合要求，避免浪费资源查询数据库
 		UserProfileRsp  userProfileRsp=new UserProfileRsp();		
 		User user=registerLoginService.userLogin(userLoginVo.getUserEmail());
@@ -55,7 +57,7 @@ public class RegisterLoginController {
 				//TokenData tokenData=new TokenData();
 				//stokenData=checkUser.handleToken();
 				//执行插入
-				String token=user.getUserid()+pw;
+				String token=pw+user.getUserid();
 				user.setBackupfour(token);
 				userProfileRsp.setData(user);
 				userProfileRsp.setMsg("登录成功");
@@ -189,9 +191,8 @@ public class RegisterLoginController {
 //        message.setRecipient(RecipientType.CC, bcc);
         // 设置邮件标题
         message.setSubject("手套爱心社密码找回邮件");
-        // 设置邮件的内容体
+        // 应该做一个网页，让用户重置密码
         message.setContent("<a href='#'>点击超链接重置密码</a>", "text/html;charset=UTF-8");
-       // message.setContent(passwd, "text/html;charset=UTF-8");
         // 发送邮件
         Transport.send(message);
         rsp.setMsg("发送成功");

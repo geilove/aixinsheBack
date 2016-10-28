@@ -46,7 +46,7 @@ public class FileUploadControllerCopy {
 	@RequestMapping(value="/multiUpload",method=RequestMethod.POST)
 	@ResponseBody
 	public Object multiUpload(HttpServletRequest request)throws IllegalStateException, IOException{
-		 Map map = new HashMap();  
+		    Map map = new HashMap();  
 	        Enumeration paramNames = request.getParameterNames();  
 	        while (paramNames.hasMoreElements()) {  
 	            String paramName = (String) paramNames.nextElement();  
@@ -65,6 +65,27 @@ public class FileUploadControllerCopy {
 	            System.out.println(entry.getKey() + ":" + entry.getValue());  
 	        }  
 	        System.out.println("------------------------------");  
+			/*//以下是取得请求中的文本内容，但这种方式不是很好，应该根据名字挨个取出来
+			Map<String,Object> map = new HashMap<String,Object>();
+	        Enumeration<?> paramNames = request.getParameterNames(); //取得所有TextInput的键       
+	        while (paramNames.hasMoreElements()) {  
+	            String paramName = (String) paramNames.nextElement(); 
+	            //request.getParameterValues(String   name)是获得如checkbox类（名字相同，但值有多个）的数据
+	            String[] paramValues = request.getParameterValues(paramName);   
+	            if (paramValues.length == 1) {  
+	                String paramValue = paramValues[0];  
+	                if (paramValue.length() != 0) {  
+	                    map.put(paramName, paramValue);  
+	                }  
+	            }  
+	        }       
+	        Set<Map.Entry<String, Object>> set = map.entrySet();   
+	        System.out.println("------------------------------");  
+	        for (Map.Entry<String, Object> entry : set) {       	
+	            System.out.println(entry.getKey() + ":" + entry.getValue());  
+	        }  
+	        System.out.println("------------------------------");  
+			*/
 //        System.out.println(request.getParameter("files").getBytes());//这个是能接收到的
         //System.out.println(request.getParameter("inputStr"));//这个是能接收到的
        //System.out.println("=====");

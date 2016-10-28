@@ -1,7 +1,7 @@
 package org.geilove.util;
 import java.io.File;  
 import java.io.IOException;  
-  
+import org.geilove.util.TimeUtil; 
 public class CreateFileUtil {  
      
     public static boolean createFile(String destFileName) {  
@@ -59,6 +59,24 @@ public class CreateFileUtil {
         }  
     }  
      
+    public static int createDirectory(String destDirName) {  
+        File dir = new File(destDirName);  
+        if (dir.exists()) {  
+            System.out.println("创建目录" + destDirName + "目标目录已经存在，无需创建");  
+            return 1;  
+        }  
+        if (!destDirName.endsWith(File.separator)) {  
+            destDirName = destDirName + File.separator;  
+        }  
+        //创建目录  
+        if (dir.mkdirs()) {  
+            System.out.println("创建目录" + destDirName + "成功！");  
+            return 1;  
+        } else {  
+            System.out.println("创建目录" + destDirName + "失败！");  
+            return 0;  
+        }  
+    }  
      
     public static String createTempFile(String prefix, String suffix, String dirName) {  
         File tempFile = null;  
@@ -93,7 +111,15 @@ public class CreateFileUtil {
             }  
         }  
     }  
-     
+    public static String createFilePath(String constPath,String useridPath){
+    	TimeUtil timeUtil=new TimeUtil();
+    	 //要注意constPath和timeDirectory的格式都是以'/'开头的
+         String timeDirectory=timeUtil.getNyDay(); //每天创建一个文件夹,时间路径                              
+         String path = constPath+timeDirectory+'/'+useridPath+'/';
+         return path;
+    } 
+    
+    
     public static void main(String[] args) {  
         //创建目录  
         String dirName = "/Users/mfhj-dz-001-424/Documents/bbbbb/";  

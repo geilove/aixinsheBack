@@ -75,7 +75,7 @@
     select      
 	    userPassword
     from user
-    where userID= #{userid,jdbcType=BIGINT}             
+    where userID= #{userid}             
   </select>
   <!--自定义结束 -->
   <!--自定义，用于找回密码-->

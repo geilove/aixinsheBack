@@ -5,12 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.geilove.vo.BaseVo;
@@ -28,24 +30,39 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.geilove.vo.UploadDemoVo;
 import org.geilove.pojo.Tweet;
 import org.geilove.response.CommonRsp;
+import org.geilove.service.MainService;
+import org.geilove.service.RegisterLoginService;
 import org.geilove.util.CreateFileUtil;
 import org.geilove.util.TimeUtil;
+import org.geilove.util.TokenData;
 @Controller
 @RequestMapping("/demo/upload")
 public class FileUploadController {	
     
+	@Resource
+	private MainService  mainService;
+	@Resource
+	private RegisterLoginService rlService;
+	
 	@RequestMapping(value="/multiUpload",method=RequestMethod.POST)
 	@ResponseBody
 	public CommonRsp multiUpload(HttpServletRequest request)throws IllegalStateException, IOException{	
 		CommonRsp commonRsp=new CommonRsp();
-		String token=request.getParameter("token");		
-		String md5Passwd=token.substring(0, 31); 
-		String useridStr=token.substring(32, token.length());	
-		Tweet tweet=new Tweet();
+		String token=request.getParameter("token");	
+		
+		String userPassword=token.substring(0,32); //token是password和userID拼接成的。
+		String useridStr=token.substring(32);		
+		Long userid=Long.valueOf(useridStr).longValue();
+		//Long userid=Long.parseLong(useridstr);
+		String passwdTrue=rlService.selectMD5Password(Long.valueOf(1));
+		System.out.println(passwdTrue);
+		if(!userPassword.equals(passwdTrue)){
+			commonRsp.setRetcode(2001);
+			commonRsp.setMsg("用户密码不对，非法");
+			return commonRsp;
+		}
 		List<String> imgPathArray=new ArrayList<String>(); 
-		/*
-		 * 连接数据库查询是否有此人
-		 * */
+
 		//创建一个通用的多部分解析器  
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());  
         //判断 request 是否有文件上传,即多部分请求  
@@ -84,9 +101,6 @@ public class FileUploadController {
                               //这里的path指的是配置里的名字,注意path前面没有/，客户端拼接url地址时应该加上
                               String needPath="path/weiboPhoto"+timeDirectory+fileName+".png"; 
                               imgPathArray.add(needPath);                             
-                              /*
-                               *文件创建成功，就把这个路径path保存在全局路径数组中imgPathArray
-                               */
                         }else{
                         	commonRsp.setMsg("创建磁盘目录失败");
                         	commonRsp.setRetcode(2005);
@@ -98,11 +112,26 @@ public class FileUploadController {
                 //int finaltime = (int) System.currentTimeMillis();   
             }//while             
         }// if因为是表单，所以一定会执行if里面，while循环发现无图片会跳出if外
-        /*
-         * 在这里把推文内容和相应的图片imgPathArray存入到数据库中，先构造推文对象
-         * 把map里的普通数据和imgPathArray数组里的图片路径存入到数据库
-         * */
-        
+		Tweet tweet=new Tweet();
+		tweet.setUseridtweet(userid); //发布推文的userid
+		tweet.setSourcemsgid(new Long(1));//1代表非转发
+        String content=request.getParameter("content"); //获取推文的内容
+        tweet.setMsgcontent(content); //放入推文内容到tweet中
+        tweet.setTagid((byte)1 );
+        tweet.setTopic(new Long(1));
+        tweet.setBoxtimes(0);
+        tweet.setCommenttimes(0);
+        tweet.setOk(0);
+        Date date=new Date();
+        tweet.setPublishtime(date);
+        tweet.setReportedtimes(0);
+        tweet.setPublicsee((byte)1); //1代表可见
+        tweet.setDeletetag((byte)1); //1代表未删除
+        tweet.setVideoaddress(null); //推文只限制3张图
+        tweet.setPromise(null); //如果是救助一个人，则必须有文字
+        tweet.setTweetbackupseven(null);
+        tweet.setTweetbackupfour(1); //备用4等于1代表是一个普通的推文2代表的是救助     
+        tweet.setTweetbackupfive(1); //2代表党推文是救助时cash表
         for(int i=0;i<imgPathArray.size();i++){
         	if(tweet.getTweetbackupone()==null){
         		tweet.setTweetbackupone(imgPathArray.get(i));
@@ -111,10 +140,18 @@ public class FileUploadController {
         	}else{
         		tweet.setTweetbackupthree(imgPathArray.get(i));
         	}
+        }  
+        try{
+        	Integer tag=mainService.addTweet(tweet);
+        	if(tag!=1){ 
+        		commonRsp.setRetcode(2001);
+        		commonRsp.setMsg("推文插入数据库失败");
+        		return commonRsp;
+        	}
+        }catch( Exception e){
+        	System.out.println(e);
         }
-        String content=request.getParameter("content"); //获取推文的内容
-        tweet.setMsgcontent(content); //放入推文内容到tweet中
-        //设置tweet的其它默认值
+        //插入数据库并判断是否成功
     	commonRsp.setMsg("发布成功");
     	commonRsp.setRetcode(2000);
     	return commonRsp;

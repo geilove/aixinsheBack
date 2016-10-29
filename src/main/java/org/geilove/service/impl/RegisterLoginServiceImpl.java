@@ -30,6 +30,7 @@ public class RegisterLoginServiceImpl implements RegisterLoginService {
 	}	
 	@Override
 	public String selectMD5Password(Long userid){
+		//System.out.println(userid);
 		String userPassword=userMapper.selectMD5Password(userid);
 		return userPassword;
 	}

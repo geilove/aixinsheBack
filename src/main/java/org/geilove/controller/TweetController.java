@@ -84,8 +84,8 @@ public class TweetController {
 		    /*5.合并推文和用户信息tweets 和 userPartProfile 到 lsWb*/
 		    List<WeiBo>  lsWb=new ArrayList<WeiBo>();	    
 		    for(int k=0;k<tweets.size();k++){
-		    	System.out.println(tweets.size());
-		    	System.out.println(userPartProfile.size());
+		    	//System.out.println(tweets.size());
+		    	//System.out.println(userPartProfile.size());
 		    	
 		    	WeiBo wb=new WeiBo();//WeiBo中有两个数据域，一个是推文领一个是被转发的推文
 		    	for(int l=0;l<userPartProfile.size();l++){

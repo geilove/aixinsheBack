@@ -52,11 +52,10 @@ public class TimeUtil {
 //        System.out.println(now.getTime());  
        // Integer y=getYear();
         //System.out.println(y.toString());
-//        Date d = new Date();  
-//        System.out.println(d);  
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
-//        String dateNowStr = sdf.format(d);  
-//        System.out.println("格式化后的日期：" + dateNowStr);  
+        Date d = new Date();  
+        System.out.println(d);  
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+        String dateNowStr = sdf.format(d);          System.out.println("格式化后的日期：" + dateNowStr);  
 //          
 //        String str = "2012-1-13 17:26:33";  //要跟上面sdf定义的格式一样  
 //        Date today = sdf.parse(str);  

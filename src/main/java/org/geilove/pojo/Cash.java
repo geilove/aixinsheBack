@@ -16,7 +16,7 @@ public class Cash {
     private Integer realcash;
 
     private Date opentime;
-
+ 
     private Date closetime;
 
     private Byte getmoneytag;

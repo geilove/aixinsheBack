@@ -29,4 +29,9 @@ public class ConfirmServiceImpl implements ConfirmService {
 		 Integer counts=confirmMapper.getCount(map);
 		 return counts;
 	 }
+	 
+	 public Integer addRecordSelective(Confirm confirm){
+		 Integer tag=confirmMapper.insertSelective(confirm);
+		 return tag;
+	 }
 }

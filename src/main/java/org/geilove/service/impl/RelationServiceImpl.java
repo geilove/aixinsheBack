@@ -1,10 +1,7 @@
 package org.geilove.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Map;
 import javax.annotation.Resource;
-
 import org.geilove.dao.DoubleFansMapper;
 import org.geilove.pojo.DoubleFans;
 import org.geilove.service.RelationService;
@@ -23,12 +20,10 @@ public class RelationServiceImpl implements RelationService{
      }
      
      @Override
-    public Integer unWatchManService(Long userIDFollowe,Long userIDBeFocus){
+    public Integer unWatchManService(Map<String,Object> map){
     	int unTagCode=0;
-    	List list=new ArrayList<Long>();
-    	list.add(userIDFollowe);
-    	list.add(userIDBeFocus);
-    	unTagCode=dfMapper.deleteByDoubleUserIDs(list);//这个稍后改
+    	unTagCode=dfMapper.cancelWatch(map);
+    	//unTagCode=dfMapper.deleteByDoubleUserIDs(list);//这个稍后改
     	return unTagCode;
     	 
      }    

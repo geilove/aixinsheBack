@@ -68,20 +68,16 @@
     from doublefans
     where doubleFansID = #{doublefansid,jdbcType=BIGINT}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from doublefans
     where doubleFansID = #{doublefansid,jdbcType=BIGINT}
   </delete>
-  <!-- 自定义取消关注的方法，多添件删除 -->
-  <delete id="deleteByDoubleUserIDs" parameterType="java.util.List">
-  		delete from doublefans
- 		where
-		 <foreach item="item" index="index" collection="list" separator="or">
-            (userIDFollowe= #{item.userIDFollowe}  AND userIDBeFocus = #{item.userIDBeFocus})
-		</foreach>
+  
+  <delete id="cancelWatch" parameterType="java.util.HashMap">
+    delete from doublefans
+    where userIDFollowe = #{userIDFollowe,jdbcType=BIGINT} AND  userIDBeFocus = #{userIDBeFocus,jdbcType=BIGINT}   
   </delete>
-  
-  
   
   <insert id="insert" parameterType="org.geilove.pojo.DoubleFans" >
     insert into doublefans (doubleFansID, userIDFollowe, userIDBeFocus, 

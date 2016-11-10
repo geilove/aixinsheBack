@@ -24,13 +24,24 @@
     <result column="tweetbackupSix" property="tweetbackupsix" jdbcType="INTEGER" />
     <result column="promise" jdbcType="VARCHAR" property="promise" />
     <result column="tweetbackupSeven" jdbcType="VARCHAR" property="tweetbackupseven" />
+    <result column="backupeight" property="backupeight" jdbcType="VARCHAR" />
+    <result column="backupneight" property="backupneight" jdbcType="VARCHAR" />
+    <result column="backupnine" property="backupnine" jdbcType="VARCHAR" />
+    <result column="backupten" property="backupten" jdbcType="VARCHAR" />
+    <result column="backupeleven" property="backupeleven" jdbcType="VARCHAR" />
+    <result column="backuptwelve" property="backuptwelve" jdbcType="VARCHAR" />
+    <result column="tobeuseone" property="tobeuseone" jdbcType="INTEGER" />
+    <result column="tobeusetwo" property="tobeusetwo" jdbcType="INTEGER" />
+    <result column="tobeusethree" property="tobeusethree" jdbcType="INTEGER" />
   </resultMap>
   
   
   <sql id="Base_Column_List" >
     tweetID, userIDTweet, sourceMsgID, tagID, msgContent, topic, commentTimes, ok, boxTimes, 
     publishTime, reportedTimes, publicSee, deleteTag, videoAddress, tweetbackUpOne, tweetbackUpTwo, 
-    tweetbackUpThree, tweetbackupFour, tweetbackupFive, tweetbackupSix,promise, tweetbackupSeven
+    tweetbackUpThree, tweetbackupFour, tweetbackupFive, tweetbackupSix,promise, tweetbackupSeven,
+    backupeight, backupneight, backupnine, backupten, backupeleven, backuptwelve, tobeuseone, 
+    tobeusetwo, tobeusethree
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -96,7 +107,10 @@
       deleteTag, videoAddress, tweetbackUpOne, 
       tweetbackUpTwo, tweetbackUpThree, tweetbackupFour, 
       tweetbackupFive, tweetbackupSix, promise, 
-      tweetbackupSeven)
+      tweetbackupSeven, backupeight, backupneight, 
+      backupnine, backupten, backupeleven, 
+      backuptwelve, tobeuseone, tobeusetwo, 
+      tobeusethree)
     values (#{tweetid,jdbcType=BIGINT}, #{useridtweet,jdbcType=BIGINT}, #{sourcemsgid,jdbcType=BIGINT}, 
       #{tagid,jdbcType=TINYINT}, #{msgcontent,jdbcType=VARCHAR}, #{topic,jdbcType=BIGINT}, 
       #{commenttimes,jdbcType=INTEGER}, #{ok,jdbcType=INTEGER}, #{boxtimes,jdbcType=INTEGER}, 
@@ -104,7 +118,10 @@
       #{deletetag,jdbcType=TINYINT}, #{videoaddress,jdbcType=VARCHAR}, #{tweetbackupone,jdbcType=VARCHAR}, 
       #{tweetbackuptwo,jdbcType=VARCHAR}, #{tweetbackupthree,jdbcType=VARCHAR}, #{tweetbackupfour,jdbcType=INTEGER}, 
       #{tweetbackupfive,jdbcType=INTEGER}, #{tweetbackupsix,jdbcType=INTEGER}, #{promise,jdbcType=VARCHAR}, 
-      #{tweetbackupseven,jdbcType=VARCHAR})
+      #{tweetbackupseven,jdbcType=VARCHAR}, #{backupeight,jdbcType=VARCHAR}, #{backupneight,jdbcType=VARCHAR}, 
+      #{backupnine,jdbcType=VARCHAR}, #{backupten,jdbcType=VARCHAR}, #{backupeleven,jdbcType=VARCHAR}, 
+      #{backuptwelve,jdbcType=VARCHAR}, #{tobeuseone,jdbcType=INTEGER}, #{tobeusetwo,jdbcType=INTEGER}, 
+      #{tobeusethree,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="org.geilove.pojo.Tweet" >
     insert into tweet
@@ -175,6 +192,33 @@
       <if test="tweetbackupseven != null">
         tweetbackupSeven,
       </if>
+      <if test="backupeight != null" >
+        backupeight,
+      </if>
+      <if test="backupneight != null" >
+        backupneight,
+      </if>
+      <if test="backupnine != null" >
+        backupnine,
+      </if>
+      <if test="backupten != null" >
+        backupten,
+      </if>
+      <if test="backupeleven != null" >
+        backupeleven,
+      </if>
+      <if test="backuptwelve != null" >
+        backuptwelve,
+      </if>
+      <if test="tobeuseone != null" >
+        tobeuseone,
+      </if>
+      <if test="tobeusetwo != null" >
+        tobeusetwo,
+      </if>
+      <if test="tobeusethree != null" >
+        tobeusethree,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="tweetid != null" >
@@ -242,6 +286,33 @@
       </if>
       <if test="tweetbackupseven != null">
         #{tweetbackupseven,jdbcType=VARCHAR},
+      </if>
+      <if test="backupeight != null" >
+        #{backupeight,jdbcType=VARCHAR},
+      </if>
+      <if test="backupneight != null" >
+        #{backupneight,jdbcType=VARCHAR},
+      </if>
+      <if test="backupnine != null" >
+        #{backupnine,jdbcType=VARCHAR},
+      </if>
+      <if test="backupten != null" >
+        #{backupten,jdbcType=VARCHAR},
+      </if>
+      <if test="backupeleven != null" >
+        #{backupeleven,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwelve != null" >
+        #{backuptwelve,jdbcType=VARCHAR},
+      </if>
+      <if test="tobeuseone != null" >
+        #{tobeuseone,jdbcType=INTEGER},
+      </if>
+      <if test="tobeusetwo != null" >
+        #{tobeusetwo,jdbcType=INTEGER},
+      </if>
+      <if test="tobeusethree != null" >
+        #{tobeusethree,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -311,6 +382,33 @@
       <if test="tweetbackupseven != null">
         tweetbackupSeven = #{tweetbackupseven,jdbcType=VARCHAR},
       </if>
+       <if test="backupeight != null" >
+        backupeight = #{backupeight,jdbcType=VARCHAR},
+      </if>
+      <if test="backupneight != null" >
+        backupneight = #{backupneight,jdbcType=VARCHAR},
+      </if>
+      <if test="backupnine != null" >
+        backupnine = #{backupnine,jdbcType=VARCHAR},
+      </if>
+      <if test="backupten != null" >
+        backupten = #{backupten,jdbcType=VARCHAR},
+      </if>
+      <if test="backupeleven != null" >
+        backupeleven = #{backupeleven,jdbcType=VARCHAR},
+      </if>
+      <if test="backuptwelve != null" >
+        backuptwelve = #{backuptwelve,jdbcType=VARCHAR},
+      </if>
+      <if test="tobeuseone != null" >
+        tobeuseone = #{tobeuseone,jdbcType=INTEGER},
+      </if>
+      <if test="tobeusetwo != null" >
+        tobeusetwo = #{tobeusetwo,jdbcType=INTEGER},
+      </if>
+      <if test="tobeusethree != null" >
+        tobeusethree = #{tobeusethree,jdbcType=INTEGER},
+      </if>
     </set>
     where tweetID = #{tweetid,jdbcType=BIGINT}
   </update>
@@ -337,6 +435,15 @@
       tweetbackupSix = #{tweetbackupsix,jdbcType=INTEGER},
       promise = #{promise,jdbcType=VARCHAR},
       tweetbackupSeven = #{tweetbackupseven,jdbcType=VARCHAR}
+      backupeight = #{backupeight,jdbcType=VARCHAR},
+      backupneight = #{backupneight,jdbcType=VARCHAR},
+      backupnine = #{backupnine,jdbcType=VARCHAR},
+      backupten = #{backupten,jdbcType=VARCHAR},
+      backupeleven = #{backupeleven,jdbcType=VARCHAR},
+      backuptwelve = #{backuptwelve,jdbcType=VARCHAR},
+      tobeuseone = #{tobeuseone,jdbcType=INTEGER},
+      tobeusetwo = #{tobeusetwo,jdbcType=INTEGER},
+      tobeusethree = #{tobeusethree,jdbcType=INTEGER}
     where tweetID = #{tweetid,jdbcType=BIGINT}
   </update>
 </mapper>

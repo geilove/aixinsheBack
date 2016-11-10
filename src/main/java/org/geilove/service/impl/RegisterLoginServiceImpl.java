@@ -39,6 +39,11 @@ public class RegisterLoginServiceImpl implements RegisterLoginService {
 		String password=userMapper.findPasswd(userEmail);
 		return password;
 	}
+	@Override
+	public int updateUserSelective(User record){
+		int tag =userMapper.updateByPrimaryKeySelective(record);
+		return tag;
+	}
 }
 
 

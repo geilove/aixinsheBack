@@ -1,6 +1,7 @@
 package org.geilove.requestParam;
 
 public class FollowParam {
+	private String token; //请求凭证
 	private Long  userIDFollow;
 	private Long  userIDBeFocus;
     private Byte   paytag;//关注标志
@@ -22,6 +23,12 @@ public class FollowParam {
 	}
 	public void setPaytag(Byte paytag) {
 		this.paytag = paytag;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
     
 }

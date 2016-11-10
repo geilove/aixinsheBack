@@ -44,10 +44,28 @@ public class Tweet {
     private Integer tweetbackupfive;
 
     private Integer tweetbackupsix;
+    
     private String promise;
 
     private String tweetbackupseven;
     
+    private String backupeight;
+
+    private String backupneight;
+
+    private String backupnine;
+
+    private String backupten;
+
+    private String backupeleven;
+
+    private String backuptwelve;
+
+    private Integer tobeuseone;
+
+    private Integer tobeusetwo;
+
+    private Integer tobeusethree;
 	public Long getTweetid() {
         return tweetid;
     }
@@ -221,5 +239,76 @@ public class Tweet {
 
     public void setTweetbackupseven(String tweetbackupseven) {
         this.tweetbackupseven = tweetbackupseven == null ? null : tweetbackupseven.trim();
+    }
+    public String getBackupeight() {
+        return backupeight;
+    }
+
+    public void setBackupeight(String backupeight) {
+        this.backupeight = backupeight == null ? null : backupeight.trim();
+    }
+
+    public String getBackupneight() {
+        return backupneight;
+    }
+
+    public void setBackupneight(String backupneight) {
+        this.backupneight = backupneight == null ? null : backupneight.trim();
+    }
+
+    public String getBackupnine() {
+        return backupnine;
+    }
+
+    public void setBackupnine(String backupnine) {
+        this.backupnine = backupnine == null ? null : backupnine.trim();
+    }
+
+    public String getBackupten() {
+        return backupten;
+    }
+
+    public void setBackupten(String backupten) {
+        this.backupten = backupten == null ? null : backupten.trim();
+    }
+
+    public String getBackupeleven() {
+        return backupeleven;
+    }
+
+    public void setBackupeleven(String backupeleven) {
+        this.backupeleven = backupeleven == null ? null : backupeleven.trim();
+    }
+
+    public String getBackuptwelve() {
+        return backuptwelve;
+    }
+
+    public void setBackuptwelve(String backuptwelve) {
+        this.backuptwelve = backuptwelve == null ? null : backuptwelve.trim();
+    }
+
+    public Integer getTobeuseone() {
+        return tobeuseone;
+    }
+
+    public void setTobeuseone(Integer tobeuseone) {
+        this.tobeuseone = tobeuseone;
+    }
+
+    public Integer getTobeusetwo() {
+        return tobeusetwo;
+    }
+
+    public void setTobeusetwo(Integer tobeusetwo) {
+        this.tobeusetwo = tobeusetwo;
+    }
+
+    public Integer getTobeusethree() {
+        return tobeusethree;
+    }
+
+    public void setTobeusethree(Integer tobeusethree) {
+        this.tobeusethree = tobeusethree;
     }
 }

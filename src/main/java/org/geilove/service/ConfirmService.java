@@ -9,4 +9,7 @@ public interface ConfirmService {
       public List<Confirm> getConfirmLists(Map<String,Object> map);
       
       public Integer getPeopleConfirms(Map<String,Object> map);
+      
+      public Integer addRecordSelective(Confirm confirm);
+      
 }

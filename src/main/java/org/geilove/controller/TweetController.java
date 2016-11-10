@@ -11,6 +11,7 @@ import org.geilove.pojo.Tweet;
 import org.geilove.requestParam.DeleteTweetByKeyParam;
 import org.geilove.requestParam.PublishTweetParam;
 import org.geilove.service.MainService;
+import org.geilove.service.RegisterLoginService;
 import org.geilove.sqlpojo.OtherPartHelpPojo;
 import org.geilove.vo.TweetByTweetVo;
 import org.geilove.requestParam.TweetListParam;
@@ -18,10 +19,12 @@ import org.geilove.requestParam.WeiBoListParam;
 import org.geilove.requestParam.ZhuangfaListParam;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
 import javax.annotation.Resource;
-import org.geilove.response.TweetsListRsp;
+import javax.servlet.http.HttpServletRequest;
+
 import org.geilove.response.*;
 import org.geilove.vo.WeiBo;
 import org.geilove.vo.Tuiwen;
@@ -33,7 +36,8 @@ import org.geilove.vo.Tuiwen;
 public class TweetController {
 	@Resource
 	private MainService mainService;
-	
+	@Resource
+	private RegisterLoginService rlService;
 	@RequestMapping(value="/gettweetbyuserid")//比如查看用户自己发布、转发的推文
 	public  @ResponseBody TweetsListRsp getTweetByUserID(@RequestBody TweetListParam tweetListParam ){
 		TweetsListRsp tweetsListRsp=new TweetsListRsp();
@@ -335,7 +339,7 @@ public class TweetController {
 		return rsp;		
 	}
 	
-	/*这是发布一条推文，转发推文也用这个接口*/
+	/*这是发布一条推文*/
 	@RequestMapping(value="/publishTweet")
 	public @ResponseBody CommonRsp publishTweet(@RequestBody PublishTweetParam publishTweetParam){
 		 String proof=publishTweetParam.getProof();
@@ -356,6 +360,34 @@ public class TweetController {
 		}
 		 return rsp;		 
 	}
+	@RequestMapping("/zhuanfaTweet")
+	public @ResponseBody CommonRsp addComment(HttpServletRequest request){
+		CommonRsp commonRsp=new CommonRsp();
+		String token=request.getParameter("token");			
+		String userPassword=token.substring(0,32); //token是password和userID拼接成的。
+		String useridStr=token.substring(32);		
+		Long userid=Long.valueOf(useridStr).longValue();
+		String passwdTrue=rlService.selectMD5Password(Long.valueOf(userid));		
+		if(!userPassword.equals(passwdTrue)){
+			commonRsp.setRetcode(2001);
+			commonRsp.setMsg("用户密码不对，非法");
+			return commonRsp;
+		}	
+		String tweetContent=request.getParameter("content");//转发时输入的内容
+		String sourceMsgID=request.getParameter("sourceMsgID");
+		Tweet tweet=new Tweet();
+		tweet.setUseridtweet(userid); //转发推文人的id
+		tweet.setSourcemsgid(Long.valueOf(sourceMsgID).longValue());
+		tweet.setTagid((byte)2); //2代表是转发的
+		tweet.setMsgcontent(tweetContent); //转发时输入的内容
+		tweet.setPublishtime(new Date());		
+		tweet.setTopic(new Long(1)); //话题，默认是1
+		
+		commonRsp.setRetcode(2000);
+		commonRsp.setMsg("转发成功了");
+		return commonRsp;
+	}
+	
 	/*这是一条推文的转发列表，本质上也是一组推文。不需要取得原推文内容，如果转发时输入为空，默认存储为“转发推文” */
 	@RequestMapping(value="/listZhuanfa")
 	public @ResponseBody TweetsListRsp getZhuanfaList(@RequestBody  ZhuangfaListParam zhuanfaListParam){

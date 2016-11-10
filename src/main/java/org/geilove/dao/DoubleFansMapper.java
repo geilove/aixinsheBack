@@ -20,8 +20,6 @@ public interface DoubleFansMapper {
 
     int updateByPrimaryKey(DoubleFans record);
     
-    int deleteByDoubleUserIDs(List list);// 自定义取消关注的方法。多条件删除
-    
     List<PartWatchPojo> getPartWatchProfile(Map<String,Object> map); //获取DoubleFans表中的一组数据，还没实现
     
     List<Long> getWatchids(Map<String,Object> map); //获取用户所关注人的一组id。
@@ -29,6 +27,8 @@ public interface DoubleFansMapper {
     List<Long> getMyFansids(Map<String,Object> map);  //根据用户的id获得用户粉丝的ids
     
     List<PartHelpPojo> selectHelpMen(Map<String,Object> map); //自定义，获得帮助人-被帮助人关系表
+    
+    Integer cancelWatch(Map<String,Object> map); //取消关注一个人
     
 }
 

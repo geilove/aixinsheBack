@@ -3,13 +3,20 @@
 <mapper namespace="org.geilove.dao.PictureMapper" >
   <resultMap id="BaseResultMap" type="org.geilove.pojo.Picture" >
     <id column="pictureID" property="pictureid" jdbcType="BIGINT" />
-    <result column="photoIDPicture" property="photoidpicture" jdbcType="BIGINT" />
-    <result column="itemIDPicture" property="itemidpicture" jdbcType="BIGINT" />
-    <result column="photoname" property="photoname" jdbcType="VARCHAR" />
-    <result column="picturename" property="picturename" jdbcType="VARCHAR" />
-    <result column="pictureuploadtime" property="pictureuploadtime" jdbcType="TIMESTAMP" />
-    <result column="Photodescription" property="photodescription" jdbcType="VARCHAR" />
-    <result column="Photopath" property="photopath" jdbcType="VARCHAR" />
+    <result column="userID" property="userid" jdbcType="BIGINT" />
+    <result column="tag" property="tag" jdbcType="INTEGER" />
+    <result column="uploadtime" property="uploadtime" jdbcType="TIMESTAMP" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="photopathOne" property="photopathone" jdbcType="VARCHAR" />
+    <result column="photopathTwo" property="photopathtwo" jdbcType="VARCHAR" />
+    <result column="photopathThree" property="photopaththree" jdbcType="VARCHAR" />
+    <result column="photopathFour" property="photopathfour" jdbcType="VARCHAR" />
+    <result column="photopathFive" property="photopathfive" jdbcType="VARCHAR" />
+    <result column="photopathSix" property="photopathsix" jdbcType="VARCHAR" />
+    <result column="photopathSeven" property="photopathseven" jdbcType="VARCHAR" />
+    <result column="photopathEight" property="photopatheight" jdbcType="VARCHAR" />
+    <result column="photopathNine" property="photopathnine" jdbcType="VARCHAR" />
+    <result column="photopathTen" property="photopathten" jdbcType="VARCHAR" />
     <result column="backupOne" property="backupone" jdbcType="VARCHAR" />
     <result column="backupTwo" property="backuptwo" jdbcType="VARCHAR" />
     <result column="backupThree" property="backupthree" jdbcType="VARCHAR" />
@@ -17,18 +24,10 @@
     <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
     <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
   </resultMap>
-  <!-- 自定义 获取一组图片 -->
-  <select id="selectByMap" resultType="org.geilove.sqlpojo.PicturePojo">
-  	select Photopath,backupOne 
-  	from picture
-  	where photoIDPicture=#{tag,jdbcType=INTEGER}
-    limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
-  </select>
-  
   <sql id="Base_Column_List" >
-    pictureID, photoIDPicture, itemIDPicture, photoname, picturename, pictureuploadtime, 
-    Photodescription, Photopath, backupOne, backupTwo, backupThree, backupFour, backupFive, 
-    backupSix
+    pictureID, userID, tag, uploadtime, description, photopathOne, photopathTwo, photopathThree, 
+    photopathFour, photopathFive, photopathSix, photopathSeven, photopathEight, photopathNine, 
+    photopathTen, backupOne, backupTwo, backupThree, backupFour, backupFive, backupSix
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -41,16 +40,22 @@
     where pictureID = #{pictureid,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="org.geilove.pojo.Picture" >
-    insert into picture (pictureID, photoIDPicture, itemIDPicture, 
-      photoname, picturename, pictureuploadtime, 
-      Photodescription, Photopath, backupOne, 
-      backupTwo, backupThree, backupFour, 
-      backupFive, backupSix)
-    values (#{pictureid,jdbcType=BIGINT}, #{photoidpicture,jdbcType=BIGINT}, #{itemidpicture,jdbcType=BIGINT}, 
-      #{photoname,jdbcType=VARCHAR}, #{picturename,jdbcType=VARCHAR}, #{pictureuploadtime,jdbcType=TIMESTAMP}, 
-      #{photodescription,jdbcType=VARCHAR}, #{photopath,jdbcType=VARCHAR}, #{backupone,jdbcType=VARCHAR}, 
-      #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, #{backupfour,jdbcType=VARCHAR}, 
-      #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER})
+    insert into picture (pictureID, userID, tag, 
+      uploadtime, description, photopathOne, 
+      photopathTwo, photopathThree, photopathFour, 
+      photopathFive, photopathSix, photopathSeven, 
+      photopathEight, photopathNine, photopathTen, 
+      backupOne, backupTwo, backupThree, 
+      backupFour, backupFive, backupSix
+      )
+    values (#{pictureid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{tag,jdbcType=INTEGER}, 
+      #{uploadtime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{photopathone,jdbcType=VARCHAR}, 
+      #{photopathtwo,jdbcType=VARCHAR}, #{photopaththree,jdbcType=VARCHAR}, #{photopathfour,jdbcType=VARCHAR}, 
+      #{photopathfive,jdbcType=VARCHAR}, #{photopathsix,jdbcType=VARCHAR}, #{photopathseven,jdbcType=VARCHAR}, 
+      #{photopatheight,jdbcType=VARCHAR}, #{photopathnine,jdbcType=VARCHAR}, #{photopathten,jdbcType=VARCHAR}, 
+      #{backupone,jdbcType=VARCHAR}, #{backuptwo,jdbcType=VARCHAR}, #{backupthree,jdbcType=VARCHAR}, 
+      #{backupfour,jdbcType=VARCHAR}, #{backupfive,jdbcType=INTEGER}, #{backupsix,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.geilove.pojo.Picture" >
     insert into picture
@@ -58,26 +63,47 @@
       <if test="pictureid != null" >
         pictureID,
       </if>
-      <if test="photoidpicture != null" >
-        photoIDPicture,
+      <if test="userid != null" >
+        userID,
       </if>
-      <if test="itemidpicture != null" >
-        itemIDPicture,
+      <if test="tag != null" >
+        tag,
       </if>
-      <if test="photoname != null" >
-        photoname,
+      <if test="uploadtime != null" >
+        uploadtime,
       </if>
-      <if test="picturename != null" >
-        picturename,
+      <if test="description != null" >
+        description,
       </if>
-      <if test="pictureuploadtime != null" >
-        pictureuploadtime,
+      <if test="photopathone != null" >
+        photopathOne,
       </if>
-      <if test="photodescription != null" >
-        Photodescription,
+      <if test="photopathtwo != null" >
+        photopathTwo,
       </if>
-      <if test="photopath != null" >
-        Photopath,
+      <if test="photopaththree != null" >
+        photopathThree,
+      </if>
+      <if test="photopathfour != null" >
+        photopathFour,
+      </if>
+      <if test="photopathfive != null" >
+        photopathFive,
+      </if>
+      <if test="photopathsix != null" >
+        photopathSix,
+      </if>
+      <if test="photopathseven != null" >
+        photopathSeven,
+      </if>
+      <if test="photopatheight != null" >
+        photopathEight,
+      </if>
+      <if test="photopathnine != null" >
+        photopathNine,
+      </if>
+      <if test="photopathten != null" >
+        photopathTen,
       </if>
       <if test="backupone != null" >
         backupOne,
@@ -102,26 +128,47 @@
       <if test="pictureid != null" >
         #{pictureid,jdbcType=BIGINT},
       </if>
-      <if test="photoidpicture != null" >
-        #{photoidpicture,jdbcType=BIGINT},
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
       </if>
-      <if test="itemidpicture != null" >
-        #{itemidpicture,jdbcType=BIGINT},
+      <if test="tag != null" >
+        #{tag,jdbcType=INTEGER},
       </if>
-      <if test="photoname != null" >
-        #{photoname,jdbcType=VARCHAR},
+      <if test="uploadtime != null" >
+        #{uploadtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="picturename != null" >
-        #{picturename,jdbcType=VARCHAR},
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
-      <if test="pictureuploadtime != null" >
-        #{pictureuploadtime,jdbcType=TIMESTAMP},
+      <if test="photopathone != null" >
+        #{photopathone,jdbcType=VARCHAR},
       </if>
-      <if test="photodescription != null" >
-        #{photodescription,jdbcType=VARCHAR},
+      <if test="photopathtwo != null" >
+        #{photopathtwo,jdbcType=VARCHAR},
       </if>
-      <if test="photopath != null" >
-        #{photopath,jdbcType=VARCHAR},
+      <if test="photopaththree != null" >
+        #{photopaththree,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathfour != null" >
+        #{photopathfour,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathfive != null" >
+        #{photopathfive,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathsix != null" >
+        #{photopathsix,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathseven != null" >
+        #{photopathseven,jdbcType=VARCHAR},
+      </if>
+      <if test="photopatheight != null" >
+        #{photopatheight,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathnine != null" >
+        #{photopathnine,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathten != null" >
+        #{photopathten,jdbcType=VARCHAR},
       </if>
       <if test="backupone != null" >
         #{backupone,jdbcType=VARCHAR},
@@ -146,26 +193,47 @@
   <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.Picture" >
     update picture
     <set >
-      <if test="photoidpicture != null" >
-        photoIDPicture = #{photoidpicture,jdbcType=BIGINT},
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=BIGINT},
       </if>
-      <if test="itemidpicture != null" >
-        itemIDPicture = #{itemidpicture,jdbcType=BIGINT},
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=INTEGER},
       </if>
-      <if test="photoname != null" >
-        photoname = #{photoname,jdbcType=VARCHAR},
+      <if test="uploadtime != null" >
+        uploadtime = #{uploadtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="picturename != null" >
-        picturename = #{picturename,jdbcType=VARCHAR},
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="pictureuploadtime != null" >
-        pictureuploadtime = #{pictureuploadtime,jdbcType=TIMESTAMP},
+      <if test="photopathone != null" >
+        photopathOne = #{photopathone,jdbcType=VARCHAR},
       </if>
-      <if test="photodescription != null" >
-        Photodescription = #{photodescription,jdbcType=VARCHAR},
+      <if test="photopathtwo != null" >
+        photopathTwo = #{photopathtwo,jdbcType=VARCHAR},
       </if>
-      <if test="photopath != null" >
-        Photopath = #{photopath,jdbcType=VARCHAR},
+      <if test="photopaththree != null" >
+        photopathThree = #{photopaththree,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathfour != null" >
+        photopathFour = #{photopathfour,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathfive != null" >
+        photopathFive = #{photopathfive,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathsix != null" >
+        photopathSix = #{photopathsix,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathseven != null" >
+        photopathSeven = #{photopathseven,jdbcType=VARCHAR},
+      </if>
+      <if test="photopatheight != null" >
+        photopathEight = #{photopatheight,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathnine != null" >
+        photopathNine = #{photopathnine,jdbcType=VARCHAR},
+      </if>
+      <if test="photopathten != null" >
+        photopathTen = #{photopathten,jdbcType=VARCHAR},
       </if>
       <if test="backupone != null" >
         backupOne = #{backupone,jdbcType=VARCHAR},
@@ -190,13 +258,20 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.Picture" >
     update picture
-    set photoIDPicture = #{photoidpicture,jdbcType=BIGINT},
-      itemIDPicture = #{itemidpicture,jdbcType=BIGINT},
-      photoname = #{photoname,jdbcType=VARCHAR},
-      picturename = #{picturename,jdbcType=VARCHAR},
-      pictureuploadtime = #{pictureuploadtime,jdbcType=TIMESTAMP},
-      Photodescription = #{photodescription,jdbcType=VARCHAR},
-      Photopath = #{photopath,jdbcType=VARCHAR},
+    set userID = #{userid,jdbcType=BIGINT},
+      tag = #{tag,jdbcType=INTEGER},
+      uploadtime = #{uploadtime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      photopathOne = #{photopathone,jdbcType=VARCHAR},
+      photopathTwo = #{photopathtwo,jdbcType=VARCHAR},
+      photopathThree = #{photopaththree,jdbcType=VARCHAR},
+      photopathFour = #{photopathfour,jdbcType=VARCHAR},
+      photopathFive = #{photopathfive,jdbcType=VARCHAR},
+      photopathSix = #{photopathsix,jdbcType=VARCHAR},
+      photopathSeven = #{photopathseven,jdbcType=VARCHAR},
+      photopathEight = #{photopatheight,jdbcType=VARCHAR},
+      photopathNine = #{photopathnine,jdbcType=VARCHAR},
+      photopathTen = #{photopathten,jdbcType=VARCHAR},
       backupOne = #{backupone,jdbcType=VARCHAR},
       backupTwo = #{backuptwo,jdbcType=VARCHAR},
       backupThree = #{backupthree,jdbcType=VARCHAR},

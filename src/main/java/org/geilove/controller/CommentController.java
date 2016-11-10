@@ -3,7 +3,9 @@ package org.geilove.controller;
 import org.geilove.requestParam.AddCommentParam;
 import org.geilove.service.CommentService;
 import org.geilove.service.HelpService;
+import org.geilove.service.RegisterLoginService;
 import org.geilove.sqlpojo.OtherPartHelpPojo;
+import org.geilove.pojo.Confirm;
 import org.geilove.pojo.DiscussReply;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.geilove.requestParam.DelCommentParam;
 import org.geilove.requestParam.CommentListParam;
 import org.geilove.response.CommentsListRsp;
+import org.geilove.response.CommonRsp;
 
 import java.util.Date;
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 //实现对推文的评论，获取，删除等
 @Controller
 @RequestMapping("/tweetcomment")
@@ -29,18 +33,42 @@ public class CommentController {
 	private  CommentService commentService;
 	@Resource
 	private HelpService helpService;
-	
+	@Resource
+	private RegisterLoginService rlService;
 	@RequestMapping("/addcomment")
-	public @ResponseBody Integer addComment(@RequestBody AddCommentParam addCommentParam ){
+	public @ResponseBody CommonRsp addComment(HttpServletRequest request){
+		CommonRsp commonRsp=new CommonRsp();
+		String token=request.getParameter("token");			
+		String userPassword=token.substring(0,32); //token是password和userID拼接成的。
+		String useridStr=token.substring(32);		
+		Long userid=Long.valueOf(useridStr).longValue();		
+		String passwdTrue=rlService.selectMD5Password(Long.valueOf(userid));
+		if(!userPassword.equals(passwdTrue)){
+			commonRsp.setRetcode(2001);
+			commonRsp.setMsg("用户密码不对，非法");
+			return commonRsp;
+		}	
+	
+		String content=request.getParameter("content");
+		String tuiwenid=request.getParameter("tuiwenid");
 		DiscussReply dr=new DiscussReply();
-		   dr.setUseriddiscussreply(addCommentParam.getUseriddiscussreply());
-		   dr.setTweetiddiscussreply(addCommentParam.getTweetiddiscussreply());
-		   dr.setDiscussreplytype(addCommentParam.getDiscussreplytype());
-		   dr.setDiscussreplytext(addCommentParam.getDiscussreplytext());
-		   Date date=new Date();
-		   dr.setDiscussreplytime(date);
-		   int a=commentService.addComment(dr);
-		   return a;//确认下插入成功后的返回值是什么
+		dr.setTweetiddiscussreply(Long.valueOf(tuiwenid).longValue());
+	    dr.setDiscussreplytext(content); 
+        dr.setTweetiddiscussreply(userid);	   
+	    dr.setDiscussreplytime(new Date());
+	    dr.setDiscussreplyok(0); 
+	    try{
+	    	int a=commentService.addComment(dr);
+	    	if(a!=1){
+	    		commonRsp.setMsg("评论出错了");
+	    		commonRsp.setRetcode(2001);
+	    	}
+	    }catch(Exception e){
+	    	
+	    }
+	    commonRsp.setMsg("评论成功");
+	    commonRsp.setRetcode(2000);
+	    return commonRsp;//确认下插入成功后的返回值是什么
 	}
 	//根据微博客户端的设计，长按要删除的微博，松手后，如果是当前用户评论的会有删除选项，否则没有，
 	//这个应该是长按的时候检测了下该评论是不是当前用户发布的。客户端就能完成。

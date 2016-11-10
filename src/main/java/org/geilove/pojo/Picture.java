@@ -5,21 +5,35 @@ import java.util.Date;
 public class Picture {
     private Long pictureid;
 
-    private Long photoidpicture;
+    private Long userid;
 
-    private Long itemidpicture;
+    private Integer tag;
 
-    private String photoname;
+    private Date uploadtime;
 
-    private String picturename;
+    private String description;
 
-    private Date pictureuploadtime;
+    private String photopathone;
 
-    private String photodescription;
+    private String photopathtwo;
 
-    private String photopath; //图片的路径
+    private String photopaththree;
 
-    private String backupone; //图片对应的url地址
+    private String photopathfour;
+
+    private String photopathfive;
+
+    private String photopathsix;
+
+    private String photopathseven;
+
+    private String photopatheight;
+
+    private String photopathnine;
+
+    private String photopathten;
+
+    private String backupone;
 
     private String backuptwo;
 
@@ -39,60 +53,116 @@ public class Picture {
         this.pictureid = pictureid;
     }
 
-    public Long getPhotoidpicture() {
-        return photoidpicture;
+    public Long getUserid() {
+        return userid;
     }
 
-    public void setPhotoidpicture(Long photoidpicture) {
-        this.photoidpicture = photoidpicture;
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 
-    public Long getItemidpicture() {
-        return itemidpicture;
+    public Integer getTag() {
+        return tag;
     }
 
-    public void setItemidpicture(Long itemidpicture) {
-        this.itemidpicture = itemidpicture;
+    public void setTag(Integer tag) {
+        this.tag = tag;
     }
 
-    public String getPhotoname() {
-        return photoname;
+    public Date getUploadtime() {
+        return uploadtime;
     }
 
-    public void setPhotoname(String photoname) {
-        this.photoname = photoname == null ? null : photoname.trim();
+    public void setUploadtime(Date uploadtime) {
+        this.uploadtime = uploadtime;
     }
 
-    public String getPicturename() {
-        return picturename;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPicturename(String picturename) {
-        this.picturename = picturename == null ? null : picturename.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
-    public Date getPictureuploadtime() {
-        return pictureuploadtime;
+    public String getPhotopathone() {
+        return photopathone;
     }
 
-    public void setPictureuploadtime(Date pictureuploadtime) {
-        this.pictureuploadtime = pictureuploadtime;
+    public void setPhotopathone(String photopathone) {
+        this.photopathone = photopathone == null ? null : photopathone.trim();
     }
 
-    public String getPhotodescription() {
-        return photodescription;
+    public String getPhotopathtwo() {
+        return photopathtwo;
     }
 
-    public void setPhotodescription(String photodescription) {
-        this.photodescription = photodescription == null ? null : photodescription.trim();
+    public void setPhotopathtwo(String photopathtwo) {
+        this.photopathtwo = photopathtwo == null ? null : photopathtwo.trim();
     }
 
-    public String getPhotopath() {
-        return photopath;
+    public String getPhotopaththree() {
+        return photopaththree;
     }
 
-    public void setPhotopath(String photopath) {
-        this.photopath = photopath == null ? null : photopath.trim();
+    public void setPhotopaththree(String photopaththree) {
+        this.photopaththree = photopaththree == null ? null : photopaththree.trim();
+    }
+
+    public String getPhotopathfour() {
+        return photopathfour;
+    }
+
+    public void setPhotopathfour(String photopathfour) {
+        this.photopathfour = photopathfour == null ? null : photopathfour.trim();
+    }
+
+    public String getPhotopathfive() {
+        return photopathfive;
+    }
+
+    public void setPhotopathfive(String photopathfive) {
+        this.photopathfive = photopathfive == null ? null : photopathfive.trim();
+    }
+
+    public String getPhotopathsix() {
+        return photopathsix;
+    }
+
+    public void setPhotopathsix(String photopathsix) {
+        this.photopathsix = photopathsix == null ? null : photopathsix.trim();
+    }
+
+    public String getPhotopathseven() {
+        return photopathseven;
+    }
+
+    public void setPhotopathseven(String photopathseven) {
+        this.photopathseven = photopathseven == null ? null : photopathseven.trim();
+    }
+
+    public String getPhotopatheight() {
+        return photopatheight;
+    }
+
+    public void setPhotopatheight(String photopatheight) {
+        this.photopatheight = photopatheight == null ? null : photopatheight.trim();
+    }
+
+    public String getPhotopathnine() {
+        return photopathnine;
+    }
+
+    public void setPhotopathnine(String photopathnine) {
+        this.photopathnine = photopathnine == null ? null : photopathnine.trim();
+    }
+
+    public String getPhotopathten() {
+        return photopathten;
+    }
+
+    public void setPhotopathten(String photopathten) {
+        this.photopathten = photopathten == null ? null : photopathten.trim();
     }
 
     public String getBackupone() {

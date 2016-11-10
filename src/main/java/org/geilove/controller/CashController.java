@@ -54,7 +54,7 @@ public class CashController {
 		String userPassword=token.substring(0,32); //token是password和userID拼接成的。
 		String useridStr=token.substring(32);		
 		Long userid=Long.valueOf(useridStr).longValue();
-		String passwdTrue=rlService.selectMD5Password(Long.valueOf(1));
+		String passwdTrue=rlService.selectMD5Password(Long.valueOf(userid));
 		System.out.println(passwdTrue);
 		if(!userPassword.equals(passwdTrue)){
 			commonRsp.setRetcode(2001);

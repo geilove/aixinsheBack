@@ -14,6 +14,7 @@ import org.geilove.pojo.User;
 import org.geilove.requestParam.FindpwParam;
 import org.geilove.vo.UserLoginVo;
 import org.geilove.service.RegisterLoginService;
+import org.geilove.util.MD5;
 import org.geilove.util.Md5Util;
 import org.geilove.vo.UserRegisterVo;
 import org.geilove.response.UserProfileRsp;
@@ -27,6 +28,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/user")
@@ -35,6 +37,8 @@ public class RegisterLoginController {
 	@Resource
 	private RegisterLoginService registerLoginService; 
 	
+	
+	//登录
 	@RequestMapping(value="/login",method=RequestMethod.POST)	
 	public @ResponseBody UserProfileRsp loginUser(@RequestBody UserLoginVo userLoginVo,HttpSession httpSession){
 		httpSession.setAttribute("session", "hellosession");  
@@ -71,11 +75,11 @@ public class RegisterLoginController {
 		return userProfileRsp;
 	}
 	
+	//注册
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public @ResponseBody CommonRsp registerUser(@RequestBody  UserRegisterVo userRegisterVo){
 		//这里假设昵称唯一可用，邮箱可用，两次输入的密码一样
 		//如果可以注册，应对密码md5加密
-		System.out.println("aaa");
 		CommonRsp commonRsp=new CommonRsp();
 		User userRegister=new User();
 		String userEmail=userRegisterVo.getUserEmail();
@@ -107,7 +111,7 @@ public class RegisterLoginController {
 		}
 		//这里对userPassword 加密存入数据库
 		String pwMD5=Md5Util.getMd5(userRegisterVo.getUserPassword());
-		System.out.println(pwMD5);
+		//System.out.println(pwMD5);
 		userRegister.setUsernickname(userRegisterVo.getUserNickName());
 		userRegister.setUseremail(userRegisterVo.getUserEmail());
 		userRegister.setUserpassword(pwMD5);
@@ -128,7 +132,7 @@ public class RegisterLoginController {
 		}		
 		return commonRsp; //这么返回是为了，注册成功立马跳转到主页，和登录时一样。		
 	}
-
+   //这个是找回密码。
 	@RequestMapping(value="/findpassword",method=RequestMethod.POST)
 	public @ResponseBody CommonRsp findPassword(@RequestBody  FindpwParam param) throws MessagingException{
 		CommonRsp rsp=new CommonRsp();
@@ -199,7 +203,86 @@ public class RegisterLoginController {
         rsp.setRetcode(2000);
 		return rsp;
 	}
+	//修改密码
+	@RequestMapping(value="/resetpass",method=RequestMethod.POST)
+	public @ResponseBody CommonRsp resetPassword(HttpServletRequest request) {
+		CommonRsp commonRsp=new CommonRsp();
+		String token=request.getParameter("token");			
+		String userPassword=token.substring(0,32); //token是password和userID拼接成的。
+		System.out.println(userPassword);
+		String useridStr=token.substring(32);		
+		Long userid=Long.valueOf(useridStr).longValue();
+		//Long userid=Long.parseLong(useridstr);
+		String passwdTrue=registerLoginService.selectMD5Password(Long.valueOf(userid));
+		System.out.println(passwdTrue);
+		
+		if(!userPassword.equals(passwdTrue)){
+			commonRsp.setRetcode(2001);
+			commonRsp.setMsg("用户身份验证失败");
+			return commonRsp;
+		}
+		String  originPass=request.getParameter("originPass"); 
+		String  newPass=request.getParameter("newPass");
+		String againPass=request.getParameter("againPass");
+		String md5pass=MD5.string2MD5(originPass); //对原始密码加密
+		if(!md5pass.equals(passwdTrue)){
+			commonRsp.setRetcode(2001);
+			commonRsp.setMsg("用户密码不对，非法");
+			return commonRsp;
+		}
+		if(!againPass.equals(newPass)){
+			commonRsp.setRetcode(2001);
+			commonRsp.setMsg("两次输入新密码不一致");
+			return commonRsp;
+		}
+		if(newPass.length()<6 ||newPass.length()>18 ||againPass.length()<6 ||againPass.length()>18){
+			commonRsp.setRetcode(2001);
+			commonRsp.setMsg("新密码长度不合法");
+			return commonRsp;
+		}
+		String regPass="^[0-9a-zA-Z]{5,17}$"; //邮箱密码的正则表达式	
+		Pattern patternPW=Pattern.compile(regPass);
+		Matcher matcherNewPW=patternPW.matcher(newPass);
+		Matcher matcherAgainPW=patternPW.matcher(newPass);
+		boolean pwb=matcherNewPW.matches();
+		boolean againpwb=matcherAgainPW.matches();
+		if(pwb==false ||againpwb==false){
+			commonRsp.setMsg("密码不符合格式");
+			commonRsp.setRetcode(2001);
+			return commonRsp;
+		}
+		//接下来调用更新user表的方法，对密码进行更新
+		User user=new User();
+		user.setUserid(userid);
+		user.setUserpassword(MD5.string2MD5(newPass));
+		try{
+			int tag=registerLoginService.updateUserSelective(user);
+			if(tag!=1){
+				commonRsp.setMsg("密码更新失败");
+				commonRsp.setRetcode(2001);
+				return commonRsp;
+			}
+		}catch(Exception e){
+			
+		}
+		commonRsp.setMsg("密码更新成功");
+		commonRsp.setRetcode(2000);
+		return commonRsp;
+	}	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

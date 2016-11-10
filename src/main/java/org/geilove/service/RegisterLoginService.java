@@ -11,4 +11,6 @@ public interface RegisterLoginService {
 	public String selectMD5Password(Long userid);
 	
 	public String findPasswd(String userEmail);
+	
+	public int updateUserSelective(User record);
 }

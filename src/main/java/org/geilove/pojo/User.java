@@ -84,17 +84,20 @@ public class User {
     private  Date  behelptime;
     
     private Integer behelpedtype;
+    private String backupseven;
+
+    private String backupeight;
+
+    private String backupnine;
+
+    private String backupten;
+
+    private Integer tobeuseone;
+
+    private Integer tobeusetwo;
+
+    private Integer tobeusethree;
     
-    private Integer ooo;
-
-    public Integer getOoo() {
-		return ooo;
-	}
-
-	public void setOoo(Integer ooo) {
-		this.ooo = ooo;
-	}
-
 	public Long getUserid() {
         return userid;
     }
@@ -423,6 +426,60 @@ public class User {
 		this.behelpedtype = behelpedtype;
 	}
 
-	
+	 public String getBackupseven() {
+	        return backupseven;
+	    }
+
+	    public void setBackupseven(String backupseven) {
+	        this.backupseven = backupseven == null ? null : backupseven.trim();
+	    }
+
+	    public String getBackupeight() {
+	        return backupeight;
+	    }
+
+	    public void setBackupeight(String backupeight) {
+	        this.backupeight = backupeight == null ? null : backupeight.trim();
+	    }
+
+	    public String getBackupnine() {
+	        return backupnine;
+	    }
+
+	    public void setBackupnine(String backupnine) {
+	        this.backupnine = backupnine == null ? null : backupnine.trim();
+	    }
+
+	    public String getBackupten() {
+	        return backupten;
+	    }
+
+	    public void setBackupten(String backupten) {
+	        this.backupten = backupten == null ? null : backupten.trim();
+	    }
+
+	    public Integer getTobeuseone() {
+	        return tobeuseone;
+	    }
+
+	    public void setTobeuseone(Integer tobeuseone) {
+	        this.tobeuseone = tobeuseone;
+	    }
+
+	    public Integer getTobeusetwo() {
+	        return tobeusetwo;
+	    }
+
+	    public void setTobeusetwo(Integer tobeusetwo) {
+	        this.tobeusetwo = tobeusetwo;
+	    }
+
+	    public Integer getTobeusethree() {
+	        return tobeusethree;
+	    }
+
+	    public void setTobeusethree(Integer tobeusethree) {
+	        this.tobeusethree = tobeusethree;
+	    }
     
 }

@@ -49,19 +49,32 @@
     from tweet
     where tweetID = #{tweetid,jdbcType=BIGINT}
   </select>
-  <!--  以下是自定义，根据用户的id获取一组推文 -->
+  <!--  以下是自定义，根据用户的id获取一组推文,开始与刷新，适合查看自己发布的推文 -->
   <select id="selectByMainKey" resultMap="BaseResultMap" parameterType="java.util.HashMap">
        select
        <include refid="Base_Column_List" />
        from 
            tweet     
        where  
-           userIDTweet= #{userID,jdbcType=INTEGER} 
+           userIDTweet= #{userID,jdbcType=INTEGER} AND  publishTime > #{lastUpdate}
       order by publishTime  desc
       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
   </select>
   <!--  自定义select结束 -->
-   <!--  以下是自定义，根据一条推文的id获取它的转发 -->
+   <!--  以下是自定义，根据用户的id获取一组推文,加载更多 适合查看自己发布的推文-->
+  <select id="selectByMainKeyLoadMore" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+       select
+       <include refid="Base_Column_List" />
+       from 
+           tweet     
+       where  
+           userIDTweet= #{userID,jdbcType=INTEGER} AND  publishTime &lt; #{lastItemstart}
+      order by publishTime  desc
+      limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
+  </select>
+  <!--  自定义select结束 -->
+  
+  <!--  以下是自定义，根据一条推文的id获取它的转发 -->
   <select id="selectBySourceMsgIDKey" resultMap="BaseResultMap" parameterType="java.util.HashMap">
        select
        <include refid="Base_Column_List" />
@@ -84,7 +97,7 @@
   </select> 
   <!-- 自定义结束 -->
     <!-- 自定义开始 -->
-  <select id="findByUserIds" resultType="org.geilove.pojo.Tweet">
+  <select id="findByUserIds" resultType="org.geilove.pojo.Tweet" parameterType="java.util.HashMap">
        Select
        <include refid="Base_Column_List" />
        from tweet where userID in
@@ -92,9 +105,29 @@
                   #{item}
           </foreach>
       order by publishTime desc
+      limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
   </select> 
   <!-- 自定义结束 -->
-      
+  <!-- 自定义开始 适合加载更多-->
+  <select id=" findByUserIdsLoadMore" resultType="org.geilove.pojo.Tweet" parameterType="java.util.HashMap">
+       Select
+       <include refid="Base_Column_List" />
+       from tweet
+       <where>
+          <if test="lsids!=null">
+          	 AND userID in
+	          <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	               #{item}
+	          </foreach>
+          </if>
+          <if test="lastItemstart!=null">
+          	 AND  lastItemstart > #{lastItemstart}
+          </if>
+       </where> 
+       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
+       order by publishTime desc
+  </select> 
+  <!-- 自定义结束 -->    
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tweet
     where tweetID = #{tweetid,jdbcType=BIGINT}

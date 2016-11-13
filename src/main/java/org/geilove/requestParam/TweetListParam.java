@@ -1,16 +1,12 @@
 package org.geilove.requestParam;
 
 public class TweetListParam {
-	private Long userID; 		//用户的ID
+	private  String token; //
+	private  String    lastUpdate;
+	private  String    lastItemstart;
+	private  Integer   flag;
 	private Integer page;		//开始的页
 	private Integer pageSize;	//每页的大小
-	
-	public Long getUserID() {
-		return userID;
-	}
-	public void setUserID(Long userID) {
-		this.userID = userID;
-	}
 	public Integer getPage() {
 		return page;
 	}
@@ -22,6 +18,30 @@ public class TweetListParam {
 	}
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public String getLastUpdate() {
+		return lastUpdate;
+	}
+	public void setLastUpdate(String lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+	public String getLastItemstart() {
+		return lastItemstart;
+	}
+	public void setLastItemstart(String lastItemstart) {
+		this.lastItemstart = lastItemstart;
+	}
+	public Integer getFlag() {
+		return flag;
+	}
+	public void setFlag(Integer flag) {
+		this.flag = flag;
 	}
 
 }

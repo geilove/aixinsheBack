@@ -39,9 +39,12 @@ public class TweetController {
 	@Resource
 	private RegisterLoginService rlService;
 	@RequestMapping(value="/gettweetbyuserid")//比如查看用户自己发布、转发的推文
-	public  @ResponseBody TweetsListRsp getTweetByUserID(@RequestBody TweetListParam tweetListParam ){
+	public  @ResponseBody TweetsListRsp getTweetByUserID(@RequestBody TweetListParam tweetListParam,HttpServletRequest request){
 		TweetsListRsp tweetsListRsp=new TweetsListRsp();
-		Long	 userID=tweetListParam.getUserID();
+		String token=tweetListParam.getToken(); //获取登录凭证
+		String useridStr=token.substring(32); //获取userID
+		//System.out.println(useridStr);
+		Long userID=Long.valueOf(useridStr).longValue();		
 		Integer  page=tweetListParam.getPage();
 		Integer  pageSize=tweetListParam.getPageSize();
 		List<Tweet>tweetlist=new ArrayList<Tweet>();//存放被转发的推文						
@@ -54,7 +57,9 @@ public class TweetController {
 		map.put("userID", userID);
 		map.put("page", page);
 		map.put("pageSize", pageSize);	
-		
+		map.put("lastUpdate", tweetListParam.getLastUpdate());	   
+		map.put("lastItemstart", tweetListParam.getLastItemstart());
+		map.put("flag", tweetListParam.getFlag());
 		List<Tweet> tweets=mainService.getTweetList(map);//首先取得推文，不带转发			
 		
 		/*1.先获取这组推文包含的用户id集合和被转发的推文主键id集合*/
@@ -180,12 +185,18 @@ public class TweetController {
 	 * 如果是刷新还是这个接口，app端清空数据，
 	 * 如果是加载更多应该换一个接口。
 	 */
-	@RequestMapping(value="/gettuiwenlists")//这个是在可直接获取用户ID时候用
+	@RequestMapping(value="/gettuiwenlists")
 	public  @ResponseBody TweetsListRsp getTweetLists(@RequestBody WeiBoListParam tweetListParam ){
 		TweetsListRsp tweetsListRsp=new TweetsListRsp();
-		Long	 userID=tweetListParam.getUserID();
+		String token=tweetListParam.getToken(); //获取登录凭证
+		String useridStr=token.substring(32); //获取userID	
+		Long userID=Long.valueOf(useridStr).longValue();
 		Integer  page=tweetListParam.getPage();
 		Integer  pageSize=tweetListParam.getPageSize();
+		Integer flag=tweetListParam.getFlag();
+		String  lastUpdate=tweetListParam.getLastUpdate();
+		String lastItemstart=tweetListParam.getLastItemstart();
+		
 		List<Tweet>tweetlist=new ArrayList<Tweet>();//存放被转发的推文						
 		//这个是用来在sql-where-in中循环传参数用的。MainService中的getTweetByDiffIDs
 		List<Long> paramslist=new ArrayList<Long>(); //这个是存放被转发推文id的地方
@@ -194,13 +205,19 @@ public class TweetController {
 		
 		Map<String,Object> map=new HashMap<String,Object>();//存放查询的参数，传给Mybatis
 		map.put("userID", userID);
-		map.put("page", page);
+		map.put("page", page); //这里的page、pageSize要去掉，应该给maps用
 		map.put("pageSize", pageSize);	
-		/*-1.先获取这个人关注的列表集合List<Long>*/
+		/*-1.先获取这个人关注的列表集合List<Long>，其实应该获取所有的关注的人*/
 		List<Long> lsids=mainService.getWatcherIds(map); //这个map只用到了userID
 		/*0.然后用这个userid集合获取一组推文，*/
-		
-		List<Tweet> tweets=mainService.getWeiBoList(lsids);//首先取得推文，不带转发
+		Map<String,Object> maps=new HashMap<String,Object>();
+		maps.put("page", page);
+		map.put("pageSize", pageSize);	
+		map.put("lsids", lsids); //列表参数
+		map.put("flag",flag);
+		map.put("lastUpdate", lastUpdate);
+		map.put("lastItemstart", lastItemstart);
+		List<Tweet> tweets=mainService.getWeiBoList(maps);//首先取得推文，不带转发，这里应该传入map参数
 		
 		/*1.先获取这组推文包含的用户id集合和被转发的推文主键id集合*/
 		if(tweets.size()!=0){

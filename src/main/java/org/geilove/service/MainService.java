@@ -26,7 +26,7 @@ public interface  MainService {
 	
 	public List<Long> getMyFansids(Map<String,Object> map);  //获取粉丝的ids
 	
-	public List<Tweet> getWeiBoList(List<Long> ls);
+	public List<Tweet> getWeiBoList(Map<String,Object> maps);
 
    
 }

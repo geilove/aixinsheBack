@@ -1,18 +1,19 @@
 package org.geilove.requestParam;
 
 public class WeiBoListParam {
-	private  String    proof; //以后使用这个接口
+	private  String    token; //以后使用这个接口
 	private  Integer   flag; //1，代表刷新要使用lastUpdate 2,是加载更多，要使用lastItemstart
 	private  String    lastUpdate;
 	private  String    lastItemstart;
-	private  Long 	userID; 		//用户的ID
+//	private  Long 	   userID; 		//用户的ID
 	private  Integer   page;		//开始的页
 	private  Integer   pageSize;
-	public String getProof() {
-		return proof;
+   
+	public String getToken() {
+		return token;
 	}
-	public void setProof(String proof) {
-		this.proof = proof;
+	public void setToken(String token) {
+		this.token = token;
 	}
 	public Integer getFlag() {
 		return flag;
@@ -32,12 +33,12 @@ public class WeiBoListParam {
 	public void setLastItemstart(String lastItemstart) {
 		this.lastItemstart = lastItemstart;
 	}
-	public Long getUserID() {
-		return userID;
-	}
-	public void setUserID(Long userID) {
-		this.userID = userID;
-	}
+//	public Long getUserID() {
+//		return userID;
+//	}
+//	public void setUserID(Long userID) {
+//		this.userID = userID;
+//	}
 	public Integer getPage() {
 		return page;
 	}

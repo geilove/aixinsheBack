@@ -1,6 +1,6 @@
 ///*
 // * @author aihaitao
-// * 这个用来显示主页面，而不是推文页面。
+// * 这个用来显示主页面。
 //*/
 //package org.geilove.controller;
 //

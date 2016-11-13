@@ -26,7 +26,7 @@
     <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
     <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
   </resultMap>
-  <!--  以下是自定义，where的条件是记录的时间大于传过来的时间 -->
+  <!--  以下是自定义， 刷新，where的条件是记录的时间大于传过来的时间 -->
   <select id="getItemList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
        select
        <include refid="Base_Column_List" />
@@ -38,7 +38,7 @@
       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
   </select>
   <!--  自定义select结束 -->
-  <!--  以下是自定义，where的条件是记录的时间大于传过来的时间 -->
+  <!--  以下是自定义，加载更多，where的条件是记录的时间小于传过来的时间 -->
   <select id="loadMoreItemList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
        select
        <include refid="Base_Column_List" />

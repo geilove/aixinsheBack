@@ -67,7 +67,7 @@ public class ItemController {
 		map.put("pageSize", pageSize);
 		//SimpleDateFormat format =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		//Timestamp timeupdate=new Timestamp(param.getLastUpdate()); 
-		System.out.println(param.getLastUpdate());	
+		//System.out.println(param.getLastUpdate());	
 	    //SimpleDateFormat formats =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		//Timestamp itemtime=new Timestamp(param.getLastItemstart());
 		//System.out.println(param.getLastItemstart());		

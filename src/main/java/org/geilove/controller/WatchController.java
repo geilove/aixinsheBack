@@ -40,6 +40,7 @@ public class WatchController {
 		String useridStr=token.substring(32);		
 		Long userid=Long.valueOf(useridStr).longValue();		
 		String passwdTrue=rlService.selectMD5Password(Long.valueOf(userid));
+		
 		if(!userPassword.equals(passwdTrue)){
 			commonRsp.setRetcode(2001);
 			commonRsp.setMsg("用户验证失败，非法");
@@ -54,7 +55,7 @@ public class WatchController {
 	    dbfans.setGroupid((byte)1);
 	    dbfans.setSpecialfollow((byte)1);
 	    dbfans.setDoublefans((byte)1);
-	    try{
+	    try{ //应该先查询下是否有关注
 	    	 Integer tag=watchService.doWatch(dbfans);
 	    	 if(tag!=1){
 	    		 commonRsp.setMsg("关注失败");
@@ -70,13 +71,14 @@ public class WatchController {
     //关注人列表在peoplelistcontroller中
     //取消关注一个人
 	@RequestMapping(value="/cancelwatch",method=RequestMethod.POST)
-	public @ResponseBody CommonRsp getWatchList(@RequestParam CancelWatchParam cancelParam ){ 
+	public @ResponseBody CommonRsp getWatchList(@RequestBody CancelWatchParam cancelParam ){ 
 		CommonRsp commonRsp=new CommonRsp();
 		String token=cancelParam.getToken();
 		String userPassword=token.substring(0,32); //token是password和userID拼接成的。
 		String useridStr=token.substring(32);		
 		Long userid=Long.valueOf(useridStr).longValue();		
 		String passwdTrue=rlService.selectMD5Password(Long.valueOf(userid));
+		//System.out.println("lll");
 		if(!userPassword.equals(passwdTrue)){
 			commonRsp.setRetcode(2001);
 			commonRsp.setMsg("用户验证失败，非法");

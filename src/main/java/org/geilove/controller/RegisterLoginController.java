@@ -41,7 +41,7 @@ public class RegisterLoginController {
 	//登录
 	@RequestMapping(value="/login",method=RequestMethod.POST)	
 	public @ResponseBody UserProfileRsp loginUser(@RequestBody UserLoginVo userLoginVo,HttpSession httpSession){
-		httpSession.setAttribute("session", "hellosession");  
+		//httpSession.setAttribute("session", "hellosession");  
 		//这里应该先验证用户邮箱和密码是不是符合要求，避免浪费资源查询数据库
 		UserProfileRsp  userProfileRsp=new UserProfileRsp();		
 		User user=registerLoginService.userLogin(userLoginVo.getUserEmail());
@@ -269,6 +269,29 @@ public class RegisterLoginController {
 		commonRsp.setRetcode(2000);
 		return commonRsp;
 	}	
+	
+	@RequestMapping(value="/getprofile/bynickname",method=RequestMethod.POST)	
+	public @ResponseBody UserProfileRsp getInfoByUserName(HttpServletRequest request){
+		UserProfileRsp  userProfileRsp=new UserProfileRsp();
+		String nickname=request.getParameter("nickname"); //获得用户的昵称
+		//根据昵称获取用户的基本资料
+		User user=new User();
+		try{
+			 user=registerLoginService.byAtUserProfile(nickname);
+			if(user==null){
+				userProfileRsp.setMsg("不存在此用户");
+				userProfileRsp.setRetcode(2001);
+				userProfileRsp.setData(null);
+				return userProfileRsp;
+			}
+		}catch(Exception e){
+			
+		}
+		userProfileRsp.setData(user);
+		userProfileRsp.setMsg("根据@获取用户信息成功了");
+		userProfileRsp.setRetcode(2000);
+		return userProfileRsp;
+	}
 }
 
 

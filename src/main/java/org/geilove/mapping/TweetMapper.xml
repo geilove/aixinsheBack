@@ -56,12 +56,12 @@
        from 
            tweet     
        where  
-           userIDTweet= #{userID,jdbcType=INTEGER} AND  publishTime > #{lastUpdate}
-      order by publishTime  desc
+           userIDTweet= #{userID,jdbcType=INTEGER} AND publishTime > #{lastUpdate}
+      order by publishTime  asc
       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
   </select>
   <!--  自定义select结束 -->
-   <!--  以下是自定义，根据用户的id获取一组推文,加载更多 适合查看自己发布的推文-->
+  <!--  以下是自定义，根据用户的id获取一组推文,加载更多 适合查看自己发布的推文-->
   <select id="selectByMainKeyLoadMore" resultMap="BaseResultMap" parameterType="java.util.HashMap">
        select
        <include refid="Base_Column_List" />
@@ -74,7 +74,7 @@
   </select>
   <!--  自定义select结束 -->
   
-  <!--  以下是自定义，根据一条推文的id获取它的转发 -->
+  <!--  以下是自定义，根据一条推文的id获取它转发的微博-->
   <select id="selectBySourceMsgIDKey" resultMap="BaseResultMap" parameterType="java.util.HashMap">
        select
        <include refid="Base_Column_List" />
@@ -86,7 +86,7 @@
       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
   </select>
   <!--  自定义select结束 -->
-  <!-- 自定义开始 -->
+  <!-- 自定义开始 ，获取被转发的微博-->
   <select id="findByIdsMap" resultType="org.geilove.pojo.Tweet">
        Select
        <include refid="Base_Column_List" />
@@ -96,36 +96,44 @@
           </foreach>
   </select> 
   <!-- 自定义结束 -->
-    <!-- 自定义开始 -->
+    <!-- 自定义开始,适合用户查看自己关注人的推文，开始与刷新-->
   <select id="findByUserIds" resultType="org.geilove.pojo.Tweet" parameterType="java.util.HashMap">
-       Select
+       select
        <include refid="Base_Column_List" />
-       from tweet where userID in
-          <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-                  #{item}
-          </foreach>
-      order by publishTime desc
+       from tweet
+       <where>
+          <if test="list!=null">
+              AND userIDTweet in
+		         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		                 #{item}
+		         </foreach>
+		  </if>
+		  <if test="lastUpdate!=null">
+          	 AND  publishTime > #{lastUpdate}
+          </if>
+      </where> 
+      order by publishTime asc
       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
   </select> 
   <!-- 自定义结束 -->
-  <!-- 自定义开始 适合加载更多-->
-  <select id=" findByUserIdsLoadMore" resultType="org.geilove.pojo.Tweet" parameterType="java.util.HashMap">
+  <!-- 自定义开始 适合查看用户关注的人的微博，加载更多-->
+  <select id="findByUserIdsLoadMore" resultType="org.geilove.pojo.Tweet" parameterType="java.util.HashMap">
        Select
        <include refid="Base_Column_List" />
        from tweet
        <where>
-          <if test="lsids!=null">
-          	 AND userID in
+          <if test="list!=null">
+          	 AND userIDTweet in
 	          <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
 	               #{item}
 	          </foreach>
           </if>
           <if test="lastItemstart!=null">
-          	 AND  lastItemstart > #{lastItemstart}
+          	 AND  publishTime &lt; #{lastItemstart}
           </if>
        </where> 
-       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
        order by publishTime desc
+       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
   </select> 
   <!-- 自定义结束 -->    
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >

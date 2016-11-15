@@ -7,6 +7,7 @@ public class TweetListParam {
 	private  Integer   flag;
 	private Integer page;		//开始的页
 	private Integer pageSize;	//每页的大小
+	
 	public Integer getPage() {
 		return page;
 	}

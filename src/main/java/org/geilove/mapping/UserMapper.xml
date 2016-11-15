@@ -158,14 +158,20 @@
     from user
     where userID = #{userid,jdbcType=BIGINT}
   </select>
-  <!-- 以下是自定义的 -->
+  <!-- 以下是自定义的,根据用户的邮箱选出用户的信息-->
   <select id="selectByUserEmail" resultMap="BaseResultMap" parameterType="java.lang.String">
   	select
   	<include refid="Base_Column_List" />
   	from user
   	where userEmail=#{useremail,jdbcType=VARCHAR}
   </select>
-  
+  <!-- 以下是自定义的,根据用户的昵称选出用户的信息-->
+  <select id="selectByUserNickName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select
+  	<include refid="Base_Column_List" />
+  	from user
+  	where userNickName=#{usernickname,jdbcType=VARCHAR}
+  </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from user

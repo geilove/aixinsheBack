@@ -15,19 +15,19 @@ public interface TweetMapper {
     Tweet selectByPrimaryKey(Long tweetid);
     
     List< Tweet> selectBySourceMsgIDKey(Map<String, Object> map); //根据推文的id，取得它的转发列表
-    
-    List<Tweet> selectByMainKey(Map<String, Object> map); //自定义方法,根据用户的id，取得一组推文列表,刷新和开始加载时候用
-    
-    List<Tweet> selectByMainKeyLoadMore(Map<String, Object> map);
-    
+        
     List<Tweet> findByIdsMap(List<Long> lst); //自定义方法，根据给定的一组不同的tweet的id查找出这组tweet，放在列表中
 
     int updateByPrimaryKeySelective(Tweet record);
 
     int updateByPrimaryKey(Tweet record); 
     
-    List<Tweet> findByUserIds(Map<String,Object>maps); //根据获得的用户的一组userids 取出一组微博,刷新时候用
-   
-    List<Tweet> findByUserIdsLoadMore(Map<String,Object>maps); //供加载更多用
+    List<Tweet> selectByMainKey(Map<String, Object> map); //自定义方法,根据用户的id，取得一组推文列表,刷新和开始加载时候用
+    List<Tweet> selectByMainKeyLoadMore(Map<String, Object> map); //自定义方法,根据用户的id，取得一组推文列表,loadMore使用
+    
+    List<Tweet> findByUserIds(Map<String,Object>maps); //根据获得的用户的一组userids 取出一组微博,开始与刷新  
+    List<Tweet> findByUserIdsLoadMore(Map<String,Object>maps); //根据获得的用户的一组userids 取出一组微博,供加载更多用
+    
+    
     
 }

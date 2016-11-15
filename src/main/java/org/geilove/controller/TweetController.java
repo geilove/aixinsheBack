@@ -19,6 +19,7 @@ import org.geilove.requestParam.WeiBoListParam;
 import org.geilove.requestParam.ZhuangfaListParam;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
@@ -64,6 +65,10 @@ public class TweetController {
 		
 		/*1.先获取这组推文包含的用户id集合和被转发的推文主键id集合*/
 		if(tweets.size()!=0){
+			if(tweetListParam.getFlag()==1){ //1刷新是升序排序的，所以需要翻转，loadMore不需要
+				Collections.reverse(tweets); 
+			} 
+			/*这里应该循环为图片补全完整地址*/
 			for(int i=0;i<tweets.size();i++){	
 				if(tweets.get(i).getTagid()==2){//如果等于2，则是转发的推文				
 					//取得所有要二次查询的推文的id号，因为他们大多数情况下是不一样的，也有可能一样的，所以用list
@@ -82,13 +87,14 @@ public class TweetController {
 		/*2.获取推文中需要展示的用户信息*/
 		List<OtherPartHelpPojo> userPartProfile=new  ArrayList<OtherPartHelpPojo>();
 		if(useridList.size()!=0){
-			System.out.println(useridList.size());
+			//System.out.println(useridList.size());
 			
 			userPartProfile=mainService.getProfileByUserIDs(useridList); //如果能到这一步说明useridList肯定是非空的
 		} 
 	    /*3.获取被转发的推文*/
 	    if(paramslist.size()!=0){ //这个必须做判断，因为微博可能是全部原创的
 	    	tweetlist=mainService.getTweetByDiffIDs(paramslist); //paramslist是所有需要二次查询的推文id组成的列表
+	    	/*这里应该循环为图片补全完整地址*/
 	    }else{ //说明不含被转发的微博，那么直接组装微博返回就可以了
 		    /*5.合并推文和用户信息tweets 和 userPartProfile 到 lsWb*/
 		    List<WeiBo>  lsWb=new ArrayList<WeiBo>();	    
@@ -205,22 +211,31 @@ public class TweetController {
 		
 		Map<String,Object> map=new HashMap<String,Object>();//存放查询的参数，传给Mybatis
 		map.put("userID", userID);
-		map.put("page", page); //这里的page、pageSize要去掉，应该给maps用
-		map.put("pageSize", pageSize);	
+		map.put("page", 0); //这里的page、pageSize要去掉，应该给maps用
+		map.put("pageSize", 1000);	
 		/*-1.先获取这个人关注的列表集合List<Long>，其实应该获取所有的关注的人*/
 		List<Long> lsids=mainService.getWatcherIds(map); //这个map只用到了userID
+		if(lsids.isEmpty()|| lsids==null){
+			tweetsListRsp.setData(null);
+			tweetsListRsp.setMsg("用户没有关注人");
+			tweetsListRsp.setRetcode(2001);
+			return tweetsListRsp;
+		}
 		/*0.然后用这个userid集合获取一组推文，*/
 		Map<String,Object> maps=new HashMap<String,Object>();
 		maps.put("page", page);
-		map.put("pageSize", pageSize);	
-		map.put("lsids", lsids); //列表参数
-		map.put("flag",flag);
-		map.put("lastUpdate", lastUpdate);
-		map.put("lastItemstart", lastItemstart);
+		maps.put("pageSize", pageSize);	
+		maps.put("list", lsids); //列表参数
+		maps.put("flag",flag);
+		maps.put("lastUpdate", lastUpdate);
+		maps.put("lastItemstart", lastItemstart);
 		List<Tweet> tweets=mainService.getWeiBoList(maps);//首先取得推文，不带转发，这里应该传入map参数
 		
 		/*1.先获取这组推文包含的用户id集合和被转发的推文主键id集合*/
 		if(tweets.size()!=0){
+			if(tweetListParam.getFlag()==1){ //1刷新是升序排序的，所以需要翻转，loadMore不需要
+				Collections.reverse(tweets); 
+			}
 			for(int i=0;i<tweets.size();i++){	
 				if(tweets.get(i).getTagid()==2){//如果等于2，则是转发的推文				
 					//取得所有要二次查询的推文的id号，因为他们大多数情况下是不一样的，也有可能一样的，所以用list
@@ -239,7 +254,7 @@ public class TweetController {
 		/*2.获取推文中需要展示的用户信息*/
 		List<OtherPartHelpPojo> userPartProfile=new  ArrayList<OtherPartHelpPojo>();
 		if(useridList.size()!=0){
-			System.out.println(useridList.size());
+			//System.out.println(useridList.size());
 			
 			userPartProfile=mainService.getProfileByUserIDs(useridList); //如果能到这一步说明useridList肯定是非空的
 		} 

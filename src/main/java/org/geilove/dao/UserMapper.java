@@ -18,6 +18,8 @@ public interface UserMapper {
     User selectByPrimaryKey(Long userid);
     
     User selectByUserEmail(String useremail);//自定义，根据用户的邮箱进行验证
+    
+    User selectByUserNickName(String usernickname); //这个形参要与xml中的参数保持一致
 
     int updateByPrimaryKeySelective(User record);
 
@@ -34,6 +36,7 @@ public interface UserMapper {
     String selectMD5Password(Long userid);
     
     String findPasswd(String userEmail);
+    
 }
 
 

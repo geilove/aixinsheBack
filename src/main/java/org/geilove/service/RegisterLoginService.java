@@ -6,6 +6,8 @@ public interface RegisterLoginService {
 	
 	public User userLogin(String userEmail);
 	
+	public User byAtUserProfile(String usernickname);
+	
 	public int userRegister(User record);
 	
 	public String selectMD5Password(Long userid);

@@ -21,6 +21,11 @@ public class RegisterLoginServiceImpl implements RegisterLoginService {
 		User user=userMapper.selectByUserEmail(userEmail);
 		return user;
 	}
+	@Override
+	public User byAtUserProfile(String usernickname){
+		User user=userMapper.selectByUserNickName(usernickname);
+		return user;
+	}
 	
 	@Override
 	public int userRegister(User record){	

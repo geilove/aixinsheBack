@@ -7,7 +7,13 @@ public class TweetListParam {
 	private  Integer   flag;
 	private Integer page;		//开始的页
 	private Integer pageSize;	//每页的大小
-	
+	private Integer symbol; //
+	public Integer getSymbol() {
+		return symbol;
+	}
+	public void setSymbol(Integer symbol) {
+		this.symbol = symbol;
+	}
 	public Integer getPage() {
 		return page;
 	}

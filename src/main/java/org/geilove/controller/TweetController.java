@@ -60,7 +60,8 @@ public class TweetController {
 		map.put("pageSize", pageSize);	
 		map.put("lastUpdate", tweetListParam.getLastUpdate());	   
 		map.put("lastItemstart", tweetListParam.getLastItemstart());
-		map.put("flag", tweetListParam.getFlag());
+		map.put("flag", tweetListParam.getFlag()); //1 是刷新，2是loadMore
+		map.put("symbol",tweetListParam.getSymbol());
 		List<Tweet> tweets=mainService.getTweetList(map);//首先取得推文，不带转发			
 		
 		/*1.先获取这组推文包含的用户id集合和被转发的推文主键id集合*/
@@ -265,8 +266,8 @@ public class TweetController {
 		    /*5.合并推文和用户信息tweets 和 userPartProfile 到 lsWb*/
 		    List<WeiBo>  lsWb=new ArrayList<WeiBo>();	    
 		    for(int k=0;k<tweets.size();k++){
-		    	System.out.println(tweets.size());
-		    	System.out.println(userPartProfile.size());
+		    	//System.out.println(tweets.size());
+		    	//System.out.println(userPartProfile.size());
 		    	
 		    	WeiBo wb=new WeiBo();//WeiBo中有两个数据域，一个是推文领一个是被转发的推文
 		    	for(int l=0;l<userPartProfile.size();l++){
@@ -356,19 +357,44 @@ public class TweetController {
 	public @ResponseBody CommonRsp deleteTweetByID(@RequestBody DeleteTweetByKeyParam delTweetParam){
 		//这里先检查用户名和密码是否存在并匹配
 		// 然后调用Service，将删除标志更新为2
-		CommonRsp rsp=new CommonRsp();
+		CommonRsp commonRsp=new CommonRsp();
+		String token=delTweetParam.getToken();
+		if(token.length()<33){
+			commonRsp.setMsg("凭证不合法");
+			commonRsp.setRetcode(2001);
+			return commonRsp;
+		}
+		String userPassword=token.substring(0,32); //token是password和userID拼接成的。
+		String useridStr=token.substring(32); //取得userid部分		
+		Long userid=Long.valueOf(useridStr).longValue();  //转换成long类型
+		//Long userid=Long.parseLong(useridstr);
+		String passwdTrue=rlService.selectMD5Password(Long.valueOf(userid));
+		//System.out.println(passwdTrue);
+		if(!userPassword.equals(passwdTrue)){
+			commonRsp.setRetcode(2001);
+			commonRsp.setMsg("用户密码不对，非法");
+			return commonRsp;
+		}
+		//这里应该查询下，是不是有这条信息，以及信息是不是用户的
 		Tweet tweet=new Tweet();
 		tweet.setDeletetag((byte) 2);
+		tweet.setMsgcontent("此信息已被用户删除");
 		tweet.setTweetid(delTweetParam.getTweetid());//根据这个推文的ID更新
-		Integer updateTag=mainService.updateTweetByKeySelective(tweet);	
-		if(updateTag==0){
-			rsp.setMsg("删除推文失败");
-			rsp.setRetcode(2001);
-		}else{
-			rsp.setMsg("删除成功");
-			rsp.setRetcode(2000);
+		Integer updateTag=0;
+		try{
+			 updateTag=mainService.updateTweetByKeySelective(tweet);
+		}catch(Exception e){
+			System.out.println(e);
 		}
-		return rsp;		
+		System.out.println(updateTag);
+		if(updateTag==1){
+			commonRsp.setMsg("删除推文成功");
+			commonRsp.setRetcode(2000);
+		}else{
+			commonRsp.setMsg("删除失败");
+			commonRsp.setRetcode(2001);
+		}
+		return commonRsp;		
 	}
 	
 	/*这是发布一条推文*/

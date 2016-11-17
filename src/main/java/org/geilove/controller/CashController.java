@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.geilove.pojo.Cash;
 import org.geilove.pojo.Tweet;
 import org.geilove.requestParam.CashParam;
+import org.geilove.response.CashResponse;
 import org.geilove.response.CommonRsp;
 import org.geilove.service.CashService;
 import org.geilove.service.MainService;
@@ -39,10 +40,23 @@ public class CashController {
 	private CashService cashService;
     /*如果推文是救助信息，这里获取有关救助的说明*/	
 	@RequestMapping(value="/getcashrecord",method=RequestMethod.POST)
-	public @ResponseBody Cash getCashRecord(@RequestBody CashParam cashparam){
-		Cash cash=new Cash();		
-		cash=cashService.getCashRecord(new Long(cashparam.getCashid()));  //转换为long类型
-		return cash;
+	public @ResponseBody CashResponse getCashRecord(@RequestBody CashParam cashparam){
+		CashResponse rsp=new CashResponse();
+		Cash cash=new Cash();
+		try{
+			cash=cashService.getCashRecord(new Long(cashparam.getCashid()));  //转换为long类型
+		}catch(Exception e){			
+		}		
+		if(cash!=null){
+			rsp.setData(cash);
+			rsp.setMsg("needCash信息获取成功");
+			rsp.setRetcode(2000);
+		}else{
+			rsp.setData(null);
+			rsp.setMsg("needCash信息获取失败");
+			rsp.setRetcode(2001);
+		}
+		return rsp;
 	}
 	
 	@RequestMapping(value="/addhelpman",method=RequestMethod.POST)

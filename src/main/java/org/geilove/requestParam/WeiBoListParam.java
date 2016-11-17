@@ -8,7 +8,13 @@ public class WeiBoListParam {
 //	private  Long 	   userID; 		//用户的ID
 	private  Integer   page;		//开始的页
 	private  Integer   pageSize;
-   
+	private Integer symbol; //
+	public Integer getSymbol() {
+		return symbol;
+	}
+	public void setSymbol(Integer symbol) {
+		this.symbol = symbol;
+	}
 	public String getToken() {
 		return token;
 	}

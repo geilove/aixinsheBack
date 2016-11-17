@@ -35,18 +35,32 @@ public class MainServiceImpl implements MainService {
 	public List<Tweet> getTweetList(Map<String,Object> map){
 		//这里调用自定义的方法，取得推文列表，服务是最小的单元，复杂的数据获取在Controller调用服务完成，服务应该处理和数据库有关的错误等事件。
 		Object flag=map.get("flag");
+		Object symbol=map.get("symbol");
 		//System.out.println(flag);
 		List<Tweet> tweets=new ArrayList<Tweet>();
-		if(flag.equals(1)){
-			map.remove("lastItemstart");
-			map.remove("flag");
-			tweets=tweetMapper.selectByMainKey(map); 
-		}else{
-			map.remove("lastUpdate");
-			map.remove("flag");
-			tweets=tweetMapper.selectByMainKeyLoadMore(map); 
-		}
-		 		
+		if(symbol.equals(2)){ //2是查看自己发布的，可以看到未通过审核的救助推文
+			map.remove("symbol");
+			if(flag.equals(1)){
+				map.remove("lastItemstart");
+				map.remove("flag");				
+				tweets=tweetMapper.selectByMainKey(map); 
+			}else{
+				map.remove("lastUpdate");
+				map.remove("flag");
+				tweets=tweetMapper.selectByMainKeyLoadMore(map); 
+			}
+		}else if(symbol.equals(3)){ //查看别人发布的微博
+			map.remove("symbol");
+			if(flag.equals(1)){
+				map.remove("lastItemstart");
+				map.remove("flag");				
+				tweets=tweetMapper.selectByMainKeyShe(map); 
+			}else{
+				map.remove("lastUpdate");
+				map.remove("flag");
+				tweets=tweetMapper.selectByMainKeyLoadMoreSHe(map); 
+			}
+		}	 		
 		return tweets;		
 	} 
 	@Override
@@ -94,6 +108,7 @@ public class MainServiceImpl implements MainService {
 	//这个是用户主页的查询所关注人的weibo接口。 参数应该为map类型
 	public List<Tweet> getWeiBoList(Map<String,Object>maps){
 		List<Tweet> lsTweet=new ArrayList<Tweet>();
+		maps.remove("symbol");
 		Object flag=maps.get("flag");
 		if(flag.equals(1)){
 			maps.remove("lastItemstart");

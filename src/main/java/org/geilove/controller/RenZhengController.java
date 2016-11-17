@@ -45,7 +45,7 @@ public class RenZhengController {
 		Long userid=Long.valueOf(useridStr).longValue();  //转换成long类型
 		//Long userid=Long.parseLong(useridstr);
 		String passwdTrue=rlService.selectMD5Password(Long.valueOf(userid));
-		System.out.println(passwdTrue);
+		//System.out.println(passwdTrue);
 		if(!userPassword.equals(passwdTrue)){
 			commonRsp.setRetcode(2001);
 			commonRsp.setMsg("用户密码不对，非法");

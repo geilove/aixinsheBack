@@ -41,7 +41,13 @@ public class CommentServiceImpl implements CommentService{
 	
 	@Override
 	public List<DiscussReply> getTweetComments(Map<String,Object> map){
-		List<DiscussReply> ls=replyMapper.getTweetCommentList(map);
+		List<DiscussReply> ls=new ArrayList<DiscussReply>();
+		Object tag=map.get("tag");
+		if(tag.equals(1)){
+			 ls=replyMapper.getTweetCommentList(map); //刷新，
+		}else{
+			 ls=replyMapper.getTweetCommentListloadMore(map);
+		}		
 		return ls;
 	}
 		

@@ -67,7 +67,7 @@
   </select>
   <!--自定义结束 -->
   
-  <!--  自定义，根据一组ids获取用户信息-->
+  <!--  自定义，根据一组ids获取用户信息,列表-->
   <select id="getPayOrWatchPeople" resultMap="BaseResultMap" >
     select      
 	   <include refid="Base_Column_List" />

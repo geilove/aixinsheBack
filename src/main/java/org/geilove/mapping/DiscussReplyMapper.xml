@@ -27,19 +27,31 @@
     from discussreply
     where discussReplyID = #{discussreplyid,jdbcType=BIGINT}
   </select>
-  <!-- 自定义 -->
+  <!-- 自定义,刷新，获取最新的前pageSize微博，降序排列 -->
     <select id="getTweetCommentList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
        select
        <include refid="Base_Column_List" />
        from 
            discussreply     
        where  
-           tweetIDDiscussReply= #{tweetid,jdbcType=INTEGER} 
+           tweetIDDiscussReply= #{tweetid,jdbcType=INTEGER} AND discussReplyTime >#{lastCommentTime}
       order by discussReplyTime  desc
       limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
   </select>
   <!-- 自定义结束 -->
    
+    <!-- 自定义,加载更多评论，这个要降序排列 ，但返回时反过来-->
+    <select id="getTweetCommentListloadMore" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+       select
+       <include refid="Base_Column_List" />
+       from 
+           discussreply     
+       where  
+           tweetIDDiscussReply= #{tweetid,jdbcType=INTEGER} AND discussReplyTime &lt; #{lastCommentTime}
+      order by discussReplyTime  desc
+      limit #{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}
+  </select>
+  <!-- 自定义结束 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from discussreply
     where discussReplyID = #{discussreplyid,jdbcType=BIGINT}

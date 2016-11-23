@@ -86,14 +86,21 @@ public class CommentController {
 	public @ResponseBody CommentsListRsp getCommentList(@RequestBody CommentListParam commentListParam){
 		 CommentsListRsp rsp=new CommentsListRsp();
 		 List<DiscussReply> ls=new ArrayList<DiscussReply>();
+		 Integer tag=commentListParam.getTag();
 		 Long tweetid=commentListParam.getTweetid();
 		 Integer page=commentListParam.getPage();
 		 Integer pageSize=commentListParam.getPageSize();
+		 String lastCommentTime=commentListParam.getLastCommentTime();
 		 Map<String,Object> map=new HashMap<String,Object>();
 		 map.put("tweetid", tweetid);
 		 map.put("page", page);
 		 map.put("pageSize", pageSize);
+		 map.put("tag",tag);
+		 map.put("lastCommentTime", lastCommentTime);
+		 //System.out.println(commentListParam.getLastCommentTime());
+		 
 		 ls=commentService.getTweetComments(map);
+		 
 		 if(ls==null || ls.size()==0){
 			 rsp.setData(ls);
 			 rsp.setMsg("推文暂时没有评论哦");

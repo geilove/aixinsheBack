@@ -397,7 +397,7 @@ public class TweetController {
 		return commonRsp;		
 	}
 	
-	/*这是发布一条推文*/
+	/*这是发布一条推文,--已废弃，发布推文在FileUploadController里面*/
 	@RequestMapping(value="/publishTweet")
 	public @ResponseBody CommonRsp publishTweet(@RequestBody PublishTweetParam publishTweetParam){
 		 String proof=publishTweetParam.getProof();
@@ -441,6 +441,19 @@ public class TweetController {
 		tweet.setPublishtime(new Date());		
 		tweet.setTopic(new Long(1)); //话题，默认是1
 		
+		//这里插入一条推文，待实现
+		try{
+			int insertCode=mainService.addTweet(tweet);
+			if(insertCode!=1){
+				commonRsp.setMsg("发布推文出错了");
+				commonRsp.setRetcode(20001);
+			}
+		}catch(Exception e){	
+				commonRsp.setMsg("发布推文出错了");
+				commonRsp.setRetcode(20001);
+				return commonRsp;
+		}
+			
 		commonRsp.setRetcode(2000);
 		commonRsp.setMsg("转发成功了");
 		return commonRsp;

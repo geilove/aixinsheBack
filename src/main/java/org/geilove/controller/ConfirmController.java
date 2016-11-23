@@ -37,7 +37,7 @@ public class ConfirmController {
 	
 	@RequestMapping(value="/getconfirmls",method=RequestMethod.POST)
 	public @ResponseBody ConfirmListRsp  getConfirmLs(@RequestBody ConfirmListParam confirmParam ){
-		//System.out.println("aaa");
+		
 		ConfirmListRsp confirmLSRsp =new ConfirmListRsp();
 		Map<String,Object> map=new HashMap<String,Object>();
 		Long id =confirmParam.getId();
@@ -48,7 +48,7 @@ public class ConfirmController {
 		map.put("tag", tag);
 		map.put("page", page);
 		map.put("pageSize", pageSize);
-		//System.out.println("aaaaaaa");
+		System.out.println(id);
 		List<Confirm> lc=confirmService.getConfirmLists(map);
 		//System.out.println(lc);
 		if(lc==null || lc.isEmpty()){
@@ -56,7 +56,7 @@ public class ConfirmController {
 			confirmLSRsp.setLp(null);
 			confirmLSRsp.setRetcode(2001);
 			confirmLSRsp.setMsg("证明人为0");
-			System.out.println("lc是空");
+			//System.out.println("证明人列表是空的");
 			return  confirmLSRsp;
 		}
 		//从lc中获取userid列表，取得用户有关的信息，然后再放入到lc中
@@ -103,7 +103,7 @@ public class ConfirmController {
 		return confirmLSRsp;		
 	}
 	
-	
+	// 我要证实和举报都是这个接口
 	@RequestMapping(value="/report",method=RequestMethod.POST)
 	public @ResponseBody CommonRsp addReport(HttpServletRequest request) throws IllegalStateException, IOException{
 		CommonRsp commonRsp=new CommonRsp();

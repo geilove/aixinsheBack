@@ -96,15 +96,33 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<Long> getWatcherIds(Map<String,Object> map){ //获取用户所关注的id
 		List<Long> lsids=new ArrayList<Long>();
-		lsids=doubleFansMapper.getWatchids(map);		
+		lsids=doubleFansMapper.getWatchids(map);
 		return lsids;
 	}
 	@Override
+	public List<Long> getWatcherIdsListMen(Map<String,Object> map){//获取我关注的人的ids
+		List<Long> lsids=new ArrayList<Long>();
+		Object tag=map.get("tag");
+		if(tag.equals(1)){
+			lsids=doubleFansMapper.getWatchidsListMen(map);
+		}else{
+			lsids=doubleFansMapper.getWatchidsListMenLoadMore(map);
+		}
+		return lsids;
+	} 
+	@Override
 	public List<Long> getMyFansids(Map<String,Object> map){
 		List<Long> lsids=new ArrayList<Long>();
-		lsids=doubleFansMapper.getMyFansids(map);		
+		Object tag=map.get("tag");
+		if(tag.equals(1)){
+			lsids=doubleFansMapper.getMyFansids(map);
+		}else{
+			lsids=doubleFansMapper.getMyFansidsLoadMore(map);
+		}
+				
 		return lsids;
 	}
+	
 	//这个是用户主页的查询所关注人的weibo接口。 参数应该为map类型
 	public List<Tweet> getWeiBoList(Map<String,Object>maps){
 		List<Tweet> lsTweet=new ArrayList<Tweet>();

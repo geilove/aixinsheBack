@@ -5,15 +5,18 @@ import org.geilove.pojo.User;
 
 public class PeopleListRsp {
 	
-	private  List<User>  lp;
+	private  List<User>  data;
 	private Integer retcode ;	
 	private String msg;
-	public List<User> getLp() {
-		return lp;
+	
+	public List<User> getData() {
+		return data;
 	}
-	public void setLp(List<User> lp) {
-		this.lp = lp;
+	public void setData(List<User> data) {
+		this.data = data;
 	}
+
+	
 	public Integer getRetcode() {
 		return retcode;
 	}

@@ -21,6 +21,7 @@ import org.geilove.sqlpojo.LoveClubListPojo;
 import org.geilove.sqlpojo.PartHelpPojo;
 import org.geilove.response.LoveClubPeopleListRsp;
 import org.geilove.sqlpojo.DonaterPojo;
+import org.geilove.response.CommonRsp;
 import org.geilove.response.DonaterListRsp;
 import org.geilove.service.HelpService;
 /*
@@ -36,21 +37,35 @@ public class PeopleListController {
 	private MainService mainService;
 	@Resource
 	private HelpService helpService;
-	//1普通，2社团，3监督，4志愿者，5社会公益机构 6需要帮助的人，7公益排行榜
+	//1普通，2社团，3监督，4志愿者，5社会公益机构 
 	@RequestMapping(value="/lsmen")
 	public @ResponseBody PeopleListRsp getMenList(@RequestBody CommonPeopleListParam commonPeopleListParam ){
-		Integer tag=commonPeopleListParam.getTag();
+		String token=commonPeopleListParam.getToken();
+		Integer loadMoreTag=commonPeopleListParam.getLoadMoreTag();//1代表刷新，2代表loadMore
+		Integer tag=commonPeopleListParam.getTag(); //1普通，2社团，3监督，4志愿者，5社会公益机构 
 		Integer page=commonPeopleListParam.getPage();
 		Integer pageSize=commonPeopleListParam.getPageSize();
+		String lastTime=commonPeopleListParam.getLastTime(); //		
 		PeopleListRsp rsp=new PeopleListRsp();		
 		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("loadMoreTag", loadMoreTag);
 		map.put("tag", tag);
 		map.put("page", page);
 		map.put("pageSize", pageSize);
-		List<User> lp=new ArrayList<User>(); 		
-		lp=peopleListService.getMenList(map);
+		map.put("lastTime", lastTime);
+		List<User> lp=new ArrayList<User>(); 
+		try{
+			lp=peopleListService.getMenList(map);
+			if(lp==null){
+				rsp.setData(lp);
+				rsp.setMsg("获取men列表失败");
+				rsp.setRetcode(2001);
+			}
+		}catch(Exception e){
+			throw e;
+		}
 		//循环lp，将用户密码统一设置为null
-		rsp.setLp(lp);
+		rsp.setData(lp);
 		if(lp==null || lp.size()==0){
 			rsp.setMsg("获取Men列表失败");
 			rsp.setRetcode(2001);
@@ -61,60 +76,86 @@ public class PeopleListController {
 		
 		return rsp;  //这个需要更改返回值
 	}
-	
+	/*
+	 * 公益排行版列表，直接根据user表查找就可以
+	 * */
 	
 	//我关注的人列表 
 	@RequestMapping(value="/watchs")
-	public @ResponseBody PeopleListRsp getWatchMen(@RequestBody CommentListParam commonPeopleListParam ){
-		Long tweetid=commonPeopleListParam.getTweetid();
+	public @ResponseBody PeopleListRsp getWatchMen(@RequestBody CommonPeopleListParam commonPeopleListParam ){
+		PeopleListRsp rsp=new PeopleListRsp();	
+		String token=commonPeopleListParam.getToken();			
+		String useridStr=token.substring(32);		
+		Long userid=Long.valueOf(useridStr).longValue();		
 		Integer page=commonPeopleListParam.getPage();
 		Integer pageSize=commonPeopleListParam.getPageSize();		
-		PeopleListRsp rsp=new PeopleListRsp();		
+		Integer tag=commonPeopleListParam.getTag(); //1刷新 2loadMore
+		String lastTime=commonPeopleListParam.getLastTime();
+		
 		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("userid", tweetid); //xml中是userid必须对应
+		map.put("tag", tag);
+		map.put("userID", userid); //xml中是userid必须对应
 		map.put("page", page);
 		map.put("pageSize", pageSize);
+		map.put("lastTime", lastTime); //
 		List<User> lp=new ArrayList<User>();
 		//先到关注表查询关注关心，获取到一组id，用这组id获取关注人列表已有现成代码	
 		List<Long> ll=new ArrayList<Long>();
-		ll=mainService.getWatcherIds(map); //我所关注人的ids
+		try{
+			ll=mainService.getWatcherIdsListMen(map); //我所关注人的ids
+		}catch(Exception e){
+			
+		}	
 		if(ll==null || ll.size()==0){
-			rsp.setLp(null);
+			rsp.setData(null);
 			rsp.setMsg("用户还未关注哦");
-			rsp.setRetcode(2000);
+			rsp.setRetcode(2001);
 			return rsp;
 		}
 		lp=peopleListService.getPayOrWatchMen(ll);
 		//循环lp，将用户密码统一设置为null
-		rsp.setLp(lp);
+		rsp.setData(lp);
 		rsp.setMsg("获取关注人列表成功");
 		rsp.setRetcode(2000);
 		return rsp;  //这个需要更改返回值
 	}
 	//我的粉丝列表
 	@RequestMapping(value="/fans")
-	public @ResponseBody PeopleListRsp getFansMen(@RequestBody CommentListParam commonPeopleListParam ){
-		Long tweetid=commonPeopleListParam.getTweetid();
+	public @ResponseBody PeopleListRsp getFansMen(@RequestBody CommonPeopleListParam commonPeopleListParam ){
+		PeopleListRsp rsp=new PeopleListRsp();	
+		String token=commonPeopleListParam.getToken();			
+		String useridStr=token.substring(32);		
+		Long userid=Long.valueOf(useridStr).longValue();		
 		Integer page=commonPeopleListParam.getPage();
 		Integer pageSize=commonPeopleListParam.getPageSize();		
-		PeopleListRsp rsp=new PeopleListRsp();		
+		Integer tag=commonPeopleListParam.getTag(); //1刷新 2loadMore
+		String lastTime=commonPeopleListParam.getLastTime();
+		
 		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("userid", tweetid); //xml中是userid必须对应
+		map.put("tag", tag);
+		map.put("userid", userid); //xml中是userid必须对应
 		map.put("page", page);
 		map.put("pageSize", pageSize);
+		map.put("lastTime", lastTime);
 		List<User> lp=new ArrayList<User>();
 		//先到关注表查询关注关心，获取到一组id，用这组id获取关注人列表已有现成代码	
 		List<Long> ll=new ArrayList<Long>();
-		ll=mainService.getMyFansids(map); //我所关注人的ids
+		try{
+			ll=mainService.getMyFansids(map); //我所关注人的ids
+			
+		}catch(Exception e){
+			
+		}
+		
 		if(ll==null || ll.size()==0){
-			rsp.setLp(null);
+			rsp.setData(null);
 			rsp.setMsg("用户还没有粉丝哦");
-			rsp.setRetcode(2000);
+			rsp.setRetcode(2001);
 			return rsp;
 		} 
 		lp=peopleListService.getPayOrWatchMen(ll); //getPayOrWatchMen这个方法获取了用户的所有信息
 		//循环lp，将用户密码统一设置为null
-		rsp.setLp(lp);
+		rsp.setData(lp);
 		rsp.setMsg("获取我的粉丝列表成功");
 		rsp.setRetcode(2000);
 		return rsp;  //这个需要更改返回值
@@ -127,22 +168,45 @@ public class PeopleListController {
 		Integer pageSize=commonPeopleListParam.getPageSize();
 		PeopleListRsp rsp=new PeopleListRsp();		
 		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("tag", tag); //tag=5 代表用户捐钱了
+		
+		map.put("tag", tag); 
 		map.put("page", page);
 		map.put("pageSize", pageSize);
 		List<User> lp=new ArrayList<User>();
 				
 		//先到捐钱人列表进行查询，得到一组id列表，然后用这组列表到User表查询moneysource表
 		List<PartHelpPojo> lpp=new ArrayList<PartHelpPojo>();
-		lpp=helpService.getGodHelpMe(map);
+		try{
+			lpp=helpService.getGodHelpMe(map);
+		}catch(Exception e){
+			
+		}
+		if(lpp==null || lpp.size()==0){
+			rsp.setData(null);
+			rsp.setMsg("获取爱心社列表失败");
+			rsp.setRetcode(2001);
+			return rsp;
+		}
+		
 		List<Long> ll=new ArrayList<Long>();
+		
 		for(int i=0;i<lpp.size();i++){
 			ll.add(lpp.get(i).getUseridgoodguy());
 		}
 		//用这组id查询帮助我的人
-		lp=peopleListService.donaterPeopleList(ll);
+		try{
+			lp=peopleListService.donaterPeopleList(ll);
+		}catch(Exception e){
+			
+		}
+		if(lp==null || lp.size()==0){
+			rsp.setData(null);
+			rsp.setMsg("获取爱心社列表失败");
+			rsp.setRetcode(2001);
+			return rsp;
+		}
 		//将lpp中的其它有用信息放入到lp中
-		rsp.setLp(lp);
+		rsp.setData(lp);
 		rsp.setMsg("获取帮助我的人列表成功");
 		rsp.setRetcode(2000);
 		return rsp;  //这个需要更改返回值
@@ -155,23 +219,44 @@ public class PeopleListController {
 		Integer pageSize=commonPeopleListParam.getPageSize();
 		PeopleListRsp rsp=new PeopleListRsp();		
 		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("tag", tag); //tag=5 代表用户捐钱了
+		map.put("tag", tag); 
 		map.put("page", page);
 		map.put("pageSize", pageSize);
 		List<User> lp=new ArrayList<User>();
 				
 		//先到捐钱人列表进行查询，得到一组id列表，然后用这组列表到User表查询moneysource表
 		List<PartHelpPojo> lpp=new ArrayList<PartHelpPojo>();
-		lpp=helpService.getGuyIHelp(map);
+		try{
+			lpp=helpService.getGuyIHelp(map); //loadMore在这里使用
+		}catch(Exception e){
+			
+		}
+		if(lpp==null ||lpp.size()==0){
+			rsp.setData(null);
+			rsp.setMsg("没有数据哦");
+			rsp.setRetcode(2001);
+			return rsp;
+		}
+		
 		List<Long> ll=new ArrayList<Long>();
 		for(int i=0;i<lpp.size();i++){
 			ll.add(lpp.get(i).getUseridgoodguy());
 		}
-		//用这组id查询帮助我的人
-		lp=peopleListService.donaterPeopleList(ll);
+		//用这组id查询我帮助的人
+		try{
+			lp=peopleListService.donaterPeopleList(ll); 
+		}catch(Exception e){
+			
+		}
+		if(lp==null || lp.size()==0){
+			rsp.setData(null);
+			rsp.setMsg("没有数据哦");
+			rsp.setRetcode(2001);
+			return rsp;
+		}
 		//将lpp中的其它有用信息放入到lp中
 		//设置lp的密码域为null
-		rsp.setLp(lp);
+		rsp.setData(lp);
 		rsp.setMsg("获取我帮助的人列表成功");
 		rsp.setRetcode(2000);
 		return rsp;  //这个需要更改返回值

@@ -24,7 +24,11 @@ public interface DoubleFansMapper {
     
     List<Long> getWatchids(Map<String,Object> map); //获取用户所关注人的一组id。
     
-    List<Long> getMyFansids(Map<String,Object> map);  //根据用户的id获得用户粉丝的ids
+    List<Long> getWatchidsListMen(Map<String,Object> map); //获取用户所关注人的一组ids供爱心社列表等使用刷新
+    List<Long> getWatchidsListMenLoadMore(Map<String,Object> map); //获取用户所关注人的一组ids供爱心社列表等使用 loadMore
+    
+    List<Long> getMyFansids(Map<String,Object> map);  //根据用户的id获得用户粉丝的ids,初始加载以及刷新
+    List<Long>   getMyFansidsLoadMore(Map<String,Object> map);  //根据用户的id获得用户粉丝的ids,loadMore
     
     List<PartHelpPojo> selectHelpMen(Map<String,Object> map); //自定义，获得帮助人-被帮助人关系表
     

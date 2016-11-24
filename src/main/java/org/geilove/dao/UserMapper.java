@@ -37,6 +37,7 @@ public interface UserMapper {
     
     String findPasswd(String userEmail);
     
+    List<User> selectMenListLoadMore(Map<String,Object> map); //爱心社等列表，刷新
 }
 
 

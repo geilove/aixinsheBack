@@ -52,7 +52,7 @@
     <result column="tobeusetwo" jdbcType="INTEGER" property="tobeusetwo" />
     <result column="tobeusethree" jdbcType="INTEGER" property="tobeusethree" />
   </resultMap>
-  <!--  自定义，自定义，爱心社列表，监督用户列表-->
+  <!--  自定义，爱心社列表，志愿者列表 监督用户列表 社会公益机构列表，初始加载以及刷新-->
   <select id="selectMenList" resultMap="BaseResultMap" >
     select      
 	   <include refid="Base_Column_List" />
@@ -61,9 +61,23 @@
     where 
      	userType= #{tag,jdbcType=INTEGER} 
     order by 
-     	notSayTime  desc
+     	registerDate  desc
     limit 
-     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
+     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}    
+  </select>
+  <!--自定义结束 -->
+  <!--  自定义，爱心社列表，志愿者列表 监督用户列表 社会公益机构列表，loadMore-->
+  <select id="selectMenListLoadMore" resultMap="BaseResultMap" >
+    select      
+	   <include refid="Base_Column_List" />
+    from 
+    	user
+    where 
+     	userType= #{tag,jdbcType=INTEGER} AND registerDate &lt; #{lastTime}
+    order by 
+     	registerDate  desc
+    limit 
+     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}    
   </select>
   <!--自定义结束 -->
   

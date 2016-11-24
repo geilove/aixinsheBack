@@ -84,6 +84,7 @@ public class User {
     private  Date  behelptime;
     
     private Integer behelpedtype;
+    //以下是修改表后新添加的字段
     private String backupseven;
 
     private String backupeight;
@@ -92,7 +93,7 @@ public class User {
 
     private String backupten;
 
-    private Integer tobeuseone;
+    private Integer tobeuseone; //
 
     private Integer tobeusetwo;
 

@@ -1,5 +1,6 @@
 package org.geilove.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +21,13 @@ public class PeopleListServiceImpl implements PeopleListService {
 	private UserMapper  userMapper;
     
 	public List<User> getMenList( Map<String,Object> map){
-		
-		List<User> lp=userMapper.selectMenList(map);
-		
+		Object loadMoreTag=map.get("loadMoreTag");
+		List<User> lp=new ArrayList<User>();
+		if(loadMoreTag.equals(1)){
+		    lp=userMapper.selectMenList(map);
+		}else{
+			lp=userMapper.selectMenListLoadMore(map);
+		}		
 		return lp;
 	}
 	

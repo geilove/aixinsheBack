@@ -24,6 +24,8 @@ public interface  MainService {
 	
 	public List<Long> getWatcherIds(Map<String,Object> map); //获取我关注的人的ids
 	
+	public List<Long> getWatcherIdsListMen(Map<String,Object> map); //获取我关注的人的ids，供爱心社列表等使用
+	
 	public List<Long> getMyFansids(Map<String,Object> map);  //获取粉丝的ids
 	
 	public List<Tweet> getWeiBoList(Map<String,Object> maps);

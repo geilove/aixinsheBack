@@ -34,7 +34,7 @@ public class FileUploadControllerCopy {
 	@ResponseBody
 //	public Object firstUpload(HttpServletRequest request, UploadDemoVo demo,@RequestParam String inputStr){
 	public Object firstUpload(HttpServletRequest request, @RequestParam(value="files" ) CommonsMultipartFile files) throws  IllegalStateException, IOException {
-		System.out.println(files.getOriginalFilename());	
+		//System.out.println(files.getOriginalFilename());	
 		//System.out.println(inputStr);
 		//System.out.println(request.getParameter("imgFile").toString()); 这个报错，说明除了文件，其它的可以通过request获得
 		//System.out.println(request.getParameter("abc"));		

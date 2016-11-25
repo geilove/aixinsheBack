@@ -13,4 +13,6 @@ public interface PeopleListService {
 	
 	public List<User> donaterPeopleList(List<Long> ll); //查询我帮助或者帮助我的人列表
 	
+	public List<User> gongyiPeopleList(Map<String,Object> map); //公益排行榜刷新
+		
 }

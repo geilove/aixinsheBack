@@ -40,4 +40,23 @@ public class PeopleListServiceImpl implements PeopleListService {
 		List<User>  lp=userMapper.getPayOrWatchPeople(ll);
 		return lp;
 	}
+	
+	public List<User> gongyiPeopleList(Map<String,Object> map){
+		List<User> lp=new ArrayList<User>();
+		Object tag=map.get("tag");
+		if(tag.equals(1)){
+			lp=userMapper.gongyiMenList(map);
+		}else{
+			lp=userMapper.gongyiMenListloadMore(map);
+		}
+		return lp;
+	}
 }
+
+
+
+
+
+
+
+

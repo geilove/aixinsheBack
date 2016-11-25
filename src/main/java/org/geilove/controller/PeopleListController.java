@@ -14,6 +14,7 @@ import org.geilove.service.MainService;
 import org.geilove.pojo.User;
 import org.geilove.requestParam.CommentListParam;
 import org.geilove.requestParam.CommonPeopleListParam;
+import org.geilove.requestParam.DonaterListParam;
 import org.geilove.sqlpojo.PeopleNeedLovePojo;
 import org.geilove.response.NeedLovePeopleListRsp;
 import org.geilove.response.PeopleListRsp;
@@ -42,7 +43,7 @@ public class PeopleListController {
 	public @ResponseBody PeopleListRsp getMenList(@RequestBody CommonPeopleListParam commonPeopleListParam ){
 		String token=commonPeopleListParam.getToken();
 		Integer loadMoreTag=commonPeopleListParam.getLoadMoreTag();//1代表刷新，2代表loadMore
-		Integer tag=commonPeopleListParam.getTag(); //1普通，2社团，3监督，4志愿者，5社会公益机构 
+		Integer tag=commonPeopleListParam.getTag(); //1普通，2社团，3监督，4志愿者， 
 		Integer page=commonPeopleListParam.getPage();
 		Integer pageSize=commonPeopleListParam.getPageSize();
 		String lastTime=commonPeopleListParam.getLastTime(); //		
@@ -79,7 +80,37 @@ public class PeopleListController {
 	/*
 	 * 公益排行版列表，直接根据user表查找就可以
 	 * */
-	
+	@RequestMapping(value="/donater")
+	public @ResponseBody PeopleListRsp getDonaterMen(@RequestBody DonaterListParam commonPeopleListParam ){
+		PeopleListRsp rsp=new PeopleListRsp();
+		Integer tag=commonPeopleListParam.getTag(); //1 捐钱了 2没捐钱。与user表的tobeuseone对应
+		Integer page=commonPeopleListParam.getPage();
+		Integer pageSize=commonPeopleListParam.getPageSize();				
+		Integer money=commonPeopleListParam.getMoney(); //对应User表的userDonate，要按照这个降序排序
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("tag", tag);
+		map.put("page", page);
+		map.put("pageSize", pageSize);
+		map.put("money", money);  //对应userDonate
+		
+		List<User> lp=new ArrayList<User>();
+		try{
+			lp=peopleListService.gongyiPeopleList(map);
+		}catch(Exception e){
+			
+		}
+		if(lp==null || lp.equals(0)){
+			rsp.setData(null);
+			rsp.setMsg("还没有人捐钱哦");
+			rsp.setRetcode(2000);
+		}else{
+			rsp.setData(lp);
+			rsp.setMsg("获取公益排行榜成功");
+			rsp.setRetcode(2000);
+		}
+		return rsp;
+	}
 	//我关注的人列表 
 	@RequestMapping(value="/watchs")
 	public @ResponseBody PeopleListRsp getWatchMen(@RequestBody CommonPeopleListParam commonPeopleListParam ){

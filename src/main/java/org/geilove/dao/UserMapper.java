@@ -38,6 +38,9 @@ public interface UserMapper {
     String findPasswd(String userEmail);
     
     List<User> selectMenListLoadMore(Map<String,Object> map); //爱心社等列表，刷新
+    
+    List<User>  gongyiMenList(Map<String,Object> map); //公益排行榜
+    List<User>  gongyiMenListloadMore(Map<String,Object> map);//公益排行榜，loadMore
 }
 
 

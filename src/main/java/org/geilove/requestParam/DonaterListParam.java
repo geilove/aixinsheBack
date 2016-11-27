@@ -6,7 +6,7 @@ public class DonaterListParam {
 	 private Integer  loadMoreTag; //1代表刷新，2代表加载更多，即下一页
 	 private Integer  page;
 	 private Integer  pageSize;
-	 private Integer  money;//需要根据捐助的时间关注的时间注册的时间获取
+	 private Integer  money;//用户捐钱的多少
 	 
 	public String getToken() {
 		return token;

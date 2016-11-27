@@ -102,7 +102,7 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<Long> getWatcherIdsListMen(Map<String,Object> map){//获取我关注的人的ids
 		List<Long> lsids=new ArrayList<Long>();
-		Object tag=map.get("tag");
+		Object tag=map.get("loadMoreTag"); //1 刷新 2 加载更多
 		if(tag.equals(1)){
 			lsids=doubleFansMapper.getWatchidsListMen(map);
 		}else{
@@ -113,8 +113,8 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<Long> getMyFansids(Map<String,Object> map){
 		List<Long> lsids=new ArrayList<Long>();
-		Object tag=map.get("tag");
-		if(tag.equals(1)){
+		Object loadMoreTag=map.get("loadMoreTag");
+		if(loadMoreTag.equals(1)){
 			lsids=doubleFansMapper.getMyFansids(map);
 		}else{
 			lsids=doubleFansMapper.getMyFansidsLoadMore(map);

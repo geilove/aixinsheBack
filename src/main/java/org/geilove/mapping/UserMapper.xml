@@ -88,7 +88,7 @@
     from 
     	user
     where 
-     	tobeuseone= #{tobeuseone,jdbcType=INTEGER}
+     	tobeuseone= #{tag,jdbcType=INTEGER}
     order by 
      	userDonate  desc
     limit 
@@ -102,7 +102,7 @@
     from 
     	user
     where 
-     	tobeuseone= #{tobeuseone,jdbcType=INTEGER} AND userDonate &lt; #{money}
+     	tobeuseone= #{tag,jdbcType=INTEGER} AND userDonate &lt; #{money}
     order by 
      	userDonate  desc
     limit 
@@ -111,7 +111,7 @@
   <!-- 公益排行榜结束 -->
   
   
-  <!--  自定义，根据一组ids获取用户信息,列表-->
+  <!--  自定义，根据一组ids获取用户信息,列表,在我关注的人使用了-->
   <select id="getPayOrWatchPeople" resultMap="BaseResultMap" >
     select      
 	   <include refid="Base_Column_List" />

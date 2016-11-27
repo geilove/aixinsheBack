@@ -43,8 +43,8 @@ public class PeopleListServiceImpl implements PeopleListService {
 	
 	public List<User> gongyiPeopleList(Map<String,Object> map){
 		List<User> lp=new ArrayList<User>();
-		Object tag=map.get("tag");
-		if(tag.equals(1)){
+		Object loadMoreTag=map.get("loadMoreTag");
+		if(loadMoreTag.equals(1)){
 			lp=userMapper.gongyiMenList(map);
 		}else{
 			lp=userMapper.gongyiMenListloadMore(map);

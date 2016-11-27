@@ -2,7 +2,7 @@ package org.geilove.requestParam;
 
 public class CommonPeopleListParam {
 	 private String   token; //这个就是token，在查看我的粉丝 我帮助的人等需要用到userid
-	 private Integer  tag; //1普通，2社团，3监督，4志愿者，5社会公益机构 6需要帮助的人，7公益排行榜  10我关注的人 11我的粉丝 20助我的人 21我帮助的人
+	 private Integer  tag; //1普通，2社团，3监督，4志愿者，5社会公益机构 10我关注的人 11我的粉丝 20助我的人 21我帮助的人
 	 private Integer  loadMoreTag; //1代表刷新，2代表加载更多，即下一页
 	 private Integer  page;
 	 private Integer  pageSize;

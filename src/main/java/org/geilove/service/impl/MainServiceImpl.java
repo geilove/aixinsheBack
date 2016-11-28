@@ -16,7 +16,10 @@ import  org.geilove.dao.TweetMapper;
 import  org.geilove.dao.UserMapper;
 import  org.geilove.dao.DoubleFansMapper;
 import  org.springframework.stereotype.Service;
+import org.geilove.vo.IwatchPeopleVo;
+import org.geilove.vo.PeopleListVo;
 import  org.geilove.vo.WeiBo;
+import org.geilove.vo.PeopleListVo;
 @Service("tweetListService")
 public class MainServiceImpl implements MainService {
 	
@@ -100,8 +103,9 @@ public class MainServiceImpl implements MainService {
 		return lsids;
 	}
 	@Override
-	public List<Long> getWatcherIdsListMen(Map<String,Object> map){//获取我关注的人的ids
-		List<Long> lsids=new ArrayList<Long>();
+	public List<PeopleListVo> getWatcherIdsListMen(Map<String,Object> map){//获取我关注的人的ids
+		//List<Long> lsids=new ArrayList<Long>();
+		List<PeopleListVo> lsids=new ArrayList<PeopleListVo>(); 
 		Object tag=map.get("loadMoreTag"); //1 刷新 2 加载更多
 		if(tag.equals(1)){
 			lsids=doubleFansMapper.getWatchidsListMen(map);
@@ -111,10 +115,10 @@ public class MainServiceImpl implements MainService {
 		return lsids;
 	} 
 	@Override
-	public List<Long> getMyFansids(Map<String,Object> map){
-		List<Long> lsids=new ArrayList<Long>();
+	public List<IwatchPeopleVo> getMyFansids(Map<String,Object> map){
+		List<IwatchPeopleVo> lsids=new ArrayList<IwatchPeopleVo>();
 		Object loadMoreTag=map.get("loadMoreTag");
-		if(loadMoreTag.equals(1)){
+		if(loadMoreTag.equals(1)){			
 			lsids=doubleFansMapper.getMyFansids(map);
 		}else{
 			lsids=doubleFansMapper.getMyFansidsLoadMore(map);

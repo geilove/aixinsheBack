@@ -46,9 +46,9 @@
   </select>
   <!--自定义结束 -->
   <!--  自定义，获取我所关注的用户ids,仅仅查看我的粉丝，刷新-->
-  <select id="getWatchidsListMen" resultType="java.lang.Long" parameterType="java.util.HashMap" >
+  <select id="getWatchidsListMen" resultType="org.geilove.vo.PeopleListVo" parameterType="java.util.HashMap" >
     select      
-	     userIDBeFocus
+	     userIDBeFocus,payDate
     from 
     	doublefans
     where 
@@ -60,7 +60,7 @@
   <!--自定义结束 -->
   
    <!--  自定义，获取我所关注的用户ids,按照关注时间排序仅仅查看我的粉丝等使用，loadMore-->
-  <select id="gongyiMenListloadMore" resultType="java.lang.Long" parameterType="java.util.HashMap" >
+  <select id="gongyiMenListloadMore" resultType="org.geilove.vo.PeopleListVo" parameterType="java.util.HashMap" >
     select      
 	     userIDBeFocus
     from 
@@ -74,7 +74,7 @@
   <!--自定义结束 -->
   
    <!--  自定义，获取我的粉丝的ids 初始加载及刷新-->
-  <select id="getMyFansids" resultType="java.lang.Long" parameterType="java.util.HashMap">
+  <select id="getMyFansids" resultType="org.geilove.vo.IwatchPeopleVo" parameterType="java.util.HashMap">
     select      
 	     userIDFollowe
     from 
@@ -86,7 +86,7 @@
   </select>
   <!--自定义结束 -->
      <!--  自定义，获取我的粉丝的ids loadMore-->
-  <select id="getMyFansidsLoadMore" resultType="java.lang.Long" parameterType="java.util.HashMap">
+  <select id="getMyFansidsLoadMore" resultType="org.geilove.vo.IwatchPeopleVo" parameterType="java.util.HashMap">
     select      
 	     userIDFollowe
     from 

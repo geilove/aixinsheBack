@@ -41,7 +41,7 @@ public class User {
 
     private String country;
 
-    private Date registerdate;
+    private Date registerdate; //这个在我帮助的人列表时，临时存储帮助的时间
 
     private Integer msgpubcount;
 
@@ -81,7 +81,7 @@ public class User {
     
     private Integer acceptmoney;
     
-    private  Date  behelptime;
+    private  Date  behelptime;  
     
     private Integer behelpedtype;
     //以下是修改表后新添加的字段
@@ -93,9 +93,9 @@ public class User {
 
     private String backupten;
 
-    private Integer tobeuseone; //
+    private Integer tobeuseone; //用户是否捐钱了
 
-    private Integer tobeusetwo;
+    private Integer tobeusetwo; //查看我帮助的人，或者帮助我的人，这个存储具体的钱数
 
     private Integer tobeusethree;
     

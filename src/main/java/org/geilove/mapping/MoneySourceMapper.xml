@@ -14,34 +14,62 @@
     <result column="backupFive" property="backupfive" jdbcType="INTEGER" />
     <result column="backupSix" property="backupsix" jdbcType="INTEGER" />
   </resultMap>
-  <!--  自定义，获取帮助我的人的ids-->
+  <!--  自定义，获取帮助我的人的ids，刷新-->
   <select id="selectMenHelpMe" resultType="org.geilove.sqlpojo.PartHelpPojo" >
     select      
 	    userIDBehelped, userIDgoodguy,moneyNum, helpTime
     from 
-    	user
+    	moneysource
     where 
-     	userIDBehelped= #{userid,jdbcType=INTEGER} 
+     	userIDBehelped= #{userid,jdbcType=INTEGER} AND helpTime >#{lastTime}
     order by 
      	helpTime  desc
     limit 
      	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
   </select>
   <!--自定义结束 -->
-   <!--  自定义，获取帮助我的人的ids-->
+   <!--  自定义，获取帮助我的人的ids，加载更多-->
+  <select id="selectMenHelpMeloadMore" resultType="org.geilove.sqlpojo.PartHelpPojo" >
+    select      
+	    userIDBehelped, userIDgoodguy,moneyNum, helpTime
+    from 
+    	moneysource
+    where 
+     	userIDBehelped= #{userid,jdbcType=INTEGER} AND helpTime &lt; #{lastTime}
+    order by 
+     	helpTime  desc
+    limit 
+     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
+  </select>
+  <!--自定义结束 -->
+  
+   <!--  自定义，获取我帮助的人的ids,刷新-->
   <select id="selectIhelp" resultType="org.geilove.sqlpojo.PartHelpPojo" >
     select      
 	    userIDBehelped, userIDgoodguy,moneyNum, helpTime
     from 
-    	user
+    	moneysource
     where 
-     	userIDgoodguy= #{userid,jdbcType=INTEGER} 
+     	userIDgoodguy= #{userid,jdbcType=INTEGER} AND helpTime >#{lastTime}
     order by 
      	helpTime  desc
     limit 
      	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
   </select>
   
+    <!--  自定义，获取我帮助的人的ids,loadMore-->
+  <select id="selectIhelploadMore" resultType="org.geilove.sqlpojo.PartHelpPojo" >
+    select      
+	    userIDBehelped, userIDgoodguy,moneyNum, helpTime
+    from 
+    	moneysource
+    where 
+     	userIDgoodguy= #{userid,jdbcType=INTEGER} AND helpTime &lt; #{lastTime}
+    order by 
+     	helpTime  desc
+    limit 
+     	#{page, jdbcType=INTEGER},#{pageSize, jdbcType=INTEGER}       
+  </select>
   <sql id="Base_Column_List" >
     moneySourceID, userIDBehelped, userIDgoodguy, moneyNum, helpTime, backupOne, backupTwo, 
     backupThree, backupFour, backupFive, backupSix

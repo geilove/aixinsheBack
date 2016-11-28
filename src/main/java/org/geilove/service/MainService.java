@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.geilove.pojo.Tweet;
 import org.geilove.sqlpojo.OtherPartHelpPojo;
+import org.geilove.vo.IwatchPeopleVo;
+import org.geilove.vo.PeopleListVo;
 import org.geilove.vo.WeiBo;
 import java.util.Map;
 
@@ -22,11 +24,11 @@ public interface  MainService {
 	
 	public Integer addTweet(Tweet tweet); //发布一条推文
 	
-	public List<Long> getWatcherIds(Map<String,Object> map); //获取我关注的人的ids
+	public List<Long> getWatcherIds(Map<String,Object> map); //获取我关注的人的ids,仅仅供主页使用
 	
-	public List<Long> getWatcherIdsListMen(Map<String,Object> map); //获取我关注的人的ids，供爱心社列表等使用
+	public List<PeopleListVo> getWatcherIdsListMen(Map<String,Object> map); //获取我关注的人的ids，供我关注的人使用
 	
-	public List<Long> getMyFansids(Map<String,Object> map);  //获取粉丝的ids
+	public List<IwatchPeopleVo> getMyFansids(Map<String,Object> map);  //获取粉丝的ids
 	
 	public List<Tweet> getWeiBoList(Map<String,Object> maps);
 

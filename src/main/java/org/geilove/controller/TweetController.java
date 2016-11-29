@@ -13,7 +13,6 @@ import org.geilove.requestParam.PublishTweetParam;
 import org.geilove.service.MainService;
 import org.geilove.service.RegisterLoginService;
 import org.geilove.sqlpojo.OtherPartHelpPojo;
-import org.geilove.vo.TweetByTweetVo;
 import org.geilove.requestParam.TweetListParam;
 import org.geilove.requestParam.WeiBoListParam;
 import org.geilove.requestParam.ZhuangfaListParam;
@@ -55,6 +54,7 @@ public class TweetController {
 		List<Long> zhuanfaUseridList=new ArrayList<Long>(); //存放被转发的推文中的用户id
 		
 		Map<String,Object> map=new HashMap<String,Object>();//存放查询的参数，传给Mybatis
+		
 		map.put("userID", userID);
 		map.put("page", page);
 		map.put("pageSize", pageSize);	

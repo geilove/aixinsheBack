@@ -1,26 +1,18 @@
 package org.geilove.requestParam;
 
-public class WeiBoListParam {
-	private  String    token; //以后使用这个接口
-	private  Integer   flag; //1，代表刷新要使用lastUpdate 2,是加载更多，要使用lastItemstart
+public class WeiboParam {
+	private  Long 	   userID; 	 //用户的ID
+	private  Integer   flag;     //1，代表刷新要使用lastUpdate 2,是加载更多，要使用lastItemstart
 	private  String    lastUpdate;
 	private  String    lastItemstart;
-//	private  Long 	   userID; 		//用户的ID
 	private  Integer   page;		//开始的页
 	private  Integer   pageSize;
-	private Integer symbol; //
-	
-	public Integer getSymbol() {
-		return symbol;
+	private  Integer   symbol;  //这个symbol在前端进行路由选择，后端在MainServiceImpl.java 的getTweetList方法里选择不同mapper方法
+	public Long getUserID() {
+		return userID;
 	}
-	public void setSymbol(Integer symbol) {
-		this.symbol = symbol;
-	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
+	public void setUserID(Long userID) {
+		this.userID = userID;
 	}
 	public Integer getFlag() {
 		return flag;
@@ -40,12 +32,6 @@ public class WeiBoListParam {
 	public void setLastItemstart(String lastItemstart) {
 		this.lastItemstart = lastItemstart;
 	}
-//	public Long getUserID() {
-//		return userID;
-//	}
-//	public void setUserID(Long userID) {
-//		this.userID = userID;
-//	}
 	public Integer getPage() {
 		return page;
 	}
@@ -58,5 +44,10 @@ public class WeiBoListParam {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
-	
+	public Integer getSymbol() {
+		return symbol;
+	}
+	public void setSymbol(Integer symbol) {
+		this.symbol = symbol;
+	}
 }

@@ -44,7 +44,7 @@ public class PeopleListController {
 	//1普通，2社团，3监督，4志愿者，5社会公益机构 
 	@RequestMapping(value="/lsmen")
 	public @ResponseBody PeopleListRsp getMenList(@RequestBody CommonPeopleListParam commonPeopleListParam ){
-		String token=commonPeopleListParam.getToken();
+		
 		Integer loadMoreTag=commonPeopleListParam.getLoadMoreTag();//1代表刷新，2代表loadMore
 		Integer tag=commonPeopleListParam.getTag(); //1普通，2社团，3监督，4志愿者， 
 		Integer page=commonPeopleListParam.getPage();
@@ -124,10 +124,8 @@ public class PeopleListController {
 	//我关注的人列表 
 	@RequestMapping(value="/watchs")
 	public @ResponseBody PeopleListRsp getWatchMen(@RequestBody CommonPeopleListParam commonPeopleListParam ){
-		PeopleListRsp rsp=new PeopleListRsp();	
-		String token=commonPeopleListParam.getToken();			
-		String useridStr=token.substring(32);		
-		Long userid=Long.valueOf(useridStr).longValue();		
+		PeopleListRsp rsp=new PeopleListRsp();
+		Long userid=commonPeopleListParam.getUserID();	
 		Integer page=commonPeopleListParam.getPage();
 		Integer pageSize=commonPeopleListParam.getPageSize();		
 		Integer loadMoreTag=commonPeopleListParam.getLoadMoreTag(); //1刷新 2loadMore
@@ -193,9 +191,7 @@ public class PeopleListController {
 	@RequestMapping(value="/fans")
 	public @ResponseBody PeopleListRsp getFansMen(@RequestBody CommonPeopleListParam commonPeopleListParam ){
 		PeopleListRsp rsp=new PeopleListRsp();	
-		String token=commonPeopleListParam.getToken();			
-		String useridStr=token.substring(32);		
-		Long userid=Long.valueOf(useridStr).longValue();		
+		Long userid=commonPeopleListParam.getUserID();			
 		Integer page=commonPeopleListParam.getPage();
 		Integer pageSize=commonPeopleListParam.getPageSize();		
 		Integer loadMoreTag=commonPeopleListParam.getLoadMoreTag(); //1刷新 2loadMore
@@ -265,10 +261,7 @@ public class PeopleListController {
 	@RequestMapping(value="/helpme")
 	public @ResponseBody PeopleListRsp getHelpMeMen(@RequestBody CommonPeopleListParam commonPeopleListParam ){
 		PeopleListRsp rsp=new PeopleListRsp();	
-		String token=commonPeopleListParam.getToken();			
-		String useridStr=token.substring(32);		
-		Long userid=Long.valueOf(useridStr).longValue();
-		
+		Long userid=commonPeopleListParam.getUserID();			
 		Integer loadMoreTag =commonPeopleListParam.getLoadMoreTag();
 		Integer page=commonPeopleListParam.getPage();
 		Integer pageSize=commonPeopleListParam.getPageSize();
@@ -334,10 +327,7 @@ public class PeopleListController {
 	@RequestMapping(value="/ihelp")
 	public @ResponseBody PeopleListRsp getIhelpMen(@RequestBody CommonPeopleListParam commonPeopleListParam ){
 		PeopleListRsp rsp=new PeopleListRsp();	
-		String token=commonPeopleListParam.getToken();			
-		String useridStr=token.substring(32);		
-		Long userid=Long.valueOf(useridStr).longValue();
-		
+		Long userid=commonPeopleListParam.getUserID();			
 		Integer loadMoreTag =commonPeopleListParam.getLoadMoreTag();
 		Integer page=commonPeopleListParam.getPage();
 		Integer pageSize=commonPeopleListParam.getPageSize();

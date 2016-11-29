@@ -44,8 +44,8 @@ public class MainServiceImpl implements MainService {
 		if(symbol.equals(2)){ //2是查看自己发布的，可以看到未通过审核的救助推文
 			map.remove("symbol");
 			if(flag.equals(1)){
-				map.remove("lastItemstart");
-				map.remove("flag");				
+				//map.remove("lastItemstart");
+				//map.remove("flag");				
 				tweets=tweetMapper.selectByMainKey(map); 
 			}else{
 				map.remove("lastUpdate");
@@ -130,7 +130,7 @@ public class MainServiceImpl implements MainService {
 	//这个是用户主页的查询所关注人的weibo接口。 参数应该为map类型
 	public List<Tweet> getWeiBoList(Map<String,Object>maps){
 		List<Tweet> lsTweet=new ArrayList<Tweet>();
-		maps.remove("symbol");
+		maps.remove("symbol"); //其实不用移除的
 		Object flag=maps.get("flag");
 		if(flag.equals(1)){
 			maps.remove("lastItemstart");

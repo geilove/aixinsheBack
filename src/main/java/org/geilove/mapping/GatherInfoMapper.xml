@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geilove.dao.GatherInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.geilove.pojo.GatherInfo" >
+    <id column="gatherinfoid" property="gatherinfoid" jdbcType="INTEGER" />
+    <result column="club" property="club" jdbcType="INTEGER" />
+    <result column="clubgrow" property="clubgrow" jdbcType="INTEGER" />
+    <result column="member" property="member" jdbcType="INTEGER" />
+    <result column="membergrow" property="membergrow" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="citygrow" property="citygrow" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    gatherinfoid, club, clubgrow, member, membergrow, city, citygrow
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gatherinfo
+    where gatherinfoid = #{gatherinfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gatherinfo
+    where gatherinfoid = #{gatherinfoid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.geilove.pojo.GatherInfo" >
+    insert into gatherinfo (gatherinfoid, club, clubgrow, 
+      member, membergrow, city, 
+      citygrow)
+    values (#{gatherinfoid,jdbcType=INTEGER}, #{club,jdbcType=INTEGER}, #{clubgrow,jdbcType=INTEGER}, 
+      #{member,jdbcType=INTEGER}, #{membergrow,jdbcType=INTEGER}, #{city,jdbcType=INTEGER}, 
+      #{citygrow,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.geilove.pojo.GatherInfo" >
+    insert into gatherinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gatherinfoid != null" >
+        gatherinfoid,
+      </if>
+      <if test="club != null" >
+        club,
+      </if>
+      <if test="clubgrow != null" >
+        clubgrow,
+      </if>
+      <if test="member != null" >
+        member,
+      </if>
+      <if test="membergrow != null" >
+        membergrow,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="citygrow != null" >
+        citygrow,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gatherinfoid != null" >
+        #{gatherinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="club != null" >
+        #{club,jdbcType=INTEGER},
+      </if>
+      <if test="clubgrow != null" >
+        #{clubgrow,jdbcType=INTEGER},
+      </if>
+      <if test="member != null" >
+        #{member,jdbcType=INTEGER},
+      </if>
+      <if test="membergrow != null" >
+        #{membergrow,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="citygrow != null" >
+        #{citygrow,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.geilove.pojo.GatherInfo" >
+    update gatherinfo
+    <set >
+      <if test="club != null" >
+        club = #{club,jdbcType=INTEGER},
+      </if>
+      <if test="clubgrow != null" >
+        clubgrow = #{clubgrow,jdbcType=INTEGER},
+      </if>
+      <if test="member != null" >
+        member = #{member,jdbcType=INTEGER},
+      </if>
+      <if test="membergrow != null" >
+        membergrow = #{membergrow,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="citygrow != null" >
+        citygrow = #{citygrow,jdbcType=INTEGER},
+      </if>
+    </set>
+    where gatherinfoid = #{gatherinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.geilove.pojo.GatherInfo" >
+    update gatherinfo
+    set club = #{club,jdbcType=INTEGER},
+      clubgrow = #{clubgrow,jdbcType=INTEGER},
+      member = #{member,jdbcType=INTEGER},
+      membergrow = #{membergrow,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      citygrow = #{citygrow,jdbcType=INTEGER}
+    where gatherinfoid = #{gatherinfoid,jdbcType=INTEGER}
+  </update>
+</mapper>

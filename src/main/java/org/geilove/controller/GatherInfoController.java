@@ -1,6 +1,5 @@
 package org.geilove.controller;
 import javax.annotation.Resource;
-
 import org.geilove.pojo.GatherInfo;
 import org.geilove.requestParam.GatherInfoParam;
 import org.geilove.response.GatherInfoRsp;
@@ -9,9 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
-
+// 这个是提供每日新增加多少，覆盖多少信息的
 @Controller
 @RequestMapping("/gatherinfo")
 public class GatherInfoController {
